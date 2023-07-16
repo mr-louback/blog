@@ -1,0 +1,15 @@
+{
+    "name": "ednei/blog",
+    "autoload": {
+        "psr-4": {
+            "system\\": "system/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mr-louback",
+            "email": "loubacked4work@outlook.com"
+        }
+    ],
+    "require": {}
+}
