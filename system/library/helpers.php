@@ -1,10 +1,90 @@
 <?php
+
+/**
+ * Cria um string amigável
+ * @param string $string
+ * @return string $slug
+ */
+
+function criarSlug(string $string): string
+{
+    // Remove a acentuação da string
+    $stringSemAcentos = strtr(
+        $string,
+        'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ',
+        'AAAAAAACEEEEIIIIDNOOOOOOUUUUYaaaaaaaceeeeiiiidnoooooouuuyy'
+    );
+
+    // Substitui os espaços em branco por traços
+    $slug = preg_replace('/\s+/', '-', $stringSemAcentos);
+
+    // Remove qualquer caractere que não seja letra, número ou traço
+    $slug = preg_replace('/[^a-zA-Z0-9-]/', '', $slug);
+
+    // Converte para letras minúsculas
+    $slug = strtolower($slug);
+
+    return $slug;
+}
+
+
+/**
+ * Monta url de acordo com o ambiente
+ * @param string
+ * @return string 
+ */
+function url(string $url): string
+{
+    $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
+    $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
+    if (str_starts_with($url, '/')) {
+        return $ambiente . $url;
+    }
+
+    return $ambiente . '/' . $url;
+}
+
+/**
+ * verifica se é localhost
+ * @param string
+ * @return bool 
+ */
+function localhost(): bool
+{
+    $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
+    if ($servidor == 'localhost') {
+        return true;
+    }
+    return false;
+}
+
 /**
  * Valida url
  * @param string $url
  * @return bool
  */
-function url(string $url): bool
+function validarUrl(string $url): bool
+{
+    if (mb_strlen($url) < 10) {
+        return false;
+    }
+
+    if (!str_contains($url, '.')) {
+        return false;
+    }
+
+    if (str_contains($url, 'http://') || str_contains($url, 'https://')) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Valida url
+ * @param string $url
+ * @return bool
+ */
+function validarUrlComFiltro(string $url): bool
 {
     return filter_var($url, FILTER_VALIDATE_URL);
 }
