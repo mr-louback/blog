@@ -6,27 +6,22 @@
  * @return string $slug
  */
 
-function criarSlug(string $string): string
+function criarSlug($string): string
 {
+    // Remove a  da string
+    $tags = strip_tags(trim($string));
     // Remove a acentuação da string
-    $stringSemAcentos = strtr(
-        $string,
-        'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ',
-        'AAAAAAACEEEEIIIIDNOOOOOOUUUUYaaaaaaaceeeeiiiidnoooooouuuyy'
-    );
-
+    $stringSemAcentos = Normalizer::normalize($tags, Normalizer::FORM_D);
     // Substitui os espaços em branco por traços
     $slug = preg_replace('/\s+/', '-', $stringSemAcentos);
-
     // Remove qualquer caractere que não seja letra, número ou traço
     $slug = preg_replace('/[^a-zA-Z0-9-]/', '', $slug);
-
     // Converte para letras minúsculas
     $slug = strtolower($slug);
-
+    // Retira dois ou mais hífens
+    $slug = str_replace(['-----', '----', '---', '--', '-'], '-', $slug);
     return $slug;
 }
-
 
 /**
  * Monta url de acordo com o ambiente

@@ -3,11 +3,11 @@ include 'system/library/helpers.php';
 include 'system/library/configuracao.php';
 require_once 'vendor/autoload.php';
 
-use Cocur\Slugify\Slugify\Slugify;
+// use Cocur\Slugify\Slugify;
 
-$string = "Texto                    Com Função ý ö %æßðñ/?°®ŧ←";
+$string = "<h1>Texto Com Função</h1>    ------------   !@#$%¨&*()æßð/?°®ŧ←↓đŋħˀĸ→←ŧ®°nµ”“©»ßðđªº·─ ̣°";
 $slug = criarSlug($string);
 echo $slug;
 // $slugify = new Slugify();
-// echo $slugify->slugify("Texto Com Função ý ö %");
+// echo $slugify->slugify($string);
 // echo url('admin');
