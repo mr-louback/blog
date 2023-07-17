@@ -1,13 +1,12 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="style.css" />
 <?php
+
 include 'system/library/helpers.php';
 include 'system/library/configuracao.php';
 require_once 'vendor/autoload.php';
-
-// use Cocur\Slugify\Slugify;
-
-$string = "<h1>Texto Com Função</h1>    ------------   !@#$%¨&*()æßð/?°®ŧ←↓đŋħˀĸ→←ŧ®°nµ”“©»ßðđªº·─ ̣°";
-$slug = criarSlug($string);
-echo $slug;
-// $slugify = new Slugify();
-// echo $slugify->slugify($string);
-// echo url('admin');
+include './system/Nucleus/NewClass.php';
+use system/;
+$cpf = '<h1>40298502860</h1>';
+// echo $limpaNumero = preg_replace('/[^0-9]/', '', $cpf);
+$msg = new NewClass();
+var_dump($cpf);
