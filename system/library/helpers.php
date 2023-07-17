@@ -1,4 +1,34 @@
 <?php
+function limpanumero($cpf)
+{
+    $cpf = preg_replace('/[^0-9]/', '', $cpf);
+}
+function validaCpf(string $cpf)
+{
+    //  Retira outros caracteres que não sejam números
+
+    // var_dump($cpf);
+
+    // Verifica se o comprimento é de 11 dígitos
+    if (strlen($cpf) !== 11 or preg_match('/(\d)\1{10}/', $cpf)) {
+        echo "invalido";
+        var_dump($cpf);
+
+        return false;
+    }
+    for ($t = 9; $t > 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d((10 * $d) % 11) % 10;
+        if ($cpf = !$d) {
+            return false;
+        }
+    }
+    echo "valido";
+    var_dump($cpf);
+    return true;
+}
 
 /**
  * Cria um string amigável
@@ -146,15 +176,21 @@ function formatarValor(float $valor): string
 function saudacao(): string
 {
     $hora = date('H');
-    if ($hora >= 0 and $hora <= 5) {
-        $saudacao = 'boa madrugada!';
-    } elseif ($hora >= 6 and $hora <= 12) {
-        $saudacao = 'bom dia!';
-    } elseif ($hora >= 13 and $hora <= 18) {
-        $saudacao = 'boa tarde!';
-    } else {
-        $saudacao = 'boa noite!';
-    }
+    // if ($hora >= 0 and $hora <= 5) {
+    //     $saudacao = 'boa madrugada!';
+    // } elseif ($hora >= 6 and $hora <= 12) {
+    //     $saudacao = 'bom dia!';
+    // } elseif ($hora >= 13 and $hora <= 18) {
+    //     $saudacao = 'boa tarde!';
+    // } else {
+    //     $saudacao = 'boa noite!';
+    // }
+    $saudacao = match (true) {
+        $hora >= 0 and $hora <= 5 => 'boa madrugada!',
+        $hora >= 6 and $hora <= 12 => 'bom dia!',
+        $hora >= 13 and $hora <= 18 => 'boa tarde!',
+        default => 'boa noite!'
+    };
     return $saudacao;
 }
 

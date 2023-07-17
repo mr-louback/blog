@@ -5,8 +5,8 @@ include 'system/library/helpers.php';
 include 'system/library/configuracao.php';
 require_once 'vendor/autoload.php';
 include './system/Nucleus/NewClass.php';
-use system/;
+
 $cpf = '<h1>40298502860</h1>';
 // echo $limpaNumero = preg_replace('/[^0-9]/', '', $cpf);
-$msg = new NewClass();
+// $msg = new NewClass();
 var_dump($cpf);
