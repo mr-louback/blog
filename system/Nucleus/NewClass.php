@@ -1,27 +1,62 @@
 <?php
 
-namespace system\Nucleus;
+// namespace system\Nucleus;
 
-class MyClass
+class Mensagem
 {
     private $texto;
     private $css;
 
-    public function sucesso(string $mensagem)
+    public function sucesso(string $mensagem): Mensagem
     {
         $this->css = 'alert alert-success';
-        $this->texto = $this->formatarValor($mensagem);
+        $this->texto = $this->filtrar($mensagem);
         return $this;
-
     }
 
     public function renderizar(): string
     {
         return "<div class='{$this->css}'>{this->texto}</div>";
     }
+    public function filtrar(string $mensagem): string
+
+    {
+
+        return filter_var($mensagem, FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MyClass
+{
 
     public  function  limpanumero($cpf)
     {
@@ -132,7 +167,7 @@ class MyClass
         return false;
     }
 
-   
+
     /**
      * Valida url
      * @param string $url
