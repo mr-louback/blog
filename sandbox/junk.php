@@ -17,7 +17,7 @@ while ($num <= 10) {
 }
 
 // $msg = new Mensagem('message');
-echo $msg;
+// echo $msg;
 
 $string = "<h1>Texto Com Função1</h1>    ------------2   !@#$%¨&*()æßð/?°®ŧ←↓đŋħˀĸ→←ŧ®°nµ”“©»ßðđªº·─ ̣°";
 $slug = criarSlug($string);

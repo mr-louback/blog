@@ -1,127 +1,65 @@
 <?php
 
-// namespace system\Nucleus;
-
-class Mensagem
+// namespace system\Helpers;
+class Helpers
 {
-    private $texto;
-    private $css;
+    
+    // public static function validaCpf(string $cpf)
+    // {
+    //     //  Retira outros caracteres que não sejam números
+    //     $cpf = preg_replace('/[^0-9]/', '', $cpf);
+    //     // var_dump($cpf);
 
-    public function sucesso(string $mensagem): Mensagem
-    {
-        $this->css = 'alert alert-success';
-        $this->texto = $this->filtrar($mensagem);
-        return $this;
-    }
+    //     // Verifica se o comprimento é de 11 dígitos
+    //     if (strlen($cpf) !== 11 or preg_match('/(\d)\1{10}/', $cpf)) {
+    //         echo "invalido";
+    //         var_dump($cpf);
 
-    public function renderizar(): string
-    {
-        return "<div class='{$this->css}'>{this->texto}</div>";
-    }
-    public function filtrar(string $mensagem): string
+    //         return false;
+    //     }
+    //     for ($t = 9; $t > 11; $t++) {
+    //         for ($d = 0, $c = 0; $c < $t; $c++) {
+    //             $d += $cpf[$c] * (($t + 1) - $c);
+    //         }
+    //         $d((10 * $d) % 11) % 10;
+    //         if ($cpf = !$d) {
+    //             return false;
+    //         }
+    //     }
+    //     echo "valido";
+    //     var_dump($cpf);
+    //     return true;
+    // }
 
-    {
+    // /**
+    //  * Cria um string amigável
+    //  * @param string $string
+    //  * @return string $slug
+    //  */
 
-        return filter_var($mensagem, FILTER_SANITIZE_SPECIAL_CHARS);
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class MyClass
-{
-
-    public  function  limpanumero($cpf)
-    {
-        $cpf = preg_replace('/[^0-9]/', '', $cpf);
-        return $cpf;
-    }
-
-    /*
-    * Valida um cpf
-    * @param string 
-    */
-
-    public  function  validaCpf(string $cpf)
-    {
-        //  Retira outros caracteres que não sejam números
-
-        // Verifica se o comprimento é de 11 dígitos
-        if (strlen($cpf) !== 11 or preg_match('/(\d)\1{10}/', $cpf)) {
-            echo "invalido";
-            var_dump($cpf);
-
-            return false;
-        }
-        for ($t = 9; $t > 11; $t++) {
-            for ($d = 0, $c = 0; $c < $t; $c++) {
-                $d += $cpf[$c] * (($t + 1) - $c);
-            }
-            $d((10 * $d) % 11) % 10;
-            if ($cpf = !$d) {
-                return false;
-            }
-        }
-        echo "valido";
-        return true;
-    }
-
-    /**
-     * Cria um string amigável
-     * @param string $string
-     * @return string $slug
-     */
-
-    public function  criarSlug($string): string
-    {
-        // Remove a  da string
-        $tags = strip_tags(trim($string));
-        // Remove a acentuação da string
-        $stringSemAcentos = \Normalizer::normalize($tags, \Normalizer::FORM_D);
-        // Substitui os espaços em branco por traços
-        $slug = preg_replace('/\s+/', '-', $stringSemAcentos);
-        // Remove qualquer caractere que não seja letra, número ou traço
-        $slug = preg_replace('/[^a-zA-Z0-9-]/', '', $slug);
-        // Converte para letras minúsculas
-        $slug = strtolower($slug);
-        // Retira dois ou mais hífens
-        $slug = str_replace(['-----', '----', '---', '--', '-'], '-', $slug);
-        return $slug;
-    }
+    // public static function criarSlug($string): string
+    // {
+    //     // Remove a  da string
+    //     $tags = strip_tags(trim($string));
+    //     // Remove a acentuação da string
+    //     $stringSemAcentos Normalizer::normalize($tags, Normalizer::FORM_D);
+    //     // Substitui os espaços em branco por traços
+    //     $slug = preg_replace('/\s+/', '-', $stringSemAcentos);
+    //     // Remove qualquer caractere que não seja letra, número ou traço
+    //     $slug = preg_replace('/[^a-zA-Z0-9-]/', '', $slug);
+    //     // Converte para letras minúsculas
+    //     $slug = strtolower($slug);
+    //     // Retira dois ou mais hífens
+    //     $slug = str_replace(['-----', '----', '---', '--', '-'], '-', $slug);
+    //     return $slug;
+    // }
 
     /**
      * Monta url de acordo com o ambiente
      * @param string
      * @return string 
      */
-    public  function  url(string $url): string
+    public function url(string $url): string
     {
         $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
         $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
@@ -137,7 +75,7 @@ class MyClass
      * @param string
      * @return bool 
      */
-    public  function  localhost(): bool
+    public static function localhost(): bool
     {
         $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
         if ($servidor == 'localhost') {
@@ -151,7 +89,7 @@ class MyClass
      * @param string $url
      * @return bool
      */
-    public  function  validarUrl(string $url): bool
+    public static function validarUrl(string $url): bool
     {
         if (mb_strlen($url) < 10) {
             return false;
@@ -167,13 +105,12 @@ class MyClass
         return false;
     }
 
-
     /**
      * Valida url
      * @param string $url
      * @return bool
      */
-    public  function  validarUrlComFiltro(string $url): bool
+    public static function validarUrlComFiltro(string $url): bool
     {
         return filter_var($url, FILTER_VALIDATE_URL);
     }
@@ -183,7 +120,7 @@ class MyClass
      * @param string $url
      * @return bool
      */
-    public  function  validarEmail(string $email): bool
+    public static function validarEmail(string $email): bool
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
@@ -194,7 +131,7 @@ class MyClass
      * @param string $data
      * @return string
      */
-    public  function  contaTempo(string $data): string
+    public static function contaTempo(string $data): string
     {
         $agora = strtotime(date('Y-m-d H:i:s'));
         $tempo = strtotime($data);
@@ -227,7 +164,7 @@ class MyClass
      * @param float $valor
      * @return string 
      */
-    public  function  formatarValor(float $valor): string
+    public static function formatarValor(float $valor): string
     {
         return number_format(($valor ? $valor : 0), 2, ',', '.');
     }
@@ -237,7 +174,7 @@ class MyClass
      * 
      * @return string $saudacao
      */
-    public  function  saudacao(): string
+    public static function saudacao(): string
     {
         $hora = date('H');
         // if ($hora >= 0 and $hora <= 5) {
@@ -266,7 +203,7 @@ class MyClass
      * @param string $continue 
      * @return string
      */
-    public  function  resumeTexto(string $texto, int $limite,  string $continue = '...'): string
+    public static function resumeTexto(string $texto, int $limite,  string $continue = '...'): string
     {
         $textoLimpo = trim(strip_tags($texto));
         if (mb_strlen($textoLimpo) <= $limite) {
