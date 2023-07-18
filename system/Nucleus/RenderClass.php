@@ -27,4 +27,4 @@ class RenderClass
     {
         return $this->css = $css;
     }
-}
+} 

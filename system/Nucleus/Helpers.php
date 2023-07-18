@@ -1,77 +1,8 @@
 <?php
-
-// namespace system\Helpers;
-
-
 class Helpers
 {
 
-    // public static function validaCpf(string $cpf)
-    // {
-    //     //  Retira outros caracteres que não sejam números
-    //     $cpf = preg_replace('/[^0-9]/', '', $cpf);
-    //     // var_dump($cpf);
-
-    //     // Verifica se o comprimento é de 11 dígitos
-    //     if (strlen($cpf) !== 11 or preg_match('/(\d)\1{10}/', $cpf)) {
-    //         echo "invalido";
-    //         var_dump($cpf);
-
-    //         return false;
-    //     }
-    //     for ($t = 9; $t > 11; $t++) {
-    //         for ($d = 0, $c = 0; $c < $t; $c++) {
-    //             $d += $cpf[$c] * (($t + 1) - $c);
-    //         }
-    //         $d((10 * $d) % 11) % 10;
-    //         if ($cpf = !$d) {
-    //             return false;
-    //         }
-    //     }
-    //     echo "valido";
-    //     var_dump($cpf);
-    //     return true;
-    // }
-
-    // /**
-    //  * Cria um string amigável
-    //  * @param string $string
-    //  * @return string $slug
-    //  */
-
-    // public static function criarSlug($string): string
-    // {
-    //     // Remove a  da string
-    //     $tags = strip_tags(trim($string));
-    //     // Remove a acentuação da string
-    //     $stringSemAcentos Normalizer::normalize($tags, Normalizer::FORM_D);
-    //     // Substitui os espaços em branco por traços
-    //     $slug = preg_replace('/\s+/', '-', $stringSemAcentos);
-    //     // Remove qualquer caractere que não seja letra, número ou traço
-    //     $slug = preg_replace('/[^a-zA-Z0-9-]/', '', $slug);
-    //     // Converte para letras minúsculas
-    //     $slug = strtolower($slug);
-    //     // Retira dois ou mais hífens
-    //     $slug = str_replace(['-----', '----', '---', '--', '-'], '-', $slug);
-    //     return $slug;
-    // }
-
-    /**
-     * Monta url de acordo com o ambiente
-     * @param string
-     * @return string 
-     */
-    public function url(string $url): string
-    {
-        $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
-        $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
-        if (str_starts_with($url, '/')) {
-            return $ambiente . $url;
-        }
-
-        return $ambiente . '/' . $url;
-    }
-
+    
     /**
      * verifica se é localhost
      * @param string
@@ -116,7 +47,7 @@ class Helpers
     {
         return filter_var($url, FILTER_VALIDATE_URL);
     }
-
+    
     /**
      * Valida Email
      * @param string $url
@@ -126,7 +57,70 @@ class Helpers
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
+    
+    public static function validaCpf(string $cpf):bool
+    {
+        //  Retira outros caracteres que não sejam números
+        $cpf = preg_replace('/[^0-9]/', '', $cpf);
+        // Verifica se o comprimento é de 11 dígitos
+        if (strlen($cpf) !== 11 or preg_match('/(\d)\1{10}/', $cpf)) {
+            echo "invalido";
+            var_dump($cpf);
 
+            return false;
+        }
+        for ($t = 9; $t > 11; $t++) {
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf[$c] * (($t + 1) - $c);
+            }
+            $d((10 * $d) % 11) % 10;
+            if ($cpf = !$d) {
+                return false;
+            }
+        }
+        echo "valido";
+        var_dump($cpf);
+        return true;
+    }
+
+    /**
+     * Cria um string amigável
+     * @param string $string
+     * @return string $slug
+     */
+
+    public static function criarSlug($string): string
+    {
+        // Remove a  da string
+        $tags = strip_tags(trim($string));
+        // Remove a acentuação da string
+        $stringSemAcentos = Normalizer::normalize($tags, Normalizer::FORM_D);
+        // Substitui os espaços em branco por traços
+        $slug = preg_replace('/\s+/', '-', $stringSemAcentos);
+        // Remove qualquer caractere que não seja letra, número ou traço
+        $slug = preg_replace('/[^a-zA-Z0-9-]/', '', $slug);
+        // Converte para letras minúsculas
+        $slug = strtolower($slug);
+        // Retira dois ou mais hífens
+        $slug = str_replace(['-----', '----', '---', '--', '-'], '-', $slug);
+        return $slug;
+    }
+
+    /**
+     * Monta url de acordo com o ambiente
+     * @param string
+     * @return string 
+     */
+    public function url(string $url): string
+    {
+        $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
+        $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
+        if (str_starts_with($url, '/')) {
+            return $ambiente . $url;
+        }
+
+        return $ambiente . '/' . $url;
+    }
     /**
      * Conta o tempo decorridos de uma data
      * @param string $data
@@ -219,3 +213,5 @@ class Helpers
     //     return  $texto;
     // }
 }
+
+
