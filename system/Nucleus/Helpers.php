@@ -3,7 +3,7 @@
 // namespace system\Helpers;
 class Helpers
 {
-    
+
     // public static function validaCpf(string $cpf)
     // {
     //     //  Retira outros caracteres que não sejam números
@@ -195,6 +195,8 @@ class Helpers
         return $saudacao;
     }
 
+
+
     /**
      * Resume um texto 
      * 
@@ -211,5 +213,10 @@ class Helpers
         }
         $textoResumido = mb_substr($textoLimpo, 0, mb_strrpos(mb_substr($textoLimpo, 0, $limite), ''));
         return $textoResumido . $continue;
+    }
+    private $texto;
+    public function texto(string $texto): string
+    {        
+        return $this->texto = $texto;
     }
 }

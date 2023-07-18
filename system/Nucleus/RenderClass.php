@@ -4,10 +4,16 @@ class RenderClass
 {
     private $texto;
     private $css;
-    public function renderizar($texto): string
+    public function renderizar($texto, $css): string
     {
-        $this->css = 'alert alert-danger';
+        $this->css = $this->css($css);
         $this->texto = $texto;
         return "<div class='{$this->css}' role='alert'>{$this->texto}</div>";
+    }
+
+
+    private function css($css)
+    {
+        return $this->css = $css;
     }
 }
