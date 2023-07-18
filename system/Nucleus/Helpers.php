@@ -1,6 +1,8 @@
 <?php
 
 // namespace system\Helpers;
+
+
 class Helpers
 {
 
@@ -125,7 +127,6 @@ class Helpers
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-
     /**
      * Conta o tempo decorridos de uma data
      * @param string $data
@@ -195,8 +196,6 @@ class Helpers
         return $saudacao;
     }
 
-
-
     /**
      * Resume um texto 
      * 
@@ -214,9 +213,9 @@ class Helpers
         $textoResumido = mb_substr($textoLimpo, 0, mb_strrpos(mb_substr($textoLimpo, 0, $limite), ''));
         return $textoResumido . $continue;
     }
-    private $texto;
-    public function texto(string $texto): string
-    {        
-        return $this->texto = $texto;
-    }
+    // private $texto ;
+    // public static function texto(string $texto)
+    // {        
+    //     return  $texto;
+    // }
 }
