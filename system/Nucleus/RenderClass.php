@@ -1,10 +1,9 @@
 <?php
-
-
-class RenderClass
+class RenderClass 
 {
     private $texto;
     private $css;
+
     /**
      * Reinderiza uma div
      * @param string $texto
@@ -25,7 +24,7 @@ class RenderClass
     {
         return $this->css = $css;
     }
-     /**
+    /**
      * @param string $texto
      * @return string
      */
