@@ -3,7 +3,10 @@
     "autoload": {
         "psr-4": {
             "system\\": "system/"
-        }
+        },
+        "files": [
+            "system/library/configuracao.php"
+        ]
     },
     "authors": [
         {
@@ -12,6 +15,9 @@
         }
     ],
     "require": {
-        "phpmailer/phpmailer": "^6.8"
+        "php":"8.1.2",
+        "phpmailer/phpmailer": "^6.8",
+        "pecee/simple-router": "5.3.0.5",
+        "symfony/routing":"^6.3"
     }
 }

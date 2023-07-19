@@ -7,5 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'system\\' => array($baseDir . '/system'),
+    'Symfony\\Component\\Routing\\' => array($vendorDir . '/symfony/routing'),
+    'Pecee\\' => array($vendorDir . '/pecee/simple-router/src/Pecee'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
 );

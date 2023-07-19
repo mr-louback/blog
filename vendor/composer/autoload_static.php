@@ -6,13 +6,22 @@ namespace Composer\Autoload;
 
 class ComposerStaticIniteade21f93f4579a9b40a1022bd57e002
 {
+    public static $files = array (
+        '873679fd308762cf078e294956da0b57' => __DIR__ . '/../..' . '/system/library/configuracao.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
             'system\\' => 7,
         ),
+        'S' => 
+        array (
+            'Symfony\\Component\\Routing\\' => 26,
+        ),
         'P' => 
         array (
+            'Pecee\\' => 6,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
@@ -21,6 +30,14 @@ class ComposerStaticIniteade21f93f4579a9b40a1022bd57e002
         'system\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system',
+        ),
+        'Symfony\\Component\\Routing\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/routing',
+        ),
+        'Pecee\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pecee/simple-router/src/Pecee',
         ),
         'PHPMailer\\PHPMailer\\' => 
         array (
