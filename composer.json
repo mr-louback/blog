@@ -10,5 +10,8 @@
             "name": "mr-louback",
             "email": "loubacked4work@outlook.com"
         }
-    ]
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    }
 }
