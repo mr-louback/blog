@@ -14,7 +14,7 @@ class SiteController
     public function index(): void
     {
         $render = new RenderClass();
-        echo $render->renderizar(Helpers::criarSlug('texto'), alert_info);
+        echo $render->renderizar(Helpers::criarSlug('texto para slug'), alert_info);
         echo "pagina index";
     }
     public function about(): void
@@ -22,9 +22,9 @@ class SiteController
         $texto = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut repellat dolorem atque tempore iure officia! Explicabo, cum inventore veritatis accusantium suscipit accusamus dolor minima maxime quo, tenetuçãõr fugit officia! Facilis.';
         $render = new RenderClass();
         echo $render->renderizar(Helpers::saudacao(), alert_primary);
-        echo $render->renderizar(Helpers::criarSlug('texto'), alert_warning);
-        echo $render->renderizar(Helpers::texto($texto), alert_warning);
+        echo $render->renderizar(Helpers::criarSlug('texto para slug'), alert_warning);
         echo "pagina contact";
+        echo $render->renderizar(Helpers::texto($texto), alert_warning);
     }
     public function contact(): void
     {
