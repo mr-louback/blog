@@ -1,12 +1,13 @@
 <?php
 
+include 'system/Nucleus/Helpers.php';
+include 'system/library/configuracao.php';
 class Controlador
 {
     private $render;
     public function __construct($render)
     {
-        $texto = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut repellat dolorem atque tempore iure officia! Explicabo, cum inventore veritatis accusantium suscipit accusamus dolor minima maxime quo, tenetuçãõr fugit officia! Facilis.';
-                
+        $texto = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut repellat dolorem atque tempore iure officia! Explicabo, cum inventore veritatis accusantium suscipit accusamus dolor minima maxime quo, tenetuçãõr fugit officia! Facilis.';                
         echo $this->render = $render->renderizar(Helpers::saudacao(), alert_danger);
         echo $this->render = $render->renderizar(Helpers::saudacao(), alert_danger);
         echo $this->render = $render->renderizar(Helpers::criarSlug($texto), alert_info);

@@ -1,15 +1,10 @@
 <?php
-function limpanumero($cpf)
-{
-    $cpf = preg_replace('/[^0-9]/', '', $cpf);
-}
+
 function validaCpf(string $cpf)
 {
-    //  Retira outros caracteres que não sejam números
-
-    // var_dump($cpf);
-
-    // Verifica se o comprimento é de 11 dígitos
+    // limpa
+    $cpf = preg_replace('/[^0-9]/', '', $cpf);
+      // Verifica se o comprimento é de 11 dígitos
     if (strlen($cpf) !== 11 or preg_match('/(\d)\1{10}/', $cpf)) {
         echo "invalido";
         var_dump($cpf);
@@ -20,7 +15,7 @@ function validaCpf(string $cpf)
         for ($d = 0, $c = 0; $c < $t; $c++) {
             $d += $cpf[$c] * (($t + 1) - $c);
         }
-        $d((10 * $d) % 11) % 10;
+        $d = ((10 * $d) % 11) % 10;
         if ($cpf = !$d) {
             return false;
         }
