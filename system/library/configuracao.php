@@ -8,3 +8,11 @@ define('SITE_DESC', 'LerLivra - Sua Biblioteca Online');
 // urls do sistema
 define('URL_PRODUCAO', 'https://lerlivra.com.br');
 define('URL_DESENVOLVIMENTO', 'http://localhost/blog');
+// css
+define('alert_warning', 'alert alert-warning');
+define('alert_success', 'alert alert-success');
+define('alert_dark', 'alert alert-dark');
+define('alert_danger', 'alert alert-danger');
+define('alert_primary', 'alert alert-primary');
+define('alert_light', 'alert alert-light');
+define('alert_info', 'alert alert-info');

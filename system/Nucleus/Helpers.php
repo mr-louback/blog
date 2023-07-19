@@ -1,8 +1,6 @@
 <?php
 class Helpers
 {
-
-    
     /**
      * verifica se é localhost
      * @param string
@@ -47,7 +45,7 @@ class Helpers
     {
         return filter_var($url, FILTER_VALIDATE_URL);
     }
-    
+
     /**
      * Valida Email
      * @param string $url
@@ -57,29 +55,24 @@ class Helpers
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
-    
-    public static function validaCpf(string $cpf):bool
+
+    public static function validaCpf(string $cpf): bool
     {
         //  Retira outros caracteres que não sejam números
         $cpf = preg_replace('/[^0-9]/', '', $cpf);
         // Verifica se o comprimento é de 11 dígitos
         if (strlen($cpf) !== 11 or preg_match('/(\d)\1{10}/', $cpf)) {
-            echo "invalido";
-            var_dump($cpf);
-
             return false;
         }
         for ($t = 9; $t > 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
                 $d += $cpf[$c] * (($t + 1) - $c);
             }
-            $d((10 * $d) % 11) % 10;
+            $d = ((10 * $d) % 11) % 10;
             if ($cpf = !$d) {
                 return false;
             }
         }
-        echo "valido";
-        var_dump($cpf);
         return true;
     }
 
@@ -111,7 +104,7 @@ class Helpers
      * @param string
      * @return string 
      */
-    public function url(string $url): string
+    public static function url(string $url): string
     {
         $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
         $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
@@ -121,6 +114,7 @@ class Helpers
 
         return $ambiente . '/' . $url;
     }
+
     /**
      * Conta o tempo decorridos de uma data
      * @param string $data
@@ -172,15 +166,6 @@ class Helpers
     public static function saudacao(): string
     {
         $hora = date('H');
-        // if ($hora >= 0 and $hora <= 5) {
-        //     $saudacao = 'boa madrugada!';
-        // } elseif ($hora >= 6 and $hora <= 12) {
-        //     $saudacao = 'bom dia!';
-        // } elseif ($hora >= 13 and $hora <= 18) {
-        //     $saudacao = 'boa tarde!';
-        // } else {
-        //     $saudacao = 'boa noite!';
-        // }
         $saudacao = match (true) {
             $hora >= 0 and $hora <= 5 => 'boa madrugada!',
             $hora >= 6 and $hora <= 12 => 'bom dia!',
@@ -207,11 +192,8 @@ class Helpers
         $textoResumido = mb_substr($textoLimpo, 0, mb_strrpos(mb_substr($textoLimpo, 0, $limite), ''));
         return $textoResumido . $continue;
     }
-    // private $texto ;
-    // public static function texto(string $texto)
-    // {        
-    //     return  $texto;
-    // }
+    public static function texto(string $texto):string
+    {        
+        return $texto;
+    }
 }
-
-
