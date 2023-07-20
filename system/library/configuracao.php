@@ -9,7 +9,6 @@ define('SITE_DESC', 'LerLivra - Sua Biblioteca Online');
 define('URL_PRODUCAO', 'https://lerlivra.com.br');
 define('URL_DESENVOLVIMENTO', 'http://localhost/blog');
 define('URL_BASE','blog/');
-
 // css
 define('alert_warning', 'alert alert-warning');
 define('alert_success', 'alert alert-success');

@@ -1,4 +1,5 @@
 <?php
+namespace system\Nucleus;
 class Helpers
 {
     /**
@@ -55,7 +56,11 @@ class Helpers
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
-
+    /**
+     * Valida um cpf
+     * @param  string $cpf
+     * @return bool
+     */
     public static function validaCpf(string $cpf): bool
     {
         //  Retira outros caracteres que não sejam números
@@ -87,7 +92,7 @@ class Helpers
         // Remove a  da string
         $tags = strip_tags(trim($string));
         // Remove a acentuação da string
-        $stringSemAcentos = Normalizer::normalize($tags, Normalizer::FORM_D);
+        $stringSemAcentos = \Normalizer::normalize($tags, \Normalizer::FORM_D);
         // Substitui os espaços em branco por traços
         $slug = preg_replace('/\s+/', '-', $stringSemAcentos);
         // Remove qualquer caractere que não seja letra, número ou traço
@@ -192,8 +197,8 @@ class Helpers
         $textoResumido = mb_substr($textoLimpo, 0, mb_strrpos(mb_substr($textoLimpo, 0, $limite), ''));
         return $textoResumido . $continue;
     }
-    public static function texto(string $texto):string
-    {        
+    public static function texto(string $texto): string
+    {
         return $texto;
     }
 }

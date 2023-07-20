@@ -1,5 +1,8 @@
 <?php
-class RenderClass 
+
+namespace system\Nucleus;
+
+class RenderClass
 {
     private $texto;
     private $css;

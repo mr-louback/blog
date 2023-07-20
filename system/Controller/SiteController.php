@@ -2,37 +2,39 @@
 
 namespace system\Controller;
 
-use Helpers;
-use RenderClass;
+use system\Nucleus\Helpers;
+use system\Nucleus\RenderClass;
+use system\Nucleus\Controller;
 
-include 'system/Nucleus/RenderClass.php';
-include 'system/Nucleus/Controlador.php';
-
-class SiteController
+class SiteController extends Controller
 {
-
+    public function __construct()
+    {
+        parent::__construct('layouts/site/views');
+    }
     public function index(): void
     {
         $render = new RenderClass();
-        echo $render->renderizar(Helpers::criarSlug('texto para slug'), alert_info);
-        echo "pagina index";
+        echo $render->renderizar($this->template->rendering('index.html', [
+            'titulo' => 'index',
+            'subtitulo' => 'subtitulo'
+        ]), alert_success);
     }
     public function about(): void
     {
-        $texto = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut repellat dolorem atque tempore iure officia! Explicabo, cum inventore veritatis accusantium suscipit accusamus dolor minima maxime quo, tenetuçãõr fugit officia! Facilis.';
         $render = new RenderClass();
-        echo $render->renderizar(Helpers::saudacao(), alert_primary);
-        echo $render->renderizar(Helpers::criarSlug('texto para slug'), alert_warning);
-        echo "pagina contact";
-        echo $render->renderizar(Helpers::texto($texto), alert_warning);
+        echo $render->renderizar($this->template->rendering('about.html', [
+            'titulo' => 'about',
+            'subtitulo' => 'subtitulo',
+        ]), alert_warning);
     }
     public function contact(): void
     {
         $render = new RenderClass();
-        $texto = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut repellat dolorem atque tempore iure officia! Explicabo, cum inventore veritatis accusantium suscipit accusamus dolor minima maxime quo, tenetuçãõr fugit officia! Facilis.';
-        echo $render->renderizar(Helpers::formatarValor(150), alert_dark);
-        echo $render->renderizar(Helpers::contaTempo('2020-06-05 13:30:00'), alert_primary);
-        echo $render->renderizar(Helpers::resumeTexto($texto, 150), alert_success);
-        echo "pagina contact";
+        echo $render->renderizar($this->template->rendering('about.html', [
+            'titulo' => 'contact',
+            'subtitulo' => 'subtitulo',
+        ]), alert_danger);
     }
+    
 }
