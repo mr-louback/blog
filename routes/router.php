@@ -5,8 +5,8 @@ use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
 
 SimpleRouter::setDefaultNamespace('system\Controller');
 SimpleRouter::get(URL_BASE, 'SiteController@index');
-SimpleRouter::get(URL_BASE . 'about', 'SiteController@about');
-SimpleRouter::get(URL_BASE . 'contact', 'SiteController@contact');
+SimpleRouter::get(URL_BASE . 'formCad', 'SiteController@formCad');
+SimpleRouter::get(URL_BASE . 'formLog', 'SiteController@formLog');
 try {
     SimpleRouter::start();
     

@@ -17,7 +17,7 @@ class RenderClass
     {
         $this->css = $this->css($css);
         $this->texto = $this->texto($texto);
-        return "<div class='{$this->css}' role='alert'>{$this->texto}</div>";
+        return "<div class='{$this->css}' role='alert'><div class='container' role='alert'>{$this->texto}</div></div>";
     }
     /**
      * @param string $css

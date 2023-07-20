@@ -36,6 +36,11 @@ class Template
                 new TwigFunction('resumeTexto', function (string $texto, int $limite) {
                     return Helpers::resumeTexto($texto, $limite);
                 })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('contaTempo', function (string $texto) {
+                    return Helpers::contaTempo($texto);
+                })
             )
         );
     }
