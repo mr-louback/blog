@@ -29,6 +29,7 @@ class SiteController extends Controller
     }
     public function formCad(): void
     {
+        
         $render = new RenderClass();
         echo $render->renderizar($this->template->rendering('head.html', [
             Helpers::saudacao(),
