@@ -1,8 +1,10 @@
-{% extends 'base.html' %}
-{% block conteudo %}
-    <h3>{{titulo}}</h3>
+{%extends 'base.html'%}
+
+{%block conteudo%}
+<div class="container">
     <div style="margin-top: 50px;" class="container">
-        <form action="cad.php" method="post">
+        <h3>{{titulo}}</h3>
+        <form method="post">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome <sup>*</sup></label>
                 <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite seu nome" required>
@@ -19,4 +21,5 @@
             <input type="submit" class="{{success}}" value="Enviar">
         </form>
     </div>
-{% endblock %}
+</div>
+{%endblock%}

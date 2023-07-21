@@ -7,6 +7,7 @@ use Twig\Environment;
 use Twig\Lexer;
 use Twig\Loader\FilesystemLoader;
 use \Twig\TwigFunction;
+
 class Template
 {
     private $twig;
@@ -23,8 +24,18 @@ class Template
     {
         array(
             $this->twig->addFunction(
-                new TwigFunction('url', function () {
-                    return Helpers::url('about');
+                new TwigFunction('Register', function () {
+                    return Helpers::url('formCad');
+                })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('Login', function () {
+                    return Helpers::url('formLog');
+                })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('Home', function () {
+                    return Helpers::url('');
                 })
             ),
             $this->twig->addFunction(

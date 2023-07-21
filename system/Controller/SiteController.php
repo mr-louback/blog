@@ -16,58 +16,54 @@ class SiteController extends Controller
     public function index(): void
     {
         $render = new RenderClass();
-        echo $render->renderizar($this->template->rendering('head.html', [
-            Helpers::saudacao(),
-            'success' => 'm-1 btn btn-outline-info'
+        echo $render->renderizar($this->template->rendering('header.html', [
+            'success' => alert_info,
+            'successButton' => 'm-1 btn btn-outline-info'
         ]), alert_dark);
         echo $render->renderizar($this->template->rendering('index.html', [
+            'success' => alert_info,
+            'successButton' => 'm-1 btn btn-outline-info',
             'titulo' => 'index',
-            'subtitulo' => 'subtitulo',
-            'lorem' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus praesentium atque delectus quod, numquam id non magni fugiat velit ipsum doloremque blanditiis necessitatibus harum sed? Omnis ducimus sint quidem ipsum.'
-        ]), alert_info);
-        echo $render->renderizar($this->template->rendering('foot.html', []), alert_dark);
+            
+        ]), alert_dark);
+        echo $render->renderizar($this->template->rendering('footer.html', [
+            'success' => 'm-1 btn btn-outline-info',
+        ]), alert_dark);
     }
     public function formCad(): void
     {
-        
         $render = new RenderClass();
-        echo $render->renderizar($this->template->rendering('head.html', [
-            Helpers::saudacao(),
-            'success' => 'm-1 btn btn-outline-success'
+        echo $render->renderizar($this->template->rendering('header.html', [
+            'success' => alert_info,
+            'successButton' => 'm-1 btn btn-outline-info'
         ]), alert_dark);
-
         echo $render->renderizar($this->template->rendering('formCad.html', [
-            'titulo' => 'Formulário de Cadastro',
-            'Nome' => 'Nome',
-            'Email' => 'Email',
-            'Senha' => 'Senha',
-            Helpers::validarEmail('email@email.com'),
-            'success' => 'm-1 btn btn-outline-success'
+            'success' => alert_info,
+            'successButton' => 'm-1 btn btn-outline-info',
+            'titulo' => 'Cadastro',
 
-
-        ]),alert_danger);
-        echo $render->renderizar($this->template->rendering('foot.html', []), alert_dark);
+        ]), alert_dark);
+        echo $render->renderizar($this->template->rendering('footer.html', [
+            'success' => 'm-1 btn btn-outline-info',
+        ]), alert_dark);
     }
 
     public function formLog(): void
     {
 
         $render = new RenderClass();
-        echo $render->renderizar($this->template->rendering('head.html', [
-            Helpers::saudacao(),
-            'success' => 'm-1 btn btn-outline-info'
+        echo $render->renderizar($this->template->rendering('header.html', [
+            'success' => alert_info,
+            'successButton' => 'm-1 btn btn-outline-info'
         ]), alert_dark);
-
         echo $render->renderizar($this->template->rendering('formLog.html', [
-            'titulo' => 'Formulário de Login',
-            'Nome' => 'Nome',
-            'Email' => 'Email',
-            'Senha' => 'Senha',
-            Helpers::validarEmail('email@email.com'),
-            'success' => 'm-1 btn btn-outline-info'
+            'success' => alert_info,
+            'successButton' => 'm-1 btn btn-outline-info',
+            'titulo' => 'Login',
 
-
-        ]), alert_info);
-        echo $render->renderizar($this->template->rendering('foot.html', []), alert_dark);
+        ]), alert_dark);
+        echo $render->renderizar($this->template->rendering('footer.html', [
+            'success' => 'm-1 btn btn-outline-info',
+        ]), alert_dark);
     }
 }
