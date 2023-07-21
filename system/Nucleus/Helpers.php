@@ -1,7 +1,24 @@
 <?php
+
 namespace system\Nucleus;
+
+use Connection;
+use Exception;
+use mysqli;
+use Pecee\Http\Request;
+
 class Helpers
 {
+
+    public static function redirect(string $url = null)
+    {
+
+        header('HTTP/1.1 302 Found');
+        $local = ($url ? self::url($url) : self::url(''));
+        header("Location: {$local}");
+        exit();
+    }
+
     /**
      * verifica se é localhost
      * @param string
@@ -15,6 +32,8 @@ class Helpers
         }
         return false;
     }
+
+
 
     /**
      * Valida url
@@ -67,7 +86,7 @@ class Helpers
         $cpf = preg_replace('/[^0-9]/', '', $cpf);
         // Verifica se o comprimento é de 11 dígitos
         if (strlen($cpf) !== 11 or preg_match('/(\d)\1{10}/', $cpf)) {
-            return false;
+            throw new Exception("Cpf precisa de 11 dígitos");
         }
         for ($t = 9; $t > 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
@@ -75,7 +94,7 @@ class Helpers
             }
             $d = ((10 * $d) % 11) % 10;
             if ($cpf = !$d) {
-                return false;
+                throw new Exception("Cpf precisa ser válido");
             }
         }
         return true;
@@ -197,8 +216,13 @@ class Helpers
         $textoResumido = mb_substr($textoLimpo, 0, mb_strrpos(mb_substr($textoLimpo, 0, $limite), ''));
         return $textoResumido . $continue;
     }
-    public static function texto(string $texto): string
+    public static function texto(string $name, string $email, string $senha)
     {
-        return $texto;
+        if ($_SERVER['REQUEST_METHOD' === "POST"]) {
+            $email = $_POST['email'];
+            $senha = $_POST['passw'];
+            $name = $_POST['nome'];
+            return array($name, $email, $senha);
+        }
     }
 }

@@ -24,18 +24,18 @@ class Template
     {
         array(
             $this->twig->addFunction(
-                new TwigFunction('Register', function () {
+                new TwigFunction('urlRegister', function () {
                     return Helpers::url('formCad');
                 })
             ),
             $this->twig->addFunction(
-                new TwigFunction('Login', function () {
+                new TwigFunction('urlLogin', function () {
                     return Helpers::url('formLog');
                 })
             ),
             $this->twig->addFunction(
-                new TwigFunction('Home', function () {
-                    return Helpers::url('');
+                new TwigFunction('urlHome', function (string $texto) {
+                    return Helpers::url($texto);
                 })
             ),
             $this->twig->addFunction(
@@ -53,6 +53,8 @@ class Template
                     return Helpers::contaTempo($texto);
                 })
             )
+            
+            
         );
     }
     public function rendering(string $view, array $dados)
