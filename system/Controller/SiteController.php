@@ -2,6 +2,7 @@
 
 namespace system\Controller;
 
+use system\Model\PostModel;
 use system\Nucleus\Helpers;
 use system\Nucleus\RenderClass;
 use system\Nucleus\Controller;
@@ -15,69 +16,50 @@ class SiteController extends Controller
 
     public function index(): void
     {
+        $posts = (new PostModel())->lerTudo();
+
         $render = new RenderClass();
-        echo $render->renderizar($this->template->rendering('header.html', [
-            'success' => alert_info,
-            'successButton' => 'm-1 btn btn-outline-info'
-        ]), alert_dark);
-        echo $render->renderizar($this->template->rendering('index.html', [
+        $template= $this->template->rendering('index.html', [
             'success' => alert_info,
             'successButton' => 'm-1 btn btn-outline-info',
-            'titulo' => 'index',
-            'echo2' =>  Helpers::saudacao()
-            
-        ]), alert_warning);
-        echo $render->renderizar($this->template->rendering('footer.html', [
-            'success' => 'm-1 btn btn-outline-info',
+            'formCad'=> "",
+            'titulo' => 'Index',
 
-        ]), alert_dark);
+            'posts'=> $posts,
+
+        ]);
+        echo $template;
     }
     public function formCad(): void
     {
-        $render = new RenderClass();
-        echo $render->renderizar($this->template->rendering('header.html', [
-            'success' => alert_info,
-            'successButton' => 'm-1 btn btn-outline-info'
-        ]), alert_dark);
-        echo $render->renderizar($this->template->rendering('formCad.html', [
+        
+        echo $this->template->rendering('formCad.html', [
             'success' => alert_info,
             'successButton' => 'm-1 btn btn-outline-info',
             'titulo' => 'Cadastro',
-            'subtitulo'=>'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt repellat delectus at mollitia ex, officia similique nulla blanditiis itaque recusandae vero aspernatur labore quos ipsa est. Accusantium sequi fugiat quod.sdfgd fsgds fgsdf  g sd  fgggsdfg dgfsg  df gdsf g ds fg sd f gdsfgds fg dsfg ds f g dsf g dsfgdfgds fgds fg d fgdsfg dsf g dfg df  gdf gdf g df gsd g d fgdfsg dsf g df g dsfg  dfg ds g s'
-        ]), alert_info);
-        echo $render->renderizar($this->template->rendering('footer.html', [
-            'success' => 'm-1 btn btn-outline-info',
-        ]), alert_dark);
-        return ;
+        ]);
+       
     }
 
     public function formLog(): void
     {
 
-        $render = new RenderClass();
-        echo $render->renderizar($this->template->rendering('header.html', [
-            'success' => alert_info,
-            'successButton' => 'm-1 btn btn-outline-info'
-        ]), alert_dark);
-        echo $render->renderizar($this->template->rendering('formLog.html', [
+        echo $this->template->rendering('formLog.html', [
             'success' => alert_info,
             'successButton' => 'm-1 btn btn-outline-info',
             'titulo' => 'Login',
 
-        ]), alert_dark);
-        echo $render->renderizar($this->template->rendering('footer.html', [
-            'success' => 'm-1 btn btn-outline-info',
-        ]), alert_dark);
+        ]);
     }
     public function erro(): void
     {
 
         $render = new RenderClass();
-        
+
         echo $render->renderizar($this->template->rendering('erro.html', [
             'titulo' => 'Página não encontrada.',
 
         ]), alert_danger);
-        
+        // echo ;
     }
 }

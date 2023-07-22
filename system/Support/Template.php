@@ -24,10 +24,42 @@ class Template
     {
         array(
             $this->twig->addFunction(
-                new TwigFunction('urlRegister', function () {
+                new TwigFunction('urlIndex', function () {
+                    return Helpers::url('');
+                })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('urlFormCad', function () {
                     return Helpers::url('formCad');
                 })
             ),
+            $this->twig->addFunction(
+                new TwigFunction('urlFormLog', function () {
+                    return Helpers::url('formLog');
+                })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('urlCssSite', function () {
+                    return Helpers::url('../../../layouts/site/assets/css/site.css');
+                })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('urlCss', function () {
+                    return Helpers::url('../../../layouts/assets/css/style.css');
+                })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('urlJsSite', function () {
+                    return Helpers::url('../../../layouts/site/assets/js/site.js');
+                })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('urlJs', function () {
+                    return Helpers::url('../../../layouts/assets/js/script.js');
+                })
+            ),
+            
+            
             $this->twig->addFunction(
                 new TwigFunction('urlLogin', function () {
                     return Helpers::url('formLog');

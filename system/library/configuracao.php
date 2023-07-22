@@ -17,3 +17,8 @@ define('alert_danger', 'alert alert-danger');
 define('alert_primary', 'alert alert-primary');
 define('alert_light', 'alert alert-light');
 define('alert_info', 'alert alert-info');
+// DATABASE
+define('DB_HOST','localhost');
+define('DB_USER','root');
+define('DB_PASSWORD','MyPhpAdminTEDW1Q>&@<WM?#');
+define('DB_DATABASE','blog');

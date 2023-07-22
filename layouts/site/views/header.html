@@ -1,13 +1,13 @@
-
-
-{{titulo}}
-<nav class="navbar justify-content-end" data-bs-theme="dark">
-    <form class="container-fluid  ">
-        <a  href="{{urlHome('')}}" class="{{success}}"><h1>Ler<sup>.Livra</h1></sup></a>
-        <div class="d-flex">
-            <a href="{{urlRegister()}}"  id="cad" class="{{successButton}}" type="submit">Cadastre-se</a>
-            <a href="{{urlLogin()}}"  id="log" class="{{successButton}}" type="submit">Login</a>
+<nav class="navbar bg-body-tertiary" data-bs-theme="dark">
+    
+    <div class="container">
+        <a href="{{urlIndex()}}" class="navbar-brand" class="{{success}}">
+            <h1>Ler<sup>.Livra</h1></sup>
+        </a>    
+        <div class="justify-content-between">
+            <a href="{{urlFormCad()}}" id="cad" class="{{successButton}}">Cadastre-se</a>
+            <a href="{{urlFormLog()}}" id="log" class="{{successButton}}">Login</a>
         </div>
-    </form>
-</nav>
+    </div>
 
+</nav>
