@@ -17,28 +17,32 @@ class SiteController extends Controller
     public function index(): void
     {
         $posts = (new PostModel())->lerTudo();
-
-        $render = new RenderClass();
-        $template= $this->template->rendering('index.html', [
-            'success' => alert_info,
-            'successButton' => 'm-1 btn btn-outline-info',
-            'formCad'=> "",
+        echo $this->template->rendering('index.html', [
+            'success' => alert_warning,
+            'successButton' => 'btn btn-outline-warning',
+            
             'titulo' => 'Index',
+            'subtitulo' => "lista de posts",
+            'posts' => $posts,
 
-            'posts'=> $posts,
-
-        ]);
-        echo $template;
+        ]);;
     }
-    public function formCad(): void
+    public function post(int $id): void
     {
-        
-        echo $this->template->rendering('formCad.html', [
-            'success' => alert_info,
-            'successButton' => 'm-1 btn btn-outline-info',
+        $post = (new PostModel())->searchId($id);
+        echo $this->template->rendering('post.html', [
+            'post' => $post,
+            'success' => alert_warning,
+            'successButton' => 'btn btn-outline-info',
             'titulo' => 'Cadastro',
         ]);
-       
+    }
+    public function formCad(): void
+    {   echo $this->template->rendering('formCad.html', [
+            'success' => alert_success,
+            'successButton' => 'btn btn-outline-success',
+            'titulo' => 'Cadastro',
+        ]);
     }
 
     public function formLog(): void
@@ -46,7 +50,7 @@ class SiteController extends Controller
 
         echo $this->template->rendering('formLog.html', [
             'success' => alert_info,
-            'successButton' => 'm-1 btn btn-outline-info',
+            'successButton' => 'btn btn-outline-info',
             'titulo' => 'Login',
 
         ]);

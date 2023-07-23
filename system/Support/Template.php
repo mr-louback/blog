@@ -24,6 +24,11 @@ class Template
     {
         array(
             $this->twig->addFunction(
+                new TwigFunction('url', function (string $texto) {
+                    return Helpers::url($texto);
+                })
+            ),
+            $this->twig->addFunction(
                 new TwigFunction('urlIndex', function () {
                     return Helpers::url('');
                 })

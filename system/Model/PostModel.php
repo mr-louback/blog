@@ -35,12 +35,12 @@ class PostModel
         // var_dump($result);
         return $result;
     }
-    public function searchId(int $id = null): array
+    public function searchId(int $id ):bool|object
     {
         $where = ($id ? "WHERE id = {$id}" : '');
         $query = "SELECT * FROM posts $where";
         $stmt = NucleusConnection::getIntancia()->query($query);
-        $result = $stmt->fetchAll();
+        $result = $stmt->fetch();
         // echo var_dump($result);
         return $result;
     }

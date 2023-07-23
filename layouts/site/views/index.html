@@ -4,19 +4,22 @@
 <div class="container">
     <div style="margin-top: 50px;" class="container">
         <div style="margin-top: 50px;" class="container">
-            <div style="width: 40%;" class="mb-2">
-                <h3>{{titulo}}</h3>
-                <p>{{subtitulo}}</p>
-                <p>{{echo2}}</p>
+
+            <div class="row">
                 {%for post in posts%}
-                <div class="card">                    
-                    <div class="card-body">
-                      <h5 class="card-title">{{post.titulo}}</h5>
-                      <p class="card-text">{{post.texto}}</p>
+                <div class="col-md-3">
+                    <div class="card mb-4">
+                        <a class="{{successButton}}" href="{{url('post/'~post.id)}}">
+                            <div class="card-body">
+
+                                <h5 class="card-title">{{post.titulo}}</h5>
+                                <p class="card-text">{{post.texto}}</p>
+                            </div>
+                        </a>
                     </div>
-                  </div>
-                <h3></h3>
-                <p></p>
+                    <h3></h3>
+                    <p></p>
+                </div>
                 {%endfor%}
             </div>
         </div>
