@@ -44,6 +44,11 @@ class Template
                 })
             ),
             $this->twig->addFunction(
+                new TwigFunction('urlSidebar', function () {
+                    return Helpers::url('../../../layouts/site/views/sidebar.html');
+                })
+            ),
+            $this->twig->addFunction(
                 new TwigFunction('urlCssSite', function () {
                     return Helpers::url('../../../layouts/site/assets/css/site.css');
                 })

@@ -8,12 +8,12 @@ namespace system\Model;
 use system\Nucleus\Connection as NucleusConnection;
 use system\Nucleus\Helpers;
 
-class PostModel
+class CategoryModel
 {
     public function lerTudo(): array
     {
 
-        $query = "SELECT * FROM posts order by id";
+        $query = "SELECT * FROM categorias order by id";
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         // var_dump($result);
@@ -21,7 +21,7 @@ class PostModel
     }
     public function insertLine(): array
     {
-        $query = "INSERT INTO `posts`( `titulo`, `texto`, `status`) VALUES ('titulo do texto 7','conteudo do texto 7',1)";
+        $query = "INSERT INTO `categorias`( `titulo`, `texto`, `status`) VALUES ('titulo do texto 7','conteudo do texto 7',1)";
 
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();
@@ -30,7 +30,7 @@ class PostModel
     }
     public function updateLine(string $titulo, string $conteudo, int $id): array
     {
-        $query = "UPDATE `posts` SET `titulo` = '$titulo', `texto` = '$conteudo' WHERE `posts`.`id` = $id";
+        $query = "UPDATE `categorias` SET `titulo` = '$titulo', `texto` = '$conteudo' WHERE `categorias`.`id` = $id";
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         // var_dump($result);
@@ -39,7 +39,7 @@ class PostModel
     public function searchId(int $id ):bool|object
     {
         $where = ($id ? "WHERE id = {$id}" : '');
-        $query = "SELECT * FROM posts $where";
+        $query = "SELECT * FROM categorias $where";
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetch();
         // echo var_dump($result);
@@ -47,7 +47,7 @@ class PostModel
     }
     public function lerStatus(): array
     {
-        $query = "SELECT * FROM posts where status = 0";
+        $query = "SELECT * FROM categorias where status = 0";
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         // var_dump($result);

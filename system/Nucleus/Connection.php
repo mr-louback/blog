@@ -10,7 +10,7 @@ use PDOException;
 class Connection
 {
     private static $instance;
-    public static function getIntancia(): PDO
+    public static function getInstance(): PDO
     {
         if (empty(self::$instance)) {
             try {

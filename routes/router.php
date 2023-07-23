@@ -10,6 +10,7 @@ try {
     SimpleRouter::get(URL_BASE . 'formCad', 'SiteController@formCad');
     SimpleRouter::get(URL_BASE . 'formLog', 'SiteController@formLog');
     SimpleRouter::get(URL_BASE . 'post/{id}', 'SiteController@post');
+    SimpleRouter::get(URL_BASE . 'sidebar', 'SiteController@sidebar');
     SimpleRouter::get(URL_BASE . 'erro', 'SiteController@erro');
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $e) {

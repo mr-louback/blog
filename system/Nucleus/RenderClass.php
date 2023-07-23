@@ -13,11 +13,21 @@ class RenderClass
      * @param string $css
      * @return string 
      */
-    public function renderizar(string $texto, string  $css): string
+    public function renderizar(string $texto, string  $css, string $view): string
     {
         $this->css = $this->css($css);
         $this->texto = $this->texto($texto);
-        return "<div class='{$this->css}' role='alert'>{$this->texto}</div>";
+        $this->viewHW = $this->view($view);
+        
+        return "<div style='{$this->viewHW}' class='{$this->css}' role='alert'>{$this->texto}</div>";
+    }
+     /**
+     * @param string $css
+     * @return string
+     */
+    function view(string $view): string
+    {
+        return $this->viewHW = $view;
     }
     /**
      * @param string $css
