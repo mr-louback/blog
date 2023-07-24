@@ -20,5 +20,5 @@ define('alert_info', 'alert alert-info');
 // DATABASE
 define('DB_HOST','localhost');
 define('DB_USER','root');
-define('DB_PASSWORD','MyPhpAdminTEDW1Q>&@<WM?#');
+define('DB_PASSWORD','');
 define('DB_DATABASE','blog');

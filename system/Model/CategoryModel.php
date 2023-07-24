@@ -10,7 +10,8 @@ use system\Nucleus\Helpers;
 
 class CategoryModel
 {
-    public function lerTudo(): array
+
+    public function lerTudoCategory(): array
     {
 
         $query = "SELECT * FROM categorias order by id";
@@ -19,7 +20,7 @@ class CategoryModel
         // var_dump($result);
         return $result;
     }
-    public function insertLine(): array
+    public function insertLineCategory(): array
     {
         $query = "INSERT INTO `categorias`( `titulo`, `texto`, `status`) VALUES ('titulo do texto 7','conteudo do texto 7',1)";
 
@@ -28,7 +29,7 @@ class CategoryModel
         // var_dump($result);
         return $result;
     }
-    public function updateLine(string $titulo, string $conteudo, int $id): array
+    public function updateLineCategory(string $titulo, string $conteudo, int $id): array
     {
         $query = "UPDATE `categorias` SET `titulo` = '$titulo', `texto` = '$conteudo' WHERE `categorias`.`id` = $id";
         $stmt = NucleusConnection::getInstance()->query($query);
@@ -36,16 +37,16 @@ class CategoryModel
         // var_dump($result);
         return $result;
     }
-    public function searchId(int $id ):bool|object
+    public function searchIdCategory(int $id): array
     {
-        $where = ($id ? "WHERE id = {$id}" : '');
-        $query = "SELECT * FROM categorias $where";
+
+        $query = "SELECT * FROM posts WHERE categoria_id = {$id}";
         $stmt = NucleusConnection::getInstance()->query($query);
-        $result = $stmt->fetch();
+        $result = $stmt->fetchAll();
         // echo var_dump($result);
         return $result;
     }
-    public function lerStatus(): array
+    public function lerStatusCategory(): array
     {
         $query = "SELECT * FROM categorias where status = 0";
         $stmt = NucleusConnection::getInstance()->query($query);

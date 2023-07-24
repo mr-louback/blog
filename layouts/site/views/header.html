@@ -1,25 +1,25 @@
 <nav style="width: 100%;" class="navbar bg-body-tertiary" data-bs-theme="dark">
     <div class="container mt-3">
-        <a href="{{urlIndex()}}" style="margin-bottom: 0;" class="navbar-brand {{navHeader}}">
+        <a href="{{urlIndex()}}" style="margin-bottom: 0;" class="navbar-brand {{cssNavHeader}}">
             <h1 style="margin-bottom: 0;">Ler<sup>.Livra</h1></sup>
 
         </a>
         <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+            <a  href="#" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 Categorias
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <ul class="list-group list-group-flush">
                     {% for categoria in categorias%}
-                    <a href="" class="list-group-item list-group-item-action">{{categoria.titulo}}</a>
+                    <a href="{{url('categoria/'~categoria.id)}}"  class="list-group-item list-group-item-action">{{categoria.titulo}}</a>
                     {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="justify-content-between">
-            <a href="{{urlFormCad()}}" id="cad" class="{{navHeaderButton}}">Cadastre-se</a>
-            <a href="{{urlFormLog()}}" id="log" class="{{navHeaderButton}}">Login</a>
+            <a href="{{urlFormCad()}}" id="cad" class="{{cssNavHeaderButton}}">Cadastre-se</a>
+            <a href="{{urlFormLog()}}" id="log" class="{{cssNavHeaderButton}}">Login</a>
         </div>
     </div>
 </nav>

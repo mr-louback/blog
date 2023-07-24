@@ -18,20 +18,14 @@ class SiteController extends Controller
 
     public function index(): void
     {
-        $posts = (new PostModel())->lerTudo();
       
         echo $this->template->rendering('index.html', [
-            'navHeader' => alert_warning,
-            'navHeaderButton' => 'btn btn-outline-warning',
+            'cssNavHeader' => alert_warning,
+            'cssNavHeaderButton' => 'btn btn-outline-warning',
             'alert_info' => alert_warning. ' btn ',
-            'alert_light' => alert_light,
-            'alert_primary' => alert_primary,
-            'alert_dark' => alert_dark,
             'alert_warning' => alert_warning,
-            'resumeTexto'=> (new PostModel())->lerTudo(),
-            'alert_success' => alert_success,
-            'posts' => $posts,
-            'categorias' => (new CategoryModel())->lerTudo(),
+            'posts' => (new PostModel())->lerTudo(),
+            'categorias' => (new CategoryModel())->lerTudoCategory(),
             'titulo' => 'Index',
             'subtitulo' => "lista de posts",
 
@@ -50,8 +44,8 @@ class SiteController extends Controller
             'alert_dark' => alert_primary,
 
             'categorias' => $this->categorias(),
-            'navHeader' => alert_warning,
-            'navHeaderButton' => 'btn btn-outline-warning',
+            'cssNavHeader' => alert_warning,
+            'cssNavHeaderButton' => 'btn btn-outline-warning',
             'titulo' => 'Cadastro',
         ]);
     }
@@ -59,20 +53,20 @@ class SiteController extends Controller
     {
         echo $this->template->rendering('erro.html', [
             'titulo' => 'Página não encontrada.',
-            'navHeader' => alert_warning,
-            'navHeaderButton' => 'btn btn-outline-warning',
+            'cssNavHeader' => alert_warning,
+            'cssNavHeaderButton' => 'btn btn-outline-warning',
             'success'=> alert_danger
         ]);
     }
     public function categorias()
     {
-        return (new CategoryModel())->lerTudo();
+        return (new CategoryModel())->lerTudoCategory();
     }
     public function formCad(): void
     {
         echo $this->template->rendering('formCad.html', [
-            'navHeader' => alert_warning,
-            'navHeaderButton' => 'btn btn-outline-warning',
+            'cssNavHeader' => alert_warning,
+            'cssNavHeaderButton' => 'btn btn-outline-warning',
             'titulo' => 'Cadastro',
         ]);
     }
@@ -81,11 +75,29 @@ class SiteController extends Controller
     {
 
         echo $this->template->rendering('formLog.html', [
-            'navHeader' => alert_warning,
-            'navHeaderButton' => 'btn btn-outline-warning',
+            'cssNavHeader' => alert_warning,
+            'cssNavHeaderButton' => 'btn btn-outline-warning',
             'titulo' => 'Login',
 
         ]);
+    }
+    public function categoria(int $id): void
+    {
+
+        $post = (new CategoryModel())->searchIdCategory($id);
+        // var_dump($post);
+        echo $this->template->rendering('categoria.html', [
+            'cssNavHeader' => alert_warning,
+            'cssNavHeaderButton' => 'btn btn-outline-warning',
+            'alert_info' => alert_warning. ' btn ',
+            'alert_warning' => alert_warning,
+            'posts' => $post,
+            'categorias' => $this->categorias(),
+           
+            'titulo' => 'Index',
+            'subtitulo' => "lista de posts",
+
+        ]);;
     }
    
 }

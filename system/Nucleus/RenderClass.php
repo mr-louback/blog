@@ -17,17 +17,8 @@ class RenderClass
     {
         $this->css = $this->css($css);
         $this->texto = $this->texto($texto);
-        $this->viewHW = $this->view($view);
         
-        return "<div style='{$this->viewHW}' class='{$this->css}' role='alert'>{$this->texto}</div>";
-    }
-     /**
-     * @param string $css
-     * @return string
-     */
-    function view(string $view): string
-    {
-        return $this->viewHW = $view;
+        return "<div  class='{$this->css}' role='alert'>{$this->texto}</div>";
     }
     /**
      * @param string $css
