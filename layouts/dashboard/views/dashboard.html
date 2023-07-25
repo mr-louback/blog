@@ -1,14 +1,31 @@
 {% extends 'base.html'%}
 {%block dashboard%}
-<div class="row">
-    <div class="col-lg-3">
-        {% include 'menu.html'%}
-    </div>
-    <div class="col-lg-9">
-        {%block conteudo%}
-        <h1>Bem vindo ao dashboard</h1>
-        {%endblock%}
+{% include 'menu.html'%}
+{%block conteudo%}
+<div id="layoutSidenav">
+    {% include 'sideBar.html'%}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Dashboard</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+                {% include 'card.html'%}
+                {% include 'graffics.html'%}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        DataTable Example
+                    </div>
+                    <div class="card-body">
+                        {% include 'cardBody.html'%}
+                    </div>
+                </div>
+            </div>
+        </main>
+        {% include 'footer.html'%}
     </div>
 </div>
-
+{%endblock%}
 {%endblock%}
