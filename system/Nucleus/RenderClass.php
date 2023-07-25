@@ -13,7 +13,7 @@ class RenderClass
      * @param string $css
      * @return string 
      */
-    public function renderizar(string $texto, string  $css, string $view): string
+    public function renderizar(string $texto, string  $css): string
     {
         $this->css = $this->css($css);
         $this->texto = $this->texto($texto);

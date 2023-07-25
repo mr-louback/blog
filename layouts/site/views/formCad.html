@@ -1,8 +1,10 @@
 {%extends 'base.html'%}
 
 {%block conteudo%}
+
 <div class="container">
-    <div style="margin: 95px 0;"  class="container">
+    <div style="margin: 95px 0;" class="container">
+        <form action="{{url('formCadSent')}}" method="post">
             <div style="width: 40%;" class="mb-2">
 
                 <h3>{{titulo}}</h3>

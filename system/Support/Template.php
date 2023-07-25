@@ -68,8 +68,16 @@ class Template
                     return Helpers::url('../../../layouts/assets/js/script.js');
                 })
             ),
-            
-            
+            $this->twig->addFunction(
+                new TwigFunction('urlCssSiteAdmin', function () {
+                    return Helpers::url('../../dashboard/views/assets/css/style.css');
+                })
+            ),            
+            $this->twig->addFunction(
+                new TwigFunction('urlCssAdmin', function () {
+                return Helpers::url('../../dashboard/assets/css/style.css');
+            })
+        ), 
             $this->twig->addFunction(
                 new TwigFunction('urlLogin', function () {
                     return Helpers::url('formLog');

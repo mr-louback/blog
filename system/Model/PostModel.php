@@ -45,9 +45,9 @@ class PostModel
         // echo var_dump($result);
         return $result;
     }
-    public function lerStatus(): array
+    public function busca(string $busca): array
     {
-        $query = "SELECT * FROM posts where status = 0";
+        $query = "SELECT * FROM posts where status = 1 and titulo like '%{$busca}%'";
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         // var_dump($result);

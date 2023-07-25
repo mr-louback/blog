@@ -216,13 +216,14 @@ class Helpers
         $textoResumido = mb_substr($textoLimpo, 0, mb_strrpos(mb_substr($textoLimpo, 0, $limite), ''));
         return $textoResumido . $continue;
     }
-    public static function texto(string $name, string $email, string $senha)
+    public static function texto(string $name)
     {
-        if ($_SERVER['REQUEST_METHOD' === "POST"]) {
-            $email = $_POST['email'];
-            $senha = $_POST['passw'];
-            $name = $_POST['nome'];
-            return array($name, $email, $senha);
-        }
+        // if ($_SERVER['REQUEST_METHOD' === "POST"]) {
+        //     $email = $_POST['email'];
+        //     $senha = $_POST['passw'];
+        //     $name = $_POST['nome'];
+        //     return array($name, $email, $senha);
+        // }
+        return $name;
     }
 }

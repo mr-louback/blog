@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{%block dashboard%}
+<div class="row">
+    <div class="col-lg-3">
+        {% include 'menu.html'%}
+    </div>
+    <div class="col-lg-9">
+        {%block conteudo%}
+        <h1>Bem vindo ao dashboard</h1>
+        {%endblock%}
+    </div>
+</div>
+
+{%endblock%}
