@@ -1,0 +1,50 @@
+{% extends 'dashboard.html'%}
+{%block conteudo%}
+<div id="layoutSidenav">
+    {% include 'sideBar.html'%}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Categorias</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Lista de categorias</li>
+                </ol>
+                <a href="{{url('admin/categorias/cadastrar')}}" class="btn btn-primary">Cadastrar</a>
+            </div>
+            <div class="container">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Tabela de dados - Categorias
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Texto</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for categoria in CategoryModel%}
+                                <tr>
+                                    <td>{{categoria.titulo}}</td>
+                                    <td>{{resumeTexto(''~categoria.texto, 50)}}</td>
+                                    {%if categoria.status == 1%}
+                                    <td><div class="container"><i style="color: rgb(0, 179, 119); " class="fa-solid fa-check"></i></div></td>
+                                    {%else%}
+                                    <td><div class="container"><i style="color: rgb(179, 0, 0); " class="fa-solid fa-x"></i></div></td>
+                                    {%endif%}
+                                </tr>
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {% include 'footer.html'%}
+    </div>
+</div>
+{%endblock%}

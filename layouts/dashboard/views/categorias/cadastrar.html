@@ -1,0 +1,46 @@
+{% extends 'dashboard.html'%}
+{%block conteudo%}
+<div id="layoutSidenav">
+    {% include 'sideBar.html'%}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                {{resultado}}
+                <h1 class="mt-4">Categorias</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Formulário de categorias</li>
+                </ol>
+            </div>
+            <div class="container">
+
+                <div class="card mb-4">
+
+                    <div class="card-body">
+                        <form action="{{url('admin/categorias/cadastrar')}}" method="post">
+                            <div style="width: 60%;" class="mb-2">
+
+                                <h3>{{titulo}}</h3>
+                                <label for="titulo" class="form-label">Título<sup>*</sup></label>
+                                <input type="text" class="form-control" name="titulo" id="titulo"
+                                   required >
+                            </div>
+                            <label for="floatingTextarea">Texto</label>
+                            <div style="width: 60%;" class="form-floating">
+                                <textarea name="floatingTextarea" class="form-control" id="floatingTextarea"></textarea>
+                            </div>
+                            <select  style="width: 20%;" name="select"  class="mt-2 form-select" aria-label="Default select example">
+                                <option value="1">Ativo</option>
+                                <option value="0">Inativo</option>
+                            </select>
+                            <div class="mt-2">
+                                <input type="submit" class="btn btn-primary" value="Cadastrar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {% include 'footer.html'%}
+    </div>
+</div>
+{%endblock%}

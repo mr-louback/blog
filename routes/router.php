@@ -16,6 +16,9 @@ try {
     // separação de namespaces
     SimpleRouter::group(['namespace' => 'Admin'], function () {
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
+        SimpleRouter::get(URL_ADMIN . 'posts/list', 'AdminPosts@list');
+        SimpleRouter::get(URL_ADMIN . 'categorias/list', 'AdminCategorias@list');
+        SimpleRouter::match(['get','post'],URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');
     });
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $e) {
