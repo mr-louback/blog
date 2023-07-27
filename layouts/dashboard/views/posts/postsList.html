@@ -1,16 +1,15 @@
 {% extends 'dashboard.html'%}
 {%block conteudo%}
 <div id="layoutSidenav">
-    {% include 'sideBar.html'%}
     <div id="layoutSidenav_content">
+        {% include 'sideBar.html'%}
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Posts</h1>
+                <a href="{{url('admin/posts/cadastrar')}}" class="btn btn-primary">Postagem</a>
+                <h1 class="mt-4">Postagens</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Lista de posts</li>
+                    <li class="breadcrumb-item active">Lista de postagens</li>
                 </ol>
-            </div>
-            <div class="container">
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
@@ -23,24 +22,38 @@
                                     <th>Título</th>
                                     <th>Texto</th>
                                     <th>Status</th>
+                                    <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {%for post in posts%}
                                 <tr>
                                     <td>{{post.titulo}}</td>
-                                    <td>{{resumeTexto(''~post.texto, 50)}}</td>
-                                    {%if post.status == 1%}
-                                    <td><div class="container"><i style="color: rgb(0, 179, 119); " class="fa-solid fa-check"></i></div></td>
+                                    <td>{{resumeTexto(''~post.texto, 10)}}</td>
+                                    {%if post.status == 1 %}
+                                    <td>
+                                        <i style="color: rgb(0, 179, 119); "
+                                                class="fa-solid fa-check"></i>
+                                    </td>
                                     {%else%}
-                                    <td><div class="container"><i style="color: rgb(179, 0, 0); " class="fa-solid fa-x"></i></div></td>
+                                    <td>
+                                        <i style="color: rgb(179, 0, 0); "
+                                                class="fa-solid fa-x"></i>
+                                    </td>
                                     {%endif%}
+
+                                    <td>
+                                        <a href="{{url('admin/posts/'~post.id)}}">
+                                            Editar
+                                        </a>
+                                    </td>
                                 </tr>
                                 {%endfor%}
                             </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
         </main>
         {% include 'footer.html'%}

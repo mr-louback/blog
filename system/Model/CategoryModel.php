@@ -11,7 +11,7 @@ use system\Nucleus\Helpers;
 class CategoryModel
 {
 
-    public function lerTudoCategory(): array
+    public function readAllCategory(): array
     {
 
         $query = "SELECT * FROM categorias order by id";
@@ -20,31 +20,31 @@ class CategoryModel
         // var_dump($result);
         return $result;
     }
-    public function insertLineCategory(string $titulo, string $texto, string $status)
+    public function insertLineCategory(array $dados): void
     {
-        $query = "INSERT INTO categorias( titulo, texto, status) VALUES ('$titulo',  '$texto', '$status')";
-        $stmt = NucleusConnection::getInstance()->query($query);
-        $result = $stmt->execute();
-        // var_dump($result);
-        return 'dados gravados com sucesso!!';
+        // $query = "INSERT INTO `posts`( `categoria_id`, `titulo`, `texto`, `status`) VALUES ($dados[categoria_id],'$dados[titulo]','$dados[textarea]',$dados[select_status])";
+        $query = "INSERT INTO categorias( titulo, texto,status) VALUES ('$dados[titulo]','$dados[textarea]',$dados[select_status])";
+        $stmt = NucleusConnection::getInstance()->prepare($query);
+        $stmt->execute();
     }
-    // public function updateLineCategory(string $titulo, string $conteudo, int $id): array
-    // {
-    //     $query = "UPDATE `categorias` SET `titulo` = '$titulo', `texto` = '$conteudo' WHERE `categorias`.`id` = $id";
-    //     $stmt = NucleusConnection::getInstance()->query($query);
-    //     $result = $stmt->fetchAll();
-    //     // var_dump($result);
-    //     return $result;
-    // }
-    // public function searchIdCategory(int $id): array
-    // {
 
-    //     $query = "SELECT * FROM posts WHERE categoria_id = {$id}";
-    //     $stmt = NucleusConnection::getInstance()->query($query);
-    //     $result = $stmt->fetchAll();
-    //     // echo var_dump($result);
-    //     return $result;
-    // }
+    public function searchIdCategory(int $id): array
+    {
+        $query = "SELECT * FROM categorias WHERE id = {$id}";
+        $stmt = NucleusConnection::getInstance()->query($query);
+        $result = $stmt->fetchAll();
+        // echo var_dump($result);
+        return $result;
+    }
+    public function updateLineCategory(array $dados): void
+    {
+        // UPDATE `categorias` SET `titulo` = 'abc', `texto` = 'cbcvbcvbcvb' WHERE `categorias`.`id` = 156;
+        $query = "UPDATE categorias SET id= $dados[id], titulo ='$dados[titulo]', texto = '$dados[textarea]',status= $dados[select_status]  WHERE  'categorias'.'id' $dados[id]";
+        $stmt = NucleusConnection::getInstance()->query($query);
+        $stmt->execute();
+        // var_dump($result);
+        // return $result;
+    }
     // public function lerStatusCategory(): array
     // {
     //     $query = "SELECT * FROM categorias where status = 0";

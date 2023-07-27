@@ -1,15 +1,15 @@
 {% extends 'dashboard.html'%}
 {%block conteudo%}
 <div id="layoutSidenav">
-    {% include 'sideBar.html'%}
     <div id="layoutSidenav_content">
+        {% include 'sideBar.html'%}
         <main>
             <div class="container-fluid px-4">
+                <a href="{{url('admin/categorias/cadastrar')}}" class="btn btn-primary">Cadastrar</a>
                 <h1 class="mt-4">Categorias</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Lista de categorias</li>
                 </ol>
-                <a href="{{url('admin/categorias/cadastrar')}}" class="btn btn-primary">Cadastrar</a>
             </div>
             <div class="container">
                 <div class="card mb-4">
@@ -24,6 +24,7 @@
                                     <th>Título</th>
                                     <th>Texto</th>
                                     <th>Status</th>
+                                    <th>Ação</th>                                  
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,10 +33,24 @@
                                     <td>{{categoria.titulo}}</td>
                                     <td>{{resumeTexto(''~categoria.texto, 50)}}</td>
                                     {%if categoria.status == 1%}
-                                    <td><div class="container"><i style="color: rgb(0, 179, 119); " class="fa-solid fa-check"></i></div></td>
-                                    {%else%}
-                                    <td><div class="container"><i style="color: rgb(179, 0, 0); " class="fa-solid fa-x"></i></div></td>
+                                    <td>
+                                        <div class="container">
+                                            <i style="color: rgb(0, 179, 119); " class="fa-solid fa-check">
+                                            </i>
+                                        </div>
+                                    </td>
                                     {%endif%}
+
+                                    {%if categoria.status == 0%}
+                                    <td>
+                                        <div class="container">
+                                            <i style="color: rgb(179, 0, 0); " class="fa-solid fa-x">
+                                            </i>
+                                        </div>
+                                    </td>
+                                    {%endif%}
+                                    <td><a href="{{url('admin/categorias/'~categoria.id)}}">Editar</a></td>
+
                                 </tr>
                                 {%endfor%}
                             </tbody>

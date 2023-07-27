@@ -16,9 +16,16 @@ try {
     // separação de namespaces
     SimpleRouter::group(['namespace' => 'Admin'], function () {
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
+        // admin posts
         SimpleRouter::get(URL_ADMIN . 'posts/list', 'AdminPosts@list');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/cadastrar', 'AdminPosts@cadastrar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/{id}', 'AdminPosts@editar');
+        // admin categorias
         SimpleRouter::get(URL_ADMIN . 'categorias/list', 'AdminCategorias@list');
-        SimpleRouter::match(['get','post'],URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categorias/{id}', 'AdminCategorias@editar');
+
+
     });
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $e) {

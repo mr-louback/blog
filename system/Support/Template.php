@@ -3,6 +3,7 @@
 namespace system\Support;
 
 use system\Nucleus\Helpers;
+use system\Nucleus\RenderClass;
 use Twig\Environment;
 use Twig\Lexer;
 use Twig\Loader\FilesystemLoader;
@@ -102,6 +103,11 @@ class Template
             $this->twig->addFunction(
                 new TwigFunction('resumeTexto',function (string $texto, int $number){
                     return Helpers::resumeTexto($texto, $number);
+                })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('render',function (){
+                    return (new RenderClass())->renderizar(Helpers::saudacao(), alert_success);
                 })
             )
             
