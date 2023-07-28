@@ -8,7 +8,7 @@
                 <h1 class="mt-4">Postagens</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">
-                        Formulário de postagem
+                        Formulário de postagens
                     </li>
                 </ol>
                 <div class="card mb-4">
@@ -16,27 +16,14 @@
                         <form action="{{url('admin/posts/cadastrar')}}" method="post">
                             <div style="width: 70%;" class="mb-2">
                                 <label for="titulo" class="form-label">Título<sup>*</sup></label>
-                                <input type="text" class="form-control" name="titulo" id="titulo" required>
+                                <input type="text" class="form-control" name="titulo" id="titulo">
                             </div>
                             <label for="textarea">Texto</label>
                             <div style="width: 70%;" class="form-floating">
                                 <textarea name="textarea" class="form-control" id="textarea"></textarea>
                             </div>
-
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="categoria_id">Categoria</label>
-
-                                        <select style="width: 50%;" name="categoria_id" class="mt-2 form-select"
-                                            aria-label="Default select example">
-
-                                            {%for categoria in categorias%}
-                                            <option value="{{categoria.id}}">{{categoria.titulo}}</option>
-                                            {%endfor%}
-                                        </select>
-                                    </div>
-                                </div>
+                            
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="select_status">Status</label>
@@ -47,9 +34,15 @@
                                         </select>
                                     </div>
                                 </div>
+                            
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+
+                                    </div>
+                                </div>
                             </div>
                             <div class="mt-2">
-                                <input type="submit" class="btn btn-primary" value="Postar">
+                                <input type="submit" class="btn btn-primary" value="Cadastrar">
                             </div>
                         </form>
                     </div>

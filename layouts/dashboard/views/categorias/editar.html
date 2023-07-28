@@ -1,48 +1,43 @@
 {% extends 'dashboard.html'%}
 {%block conteudo%}
-
 <div id="layoutSidenav">
     <div id="layoutSidenav_content">
         {% include 'sideBar.html'%}
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Editando postagens</h1>
+                <h1 class="mt-4">Categorias</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">
-                        Formulário de edição
+                        Formulário de categoria
                     </li>
                 </ol>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="{{url('admin/categorias/cadastrar')}}" method="post">
+                        <form action="{{url('admin/categorias/'~categoria.id)}}" method="post">
                             <div style="width: 70%;" class="mb-2">
                                 <label for="titulo" class="form-label">Título<sup>*</sup></label>
+
                                 {%for post in posts%}
-
-                                <input type="text" class="form-control" name="titulo" id="titulo"
-                                    value="{{post.titulo}}">
+                                <input value="{{post.titulo}}" type="text" class="form-control" name="titulo"
+                                    id="titulo">
                                 {%endfor%}
-
                             </div>
                             <label for="textarea">Texto</label>
                             <div style="width: 70%;" class="form-floating">
                                 {%for post in posts%}
-
                                 <textarea name="textarea" class="form-control" id="textarea">{{post.texto}}</textarea>
                                 {%endfor%}
-
                             </div>
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="categoria_id">Categoria</label>
-
                                         <select style="width: 50%;" name="categoria_id" class="mt-2 form-select"
                                             aria-label="Default select example">
-
-                                            {%for categoria in categorias%}
-                                            <option value="{{categoria.id}}">{{categoria.titulo}}</option>
+                                            {%for post in  posts %}
+                                            <option value="{% if categoria.id %} {%endif%}">
+                                                {{post.categoria_id}}
+                                            </option>
                                             {%endfor%}
                                         </select>
                                     </div>
@@ -52,16 +47,17 @@
                                         <label for="select_status">Status</label>
                                         <select style="width: 35%;" name="select_status" class="mt-2 form-select"
                                             aria-label="Default select example">
-                                            <option value="1" {% if categoria.status=='1' %}selected{%endif%}>Ativo
+                                            {%for post in posts%}
+                                            <option value="{%if post.status=='1' %} selected {%endif%}" >Ativo</option>
+                                            <option value="{%if post.status=='0' %} selected {%endif%}" >Inativo
                                             </option>
-                                            <option value="0" {% if categoria.status=='0' %}selected{%endif%}>inativo
-                                            </option>
+                                            {%endfor%}
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <input type="submit" class="btn btn-primary" value="Editar">
+                                <input type="submit" class="btn btn-primary" value="Atualizar">
                             </div>
                         </form>
                     </div>
@@ -71,6 +67,4 @@
         {% include 'footer.html'%}
     </div>
 </div>
-</div>
-{{success}}
 {%endblock%}

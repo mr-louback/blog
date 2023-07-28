@@ -13,7 +13,6 @@ class CategoryModel
 
     public function readAllCategory(): array
     {
-
         $query = "SELECT * FROM categorias order by id";
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();

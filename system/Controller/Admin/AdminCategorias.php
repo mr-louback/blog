@@ -28,15 +28,21 @@ class AdminCategorias extends AdminController
             (new CategoryModel())->insertLineCategory($dados);
             Helpers::redirect('admin/categorias/list');
         }
-        echo $this->template->rendering('categorias/cadastrar.html', []);
+        echo $this->template->rendering('categorias/cadastrar.html', [
+            'categorias' => (new CategoryModel())->readAllCategory(),
+            'posts' => (new PostModel())->readAllPosts(),
+        ]);
     }
     public function editar(int $id): void
     {
-        $post = (new CategoryModel())->searchIdCategory($id);
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (isset($dados)) {
+            (new CategoryModel())->updateLineCategory($dados);
+            Helpers::redirect('admin/categorias/list');
+        }
         echo $this->template->rendering('categorias/editar.html', [
-            'posts' => $post,
+            'posts' => (new CategoryModel())->searchIdCategory($id),
             'categorias' => (new CategoryModel())->readAllCategory(),
-
         ]);
     }
 }
