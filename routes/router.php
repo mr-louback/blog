@@ -20,6 +20,7 @@ try {
         SimpleRouter::get(URL_ADMIN . 'posts/list', 'AdminPosts@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/cadastrar', 'AdminPosts@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/{id}', 'AdminPosts@editar');
+        
         // admin categorias
         SimpleRouter::get(URL_ADMIN . 'categorias/list', 'AdminCategorias@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');

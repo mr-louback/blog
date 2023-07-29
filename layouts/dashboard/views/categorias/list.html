@@ -12,11 +12,11 @@
                 </ol>
             </div>
             <div class="container">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Tabela de dados - Categorias
-                    </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Tabela de dados - Categorias
+                </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
@@ -28,27 +28,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {%for categoria in CategoryModel%}
+                                {%for categoria in categorias%}
                                 <tr>
                                     <td>{{categoria.titulo}}</td>
                                     <td>{{resumeTexto(''~categoria.texto, 50)}}</td>
-                                    {%if categoria.status == 1%}
                                     <td>
+                                        {%if categoria.status == 1 %}
                                         <div class="container">
                                             <i style="color: rgb(0, 179, 119); " class="fa-solid fa-check">
                                             </i>
                                         </div>
-                                    </td>
-                                    {%endif%}
-
-                                    {%if categoria.status == 0%}
-                                    <td>
+                                        {%else%}
                                         <div class="container">
                                             <i style="color: rgb(179, 0, 0); " class="fa-solid fa-x">
                                             </i>
                                         </div>
+                                        {%endif%}
                                     </td>
-                                    {%endif%}
+
                                     <td>
                                         <a href="{{url('admin/categorias/'~categoria.id)}}">
                                             Editar

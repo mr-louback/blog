@@ -20,7 +20,6 @@ class AdminPosts extends AdminController
     }
     public function cadastrar(): void
     {
-
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             (new PostModel())->insertLinePosts($dados);
@@ -28,7 +27,6 @@ class AdminPosts extends AdminController
         }
         echo $this->template->rendering('posts/cadastrar.html', [
             'posts' => (new PostModel())->readAllPosts(),
-
         ]);       
        
     }
@@ -36,9 +34,10 @@ class AdminPosts extends AdminController
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
+            (new PostModel())->updateLinePost($dados);            
             Helpers::redirect('admin/posts/list');
         }
-        echo $this->template->rendering('posts/cadastrar.html', [
+        echo $this->template->rendering('posts/editar.html', [
             'posts' => (new PostModel())->searchIdPost($id),
         ]);
     }

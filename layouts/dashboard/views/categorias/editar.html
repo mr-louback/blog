@@ -5,54 +5,51 @@
         {% include 'sideBar.html'%}
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Categorias</h1>
+                <h1 class="mt-4">Categorias editar</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">
-                        Formulário de categoria
+                        Formulário de categoria editar
                     </li>
                 </ol>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="{{url('admin/categorias/'~categoria.id)}}" method="post">
+                        <form method="post">
                             <div style="width: 70%;" class="mb-2">
                                 <label for="titulo" class="form-label">Título<sup>*</sup></label>
-
-                                {%for post in posts%}
-                                <input value="{{post.titulo}}" type="text" class="form-control" name="titulo"
+                                {% for categoria in categorias %}
+                                <input type="text" value="{{categoria.titulo}}" class="form-control" name="titulo"
                                     id="titulo">
                                 {%endfor%}
+
                             </div>
                             <label for="textarea">Texto</label>
                             <div style="width: 70%;" class="form-floating">
-                                {%for post in posts%}
-                                <textarea name="textarea" class="form-control" id="textarea">{{post.texto}}</textarea>
+                                {% for categoria in categorias %}
+                                <textarea name="textarea" class="form-control"
+                                    id="textarea">{{categoria.texto}}</textarea>
                                 {%endfor%}
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="categoria_id">Categoria</label>
-                                        <select style="width: 50%;" name="categoria_id" class="mt-2 form-select"
-                                            aria-label="Default select example">
-                                            {%for post in  posts %}
-                                            <option value="{% if categoria.id %} {%endif%}">
-                                                {{post.categoria_id}}
-                                            </option>
+                                        <label for="id">Categoria identificador</label>
+                                            {%for categoria in categorias%}
+                                            <input style="width: 50%;" type="number" value="{{categoria.id}}" class="form-control" name="id"
+                                            id="id">
+                                            
                                             {%endfor%}
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="select_status">Status</label>
-                                        <select style="width: 35%;" name="select_status" class="mt-2 form-select"
-                                            aria-label="Default select example">
-                                            {%for post in posts%}
-                                            <option value="{%if post.status=='1' %} selected {%endif%}" >Ativo</option>
-                                            <option value="{%if post.status=='0' %} selected {%endif%}" >Inativo
-                                            </option>
+                                        
+                                            {%for categoria in categorias%}
+                                            <input  style="width: 35%;" type="number" value="{{categoria.status}}" class="form-control" name="select_status"
+                                            id="select_status">
+                                            
                                             {%endfor%}
-                                        </select>
+
                                     </div>
                                 </div>
                             </div>

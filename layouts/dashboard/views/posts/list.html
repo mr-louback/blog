@@ -30,18 +30,19 @@
                                 <tr>
                                     <td>{{post.titulo}}</td>
                                     <td>{{resumeTexto(''~post.texto, 10)}}</td>
-                                    {%if post.status == 1 %}
                                     <td>
-                                        <i style="color: rgb(0, 179, 119); "
-                                                class="fa-solid fa-check"></i>
+                                        {%if post.status == 1 %}
+                                        <div class="container">
+                                            <i style="color: rgb(0, 179, 119); " class="fa-solid fa-check">
+                                            </i>
+                                        </div>
+                                        {%else%}
+                                        <div class="container">
+                                            <i style="color: rgb(179, 0, 0); " class="fa-solid fa-x">
+                                            </i>
+                                        </div>
+                                        {%endif%}
                                     </td>
-                                    {%else%}
-                                    <td>
-                                        <i style="color: rgb(179, 0, 0); "
-                                                class="fa-solid fa-x"></i>
-                                    </td>
-                                    {%endif%}
-
                                     <td>
                                         <a href="{{url('admin/posts/'~post.id)}}">
                                             Editar

@@ -13,8 +13,12 @@
                 </ol>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="{{url('admin/posts/'~post.id)}}" method="post">
+                        <form method="post">
                             <div style="width: 70%;" class="mb-2">
+                                {%for post in posts%}
+                                <input value="{{post.id}}" type="text" class="form-control" name="id"
+                                    id="id">
+                                {%endfor%}
                                 <label for="titulo" class="form-label">Título<sup>*</sup></label>
                                 {%for post in posts%}
                                 <input value="{{post.titulo}}" type="text" class="form-control" name="titulo"
@@ -30,35 +34,30 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="categoria_id">Categoria</label>
-                                        <select style="width: 50%;" name="categoria_id" class="mt-2 form-select"
-                                            aria-label="Default select example">
-                                            {%for categoria in categorias%}
-                                            <option value="{{categoria.id}}">{{categoria.titulo}}</option>
+                                        <label for="categoria_id">Categoria identificador</label>
+                                            {%for post in posts%}
+                                            <input style="width: 50%;" type="number" value="{{post.categoria_id}}" class="form-control" name="categoria_id"
+                                            id="categoria_id">
+                                            
                                             {%endfor%}
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="select_status">Status</label>
-                                        <select style="width: 35%;" name="select_status" class="mt-2 form-select"
-                                            aria-label="Default select example">
-                                            {%for post in posts%}
-
-                                            <option value="1" {%if post.status=='1' %} selected {%endif%}>Ativo</option>
-                                            <option value="0" {%if post.status=='0' %} selected {%endif%}>Inativo
-                                            </option>
+                                        
+                                            {%for categoria in posts%}
+                                            <input  style="width: 35%;" type="number" value="{{categoria.status}}" class="form-control" name="select_status"
+                                            id="select_status">
+                                            
                                             {%endfor%}
 
-                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-2">
-                                {%for post in posts%}
-                                <input type="submit" class="btn btn-primary" value="{%if post.id %} Atualizar {%else%} Cadastrar {%endif%}">
-                                {%endfor%}
+                                <input type="submit" class="btn btn-primary"
+                                    value="Atualizar">
 
                             </div>
                         </form>
