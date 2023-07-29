@@ -5,6 +5,7 @@ namespace system\Controller\Admin;
 use system\Model\PostModel;
 use system\Nucleus\Helpers;
 use system\Model\CategoryModel;
+use system\Nucleus\RenderClass;
 
 class AdminPosts extends AdminController
 {
@@ -23,22 +24,30 @@ class AdminPosts extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             (new PostModel())->insertLinePosts($dados);
+            
             Helpers::redirect('admin/posts/list');
         }
         echo $this->template->rendering('posts/cadastrar.html', [
-            'posts' => (new PostModel())->readAllPosts(),
-        ]);       
-       
+           
+
+        ]);
     }
     public function editar(int $id): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
-            (new PostModel())->updateLinePost($dados);            
+            (new PostModel())->updateLinePosts($dados);
             Helpers::redirect('admin/posts/list');
         }
         echo $this->template->rendering('posts/editar.html', [
             'posts' => (new PostModel())->searchIdPost($id),
+            'categorias' => (new CategoryModel())->searchIdCategory($id),
+            'alerts' => alert_warning,
         ]);
+    }
+    public function  deletar(int $id): void
+    {        
+        (new PostModel())->deleteLinePosts($id);
+        Helpers::redirect('admin/posts/list');
     }
 }

@@ -44,4 +44,9 @@ class AdminCategorias extends AdminController
             'categorias' => (new CategoryModel())->searchIdCategory($id),
         ]);
     }
+    public function  deletar(int $id): void
+    {        
+        (new CategoryModel())->deleteLinePosts($id);
+        Helpers::redirect('admin/categorias/list');
+    }
 }

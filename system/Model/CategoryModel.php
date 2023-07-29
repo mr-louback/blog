@@ -30,17 +30,17 @@ class CategoryModel
     }
     public function updateLineCategory(array $dados): void
     {
-        $query = "UPDATE categorias SET id = $dados[id],titulo ='$dados[titulo]', texto =  '$dados[textarea]', status = $dados[select_status] WHERE id = $dados[id]";
+        $query = "UPDATE categorias SET id = $dados[id], titulo ='$dados[titulo]', texto =  '$dados[textarea]', status = $dados[select_status] WHERE id = $dados[id]";
+        $stmt = NucleusConnection::getInstance()->query($query);
+        $stmt->execute();
+    }
+    public function deleteLinePosts(int $id): void
+    {
+        // "DELETE FROM `categorias` WHERE `categorias`.`id` = 9"?
+
+        $query = "DELETE FROM categorias WHERE id = $id";
         $stmt = NucleusConnection::getInstance()->query($query);
         $stmt->execute();
     }
 
-    // public function lerStatusCategory(): array
-    // {
-    //     $query = "SELECT * FROM categorias where status = 0";
-    //     $stmt = NucleusConnection::getInstance()->query($query);
-    //     $result = $stmt->fetchAll();
-    //     // var_dump($result);
-    //     return $result;
-    // }
 }

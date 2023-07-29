@@ -9,7 +9,7 @@ class PostModel
 {
     public function readAllPosts(): array
     {
-        $query = "SELECT * FROM posts ";
+        $query = "SELECT * FROM posts order by id ";
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         // var_dump($result);
@@ -17,7 +17,7 @@ class PostModel
     }
     public function insertLinePosts(array $dados): void
     {
-        $query = "INSERT INTO `posts`( `categoria_id`, `titulo`, `texto`, `status`) VALUES ($dados[categoria_id],'$dados[titulo]','$dados[textarea]',$dados[select_status])";
+        $query = "INSERT INTO posts( titulo, texto, status) VALUES ( '$dados[titulo]','$dados[textarea]',$dados[select_status])";
         $stmt = NucleusConnection::getInstance()->prepare($query);
         $stmt->execute();
     }
@@ -29,9 +29,20 @@ class PostModel
         // echo var_dump($result);
         return $result;
     }
-    public function updateLinePost(array $dados): void
+    public function updateLinePosts(array $dados): void
     {
-        $query = "UPDATE posts SET  id = $dados[id], categoria_id = $dados[categoria_id], titulo = '$dados[titulo]', texto = '$dados[textarea]', status = $dados[select_status] WHERE id = $dados[id] ";
+
+        $query = "UPDATE posts SET id = $dados[id] , categoria_id = $dados[categoria_id], titulo = '$dados[titulo]', texto = '$dados[textarea]', status = $dados[select_status] WHERE id = $dados[id] ";
+        $stmt = NucleusConnection::getInstance()->query($query);
+        $stmt->execute();
+    }
+
+    public function deleteLinePosts(int $id): void
+    {
+        // "DELETE FROM `posts` WHERE `posts`.`id` = 6"
+        // "DELETE FROM `categorias` WHERE `categorias`.`id` = 9"?
+
+        $query = "DELETE FROM posts WHERE id = $id";
         $stmt = NucleusConnection::getInstance()->query($query);
         $stmt->execute();
     }
