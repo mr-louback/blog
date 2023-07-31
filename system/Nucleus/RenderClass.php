@@ -24,7 +24,7 @@ class RenderClass
      * @param string $css
      * @return string
      */
-    function css(string $css): string
+    private function css(string $css): string
     {
         return $this->css = $css;
     }
@@ -32,7 +32,7 @@ class RenderClass
      * @param string $texto
      * @return string
      */
-    function texto(string $texto): string
+    private function texto(string $texto): string
     {
         return $this->texto = $texto;
     }

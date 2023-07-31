@@ -9,10 +9,8 @@ use Pecee\Http\Request;
 
 class Helpers
 {
-
     public static function redirect(string $url = null)
     {
-
         header('HTTP/1.1 302 Found');
         $local = ($url ? self::url($url) : self::url(''));
         header("Location: {$local}");
@@ -32,8 +30,6 @@ class Helpers
         }
         return false;
     }
-
-
 
     /**
      * Valida url

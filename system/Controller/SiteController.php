@@ -21,14 +21,14 @@ class SiteController extends Controller
         echo $this->template->rendering('index.html', [
             'cssNavHeader' => alert_warning,
             'cssNavHeaderButton' => 'btn btn-outline-warning',           
-            'posts' => (new PostModel())->lerTudo(),
-            'categorias' => (new CategoryModel())->lerTudoCategory(),
+            'posts' => (new PostModel())->readAllPosts(),
+            'categorias' => (new CategoryModel())->readAllCategory(),
 
         ]);;
     }
     public function post(int $id): void
     {
-        $post = (new PostModel())->searchId($id);
+        $post = (new PostModel())->searchIdPost($id);
         if (!$post) {
             Helpers::redirect('erro');
         }
@@ -55,7 +55,7 @@ class SiteController extends Controller
     }
     public function categorias()
     {
-        return (new CategoryModel())->lerTudoCategory();
+        return (new CategoryModel())->readAllCategory();
     }
     public function formLog(): void
     {
@@ -79,7 +79,7 @@ class SiteController extends Controller
     {
         $busca = filter_input(INPUT_POST , 'busca', FILTER_DEFAULT);
         if (isset($busca)) {
-            $posts = (new PostModel())->busca($busca);
+            $posts = (new PostModel())->readAllPosts();
             echo $this->template->rendering('formCadSent.html', [
                 'cssNavHeader' => alert_warning,
                 'cssNavHeaderButton' => 'btn btn-outline-warning',

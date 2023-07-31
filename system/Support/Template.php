@@ -2,6 +2,7 @@
 
 namespace system\Support;
 
+use system\Model\PostModel;
 use system\Nucleus\Helpers;
 use system\Nucleus\RenderClass;
 use Twig\Environment;
@@ -29,6 +30,7 @@ class Template
                     return Helpers::url($texto);
                 })
             ),
+           
             $this->twig->addFunction(
                 new TwigFunction('urlIndex', function () {
                     return Helpers::url('');
