@@ -5,10 +5,21 @@ namespace system\Nucleus;
 use Connection;
 use Exception;
 use mysqli;
+use system\Nucleus\Session;
 use Pecee\Http\Request;
 
 class Helpers
 {
+
+    public static function flash(): ?string
+    {
+        $session = new Session();
+        if ($flash = $session->flash()){
+            echo $flash;
+        }
+        return null;
+    }
+
     public static function redirect(string $url = null)
     {
         header('HTTP/1.1 302 Found');

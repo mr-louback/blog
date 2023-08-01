@@ -22,7 +22,8 @@ class AdminPosts extends AdminController
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
-            (new PostModel())->insertLinePosts($dados);            
+            (new PostModel())->insertLinePosts($dados);
+           $this->message->messageSuccess('Post cadastrado com sucesso!')->flash();
             Helpers::redirect('admin/posts/list');
         }
         echo $this->template->rendering('posts/cadastrar.html', []);
@@ -32,6 +33,8 @@ class AdminPosts extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             (new PostModel())->updateLinePosts($dados);
+           $this->message->messageInfo('Post editado com sucesso!')->flash();
+
             Helpers::redirect('admin/posts/list');
         }
         echo $this->template->rendering('posts/editar.html', [
@@ -41,8 +44,10 @@ class AdminPosts extends AdminController
         ]);
     }
     public function  deletar(int $id): void
-    {        
+    {
         (new PostModel())->deleteLinePosts($id);
+        $this->message->messageWarning('Post deletado com sucesso!')->flash();
+
         Helpers::redirect('admin/posts/list');
     }
 }

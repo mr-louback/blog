@@ -17,13 +17,12 @@ class SiteController extends Controller
 
     public function index(): void
     {
-
         echo $this->template->rendering('index.html', [
             'cssNavHeader' => alert_warning,
             'cssNavHeaderButton' => 'btn btn-outline-warning',           
             'posts' => (new PostModel())->readAllPosts(),
             'categorias' => (new CategoryModel())->readAllCategory(),
-
+            
         ]);;
     }
     public function post(int $id): void

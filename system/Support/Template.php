@@ -108,10 +108,10 @@ class Template
                 })
             ),
             $this->twig->addFunction(
-                new TwigFunction('render',function (){
-                    return (new RenderClass())->renderizar(Helpers::saudacao(), alert_success);
+                new TwigFunction('flash',function (){
+                    return Helpers::flash();
                 })
-            )
+            ),
             
             
         );

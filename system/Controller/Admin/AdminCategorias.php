@@ -26,18 +26,17 @@ class AdminCategorias extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             (new CategoryModel())->insertLineCategory($dados);
+            $this->message->messageSuccess('Categoria cadastrada com sucesso!')->flash();
             Helpers::redirect('admin/categorias/list');
         }
-        echo $this->template->rendering('categorias/cadastrar.html', [
-            
-        ]);
+        echo $this->template->rendering('categorias/cadastrar.html', []);
     }
     public function editar(int $id): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             (new CategoryModel())->updateLineCategory($dados);
-            // var_dump($dados);
+            $this->message->messageInfo('Categoria editada com sucesso!')->flash();
             Helpers::redirect('admin/categorias/list');
         }
         echo $this->template->rendering('categorias/editar.html', [
@@ -45,8 +44,9 @@ class AdminCategorias extends AdminController
         ]);
     }
     public function  deletar(int $id): void
-    {        
+    {
         (new CategoryModel())->deleteLinePosts($id);
+        $this->message->messageWarning('Categoria deletada com sucesso!')->flash();
         Helpers::redirect('admin/categorias/list');
     }
 }
