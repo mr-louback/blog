@@ -11,7 +11,6 @@ class PostModel extends Model
     public function __construct()
     {
         parent::__construct('posts');
-
     }
     // public function readAllPosts(): array
     // {
@@ -22,7 +21,7 @@ class PostModel extends Model
     // }
     public function insertLinePosts(array $dados): void
     {
-        $query = "INSERT INTO " . self::TBL_POSTS . "( titulo, texto, status) VALUES ( '$dados[titulo]','$dados[textarea]',$dados[select_status])";
+        $query = "INSERT INTO " . self::TBL_POSTS . "( titulo, texto, status) VALUES ( '$dados[titulo]','$dados[texto]',$dados[status])";
         $stmt = NucleusConnection::getInstance()->prepare($query);
         $stmt->execute();
     }

@@ -13,6 +13,8 @@ class Model
     protected $table;
     protected $order;
     protected $limit;
+    protected $columns;
+    protected $values;
     protected $offset;
     public function __construct(string $table)
     {
@@ -57,6 +59,27 @@ class Model
             return $stmt->fetchObject();
         } catch (\PDOException $ex) {
             $this->error = $ex;
+        }
+    }
+    protected function insertLineModel(array $dados)
+    {
+        try {
+
+            $this->columns = implode(',', array_keys($dados));
+            $query = "INSERT INTO categorias({$this->columns}) VALUES ('$dados[titulo]','$dados[texto]',$dados[status])";
+            $stmt = Connection::getInstance()->prepare($query);
+            $stmt->execute();
+            return Connection::getInstance()->lastInsertId();
+        } catch (\PDOException $th) {
+            echo $this->error = $th;
+            return null;
+        }
+    }
+    private function filter(array $dados)
+    {
+        $filter = [];
+        foreach ($dados as $key => $value) {
+            $filter[$key] = is_null($value) ? null : filter_var($value, FILTER_DEFAULT);
         }
     }
 }
