@@ -2,19 +2,15 @@
 
 namespace system\Controller\Admin;
 
-use system\Model\PostModel;
 use system\Nucleus\Helpers;
-use system\Nucleus\Controller;
 use system\Model\CategoryModel;
-use system\Nucleus\RenderClass;
-use system\Support\Template;
+use system\Model\PostModel;
 
 class AdminCategorias extends AdminController
 {
 
     public function list(): void
     {
-
         echo $this->template->rendering('categorias/list.html', [
             'cssNavHeader' => alert_warning,
             'cssNavHeaderButton' => 'btn btn-outline-warning',
@@ -29,7 +25,11 @@ class AdminCategorias extends AdminController
             $this->message->messageSuccess('Categoria cadastrada com sucesso!')->flash();
             Helpers::redirect('admin/categorias/list');
         }
-        echo $this->template->rendering('categorias/cadastrar.html', []);
+        echo $this->template->rendering('categorias/cadastrar.html', [
+            'categorias' => (new CategoryModel())->readAllCategory(),
+            'posts' => (new PostModel())->search(),
+
+        ]);
     }
     public function editar(int $id): void
     {
@@ -43,9 +43,9 @@ class AdminCategorias extends AdminController
             'categorias' => (new CategoryModel())->searchIdCategory($id),
         ]);
     }
-    public function  deletar(int $id): void
+    public function deletar(int $id): void
     {
-        (new CategoryModel())->deleteLinePosts($id);
+        (new CategoryModel())->deleteLineCategory($id);
         $this->message->messageWarning('Categoria deletada com sucesso!')->flash();
         Helpers::redirect('admin/categorias/list');
     }

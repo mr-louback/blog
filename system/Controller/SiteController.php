@@ -6,7 +6,6 @@ use system\Model\PostModel;
 use system\Nucleus\Helpers;
 use system\Nucleus\Controller;
 use system\Model\CategoryModel;
-use system\Nucleus\RenderClass;
 
 class SiteController extends Controller
 {
@@ -20,7 +19,7 @@ class SiteController extends Controller
         echo $this->template->rendering('index.html', [
             'cssNavHeader' => alert_warning,
             'cssNavHeaderButton' => 'btn btn-outline-warning',           
-            'posts' => (new PostModel())->readAllPosts(),
+            'posts' => (new PostModel())->search()->result(true),
             'categorias' => (new CategoryModel())->readAllCategory(),
             
         ]);;
@@ -78,11 +77,11 @@ class SiteController extends Controller
     {
         $busca = filter_input(INPUT_POST , 'busca', FILTER_DEFAULT);
         if (isset($busca)) {
-            $posts = (new PostModel())->readAllPosts();
+            // $posts = (new PostModel())->readAllPosts();
             echo $this->template->rendering('formCadSent.html', [
                 'cssNavHeader' => alert_warning,
                 'cssNavHeaderButton' => 'btn btn-outline-warning',
-                'posts' => $posts,
+                // 'posts' => $posts,
                 'categorias' => $this->categorias(),
                 'messageNotFound' => 'Dados não encontrados, tente outra palavra.',
             ]);;

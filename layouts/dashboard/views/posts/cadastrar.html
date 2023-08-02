@@ -40,12 +40,11 @@
                                         <div class="mb-3">
                                             <label for="id">Categoria</label>
                                             <select style="width: 35%;" name="id" class="mt-2 form-select"
-                                                aria-label="Default select example">
-                                                <option value="1">PHP</option>
-                                                <option value="2">Segurança</option>
-                                                <option value="3">Teste</option>
-                                                <option value="4">My sql</option>
-                                                <option value="5">JQuery</option>
+                                                aria-label="Default select example">                                                
+                                                {% for categoria in categorias %}
+                                                <option value="{{categoria.id}}">{{categoria.titulo}}</option>
+                                                {%endfor%}
+                                               
                                             </select>
                                         </div>
                                     </div>

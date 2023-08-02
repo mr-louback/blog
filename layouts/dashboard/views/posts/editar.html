@@ -50,8 +50,8 @@
                                     <div class="mb-3">
                                         <label for="select_status">Status</label>
 
-                                        {%for categoria in posts%}
-                                        <input style="width: 35%;" type="number" value="{{categoria.status}}"
+                                        {%for post in posts%}
+                                        <input style="width: 35%;" type="number" value="{{post.status}}"
                                             class="form-control" name="select_status" id="select_status">
 
                                         {%endfor%}

@@ -3,10 +3,14 @@
 namespace system\Model;
 
 use system\Nucleus\Connection as NucleusConnection;
-
-class CategoryModel
+use system\Nucleus\Model;
+class CategoryModel 
 {
+    // public function __construct()
+    // {
+    //     parent::__construct('categorias');
 
+    // }
     public function readAllCategory(): array
     {
         $query = "SELECT * FROM categorias";
@@ -34,11 +38,11 @@ class CategoryModel
         $stmt = NucleusConnection::getInstance()->query($query);
         $stmt->execute();
     }
-    public function deleteLinePosts(int $id): void
+    public function deleteLineCategory(int $id): void
     {
         // "DELETE FROM `categorias` WHERE `categorias`.`id` = 9"?
 
-        $query = "DELETE FROM categorias WHERE id = $id";
+        $query = "DELETE FROM categorias WHERE `categorias`.`id` = {$id}";
         $stmt = NucleusConnection::getInstance()->query($query);
         $stmt->execute();
     }
