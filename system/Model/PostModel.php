@@ -12,13 +12,13 @@ class PostModel extends Model
     {
         parent::__construct('posts');
     }
-    // public function readAllPosts(): array
-    // {
-    //     $query = "SELECT * FROM " . self::TBL_POSTS . " order by id ";
-    //     $stmt = NucleusConnection::getInstance()->query($query);
-    //     $result = $stmt->fetchAll();
-    //     return $result;
-    // }
+    public function readAllPosts(): array
+    {
+        $query = "SELECT * FROM categorias";
+        $stmt = NucleusConnection::getInstance()->query($query);
+        $result = $stmt->fetchAll();
+        return $result;
+    }
     public function insertLinePosts(array $dados): void
     {
         $query = "INSERT INTO " . self::TBL_POSTS . "( titulo, texto, status) VALUES ( '$dados[titulo]','$dados[texto]',$dados[status])";
@@ -27,17 +27,14 @@ class PostModel extends Model
     }
     public function searchIdPost(int $id): array
     {
-        // $where = ("WHERE id = {$id}" ?: '');
         $where = ("WHERE id = {$id}" ?: '');
-
-        $query = "SELECT * FROM " . self::TBL_POSTS . " {$where}";
+        $query = "SELECT id FROM " . self::TBL_POSTS . " {$where}";
         $stmt = NucleusConnection::getInstance()->query($query);
-        $result = $stmt->fetchAll();
+        $result = $stmt->fetch();
         return $result;
     }
     public function updateLinePosts(array $dados): void
     {
-
         $query = "UPDATE " . self::TBL_POSTS . " SET id = $dados[id] , categoria_id = $dados[categoria_id], titulo = '$dados[titulo]', texto = '$dados[textarea]', status = $dados[select_status] WHERE id = $dados[id] ";
         $stmt = NucleusConnection::getInstance()->query($query);
         $stmt->execute();

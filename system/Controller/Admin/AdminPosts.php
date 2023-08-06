@@ -9,7 +9,6 @@ use system\Nucleus\RenderClass;
 
 class AdminPosts extends AdminController
 {
-
     public function list(): void
     {
         $posts = (new PostModel());
@@ -19,7 +18,7 @@ class AdminPosts extends AdminController
             'posts' => $posts->search()->order('status asc, id asc')->result(true),
         ]);
     }
-    public function cadastrar(): void
+    public function cadastrar(int $id): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
@@ -29,6 +28,7 @@ class AdminPosts extends AdminController
         }
         echo $this->template->rendering('posts/cadastrar.html', [
             'categorias' => (new CategoryModel())->readAllCategory(),
+            'postsId' => (new PostModel())->readAllPosts(),
         ]);
     }
     public function editar(int $id): void
@@ -48,7 +48,6 @@ class AdminPosts extends AdminController
     {
         (new PostModel())->deleteLinePosts($id);
         $this->message->messageWarning('Post deletado com sucesso!')->flash();
-
         Helpers::redirect('admin/posts/list');
     }
 }

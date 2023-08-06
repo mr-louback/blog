@@ -21,9 +21,6 @@ class CategoryModel
     }
     public function insertLineCategory(array $dados): void
     {
-        // $columns = implode(',', array_keys($dados));
-        // $values =  implode(',', array_keys($dados));
-        // var_dump($values);
         $query = "INSERT INTO categorias( titulo, texto,status) VALUES ('$dados[titulo]','$dados[texto]',$dados[status])";
         $stmt = NucleusConnection::getInstance()->prepare($query);
         $stmt->execute();

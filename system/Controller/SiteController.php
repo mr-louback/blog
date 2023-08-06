@@ -3,7 +3,6 @@
 namespace system\Controller;
 
 use system\Model\PostModel;
-use system\Nucleus\Helpers;
 use system\Nucleus\Controller;
 use system\Model\CategoryModel;
 
@@ -17,7 +16,6 @@ class SiteController extends Controller
     public function index(): void
     {
         echo $this->template->rendering('index.html', [
-                    
             'posts' => (new PostModel())->search()->result(true),
             
         ]);;

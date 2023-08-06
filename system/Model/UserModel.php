@@ -25,6 +25,13 @@ class UserModel
         // var_dump($result);
 
         return $result;
-
+    }
+    public function insertLastLog(int $userId): void
+    {
+        $ultimo_login = date('Y-m-d H:i:s');
+        // var_dump($ultimo_login);
+        $query = "UPDATE usuarios SET ultimo_login = '{$ultimo_login}' WHERE id = {$userId}";
+        $stmt = Connection::getInstance()->prepare($query);
+        $stmt->execute();
     }
 }

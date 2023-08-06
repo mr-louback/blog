@@ -4,6 +4,7 @@ namespace system\Controller\Admin;
 
 use system\Controller\UserController;
 use system\Model\UserModel;
+use system\Nucleus\Helpers;
 use system\Nucleus\Session;
 
 class AdminDashboard extends AdminController
@@ -13,7 +14,14 @@ class AdminDashboard extends AdminController
     {
         $this->user = UserController::sessionIdUser();
         echo $this->template->rendering('dashboard.html', [
-            $this->message->messageSuccess("{$this->user->nome}, você esta no dashboard!")->flash(),
+            'nome' => $this->user->nome,
+            $this->message->messageSuccess("Olá {$this->user->nome}, você está no dashboard!")->flash(),
         ]);
+    }
+    public function logout():void
+    {
+        $session = (new Session());
+        $session->sessionClear('userId');
+        Helpers::redirect('admin/login');
     }
 }

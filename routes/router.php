@@ -19,6 +19,7 @@ try {
         SimpleRouter::match(['get', 'post'], URL_ADMIN. 'login', 'AdminLogin@login');
         // admin dashboard
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
+        SimpleRouter::get(URL_ADMIN . 'logout', 'AdminDashboard@logout');
         // admin posts
         SimpleRouter::get(URL_ADMIN . 'posts/list', 'AdminPosts@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/cadastrar', 'AdminPosts@cadastrar');

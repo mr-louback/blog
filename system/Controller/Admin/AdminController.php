@@ -16,7 +16,7 @@ class AdminController extends Controller
 
         $this->user = UserController::sessionIdUser();
         if (!$this->user or $this->user->level !== 3) {
-            $this->message->messageDanger("Acesso negado!")->flash();
+            $this->message->messageWarning("Usuário não Logado!")->flash();
             (new Session())->sessionClear('userId');
             Helpers::redirect("admin/login");
         }
