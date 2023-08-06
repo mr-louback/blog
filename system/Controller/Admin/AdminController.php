@@ -15,11 +15,10 @@ class AdminController extends Controller
         parent::__construct('layouts/dashboard/views');
 
         $this->user = UserController::sessionIdUser();
-        if(!$this->user or $this->user->level !== 3){
+        if (!$this->user or $this->user->level !== 3) {
             $this->message->messageDanger("Acesso negado!")->flash();
             (new Session())->sessionClear('userId');
             Helpers::redirect("admin/login");
         }
     }
-   
 }

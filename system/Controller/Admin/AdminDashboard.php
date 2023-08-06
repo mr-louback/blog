@@ -13,7 +13,7 @@ class AdminDashboard extends AdminController
     {
         $this->user = UserController::sessionIdUser();
         echo $this->template->rendering('dashboard.html', [
-            $this->message->messageSuccess("{$this->user->nome} Sucesso")->flash(),
+            $this->message->messageSuccess("{$this->user->nome}, você esta no dashboard!")->flash(),
         ]);
     }
 }

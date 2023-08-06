@@ -23,14 +23,12 @@ class AdminLogin extends Controller
                 $user = (new UserModel())->getUser($dados);
                 if(!$user){
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
-
                 }elseif ($user->email !== $dados['email']) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } elseif ($user->senha !== $dados['senha']) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } else {
                     (new Session())->sessionCreate('userId', $user->id);
-                    $this->message->messagePrimary("Ola {$user->nome}, você está no dash board!")->flash();
                     Helpers::redirect('/admin/dashboard');
                 }
             }
