@@ -5,6 +5,7 @@ namespace system\Controller\Admin;
 use system\Model\UserModel;
 use system\Nucleus\Controller;
 use system\Nucleus\Helpers;
+use system\Nucleus\Session;
 
 class AdminLogin extends Controller
 {
@@ -19,11 +20,17 @@ class AdminLogin extends Controller
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
-                $user = new UserModel();
-                if (!$user->getUserByEmail($dados) or !$user->getUserByPassword($dados)) {
+                $user = (new UserModel())->getUser($dados);
+                if(!$user){
+                    $this->message->messageWarning('Falha ao efetuar login!')->flash();
+
+                }elseif ($user->email !== $dados['email']) {
+                    $this->message->messageWarning('Falha ao efetuar login!')->flash();
+                } elseif ($user->senha !== $dados['senha']) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } else {
-                    
+                    (new Session())->sessionCreate('userId', $user->id);
+                    $this->message->messagePrimary("Ola {$user->nome}, você está no dash board!")->flash();
                     Helpers::redirect('/admin/dashboard');
                 }
             }

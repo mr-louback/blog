@@ -2,15 +2,18 @@
 
 namespace system\Controller\Admin;
 
+use system\Controller\UserController;
+use system\Model\UserModel;
+use system\Nucleus\Session;
 
 class AdminDashboard extends AdminController
 {
+    protected $user;
     public function dashboard(): void
     {
+        $this->user = UserController::sessionIdUser();
         echo $this->template->rendering('dashboard.html', [
-            'cssNavHeader' => alert_warning,
-            'cssNavHeaderButton' => 'btn btn-outline-warning',
-            $this->message->messageSuccess("Sucesso")->flash(),
+            $this->message->messageSuccess("{$this->user->nome} Sucesso")->flash(),
         ]);
     }
 }
