@@ -17,31 +17,29 @@ class SiteController extends Controller
     public function index(): void
     {
         echo $this->template->rendering('index.html', [
-            'cssNavHeader' => alert_warning,
-            'cssNavHeaderButton' => 'btn btn-outline-warning',           
+                    
             'posts' => (new PostModel())->search()->result(true),
-            'categorias' => (new CategoryModel())->readAllCategory(),
             
         ]);;
     }
-    public function post(int $id): void
-    {
-        $post = (new PostModel())->searchIdPost($id);
-        if (!$post) {
-            Helpers::redirect('erro');
-        }
-        echo $this->template->rendering('post.html', [
-            'post' => $post,
-            'alert_info' => alert_primary,
-            'alert_light' => alert_light,
-            'alert_dark' => alert_primary,
+    // public function post(int $id): void
+    // {
+    //     $post = (new PostModel())->searchIdPost($id);
+    //     if (!$post) {
+    //         Helpers::redirect('erro');
+    //     }
+    //     echo $this->template->rendering('forms/post.html', [
+    //         'post' => $post,
+    //         'alert_info' => alert_primary,
+    //         'alert_light' => alert_light,
+    //         'alert_dark' => alert_primary,
 
-            'categorias' => $this->categorias(),
-            'cssNavHeader' => alert_warning,
-            'cssNavHeaderButton' => 'btn btn-outline-warning',
-            'titulo' => 'Cadastro',
-        ]);
-    }
+    //         'categorias' => $this->categorias(),
+    //         'cssNavHeader' => alert_warning,
+    //         'cssNavHeaderButton' => 'btn btn-outline-warning',
+    //         'titulo' => 'Cadastro',
+    //     ]);
+    // }
     public function erro(): void
     {
         echo $this->template->rendering('erro.html', [

@@ -198,10 +198,10 @@ class Helpers
     {
         $hora = date('H');
         $saudacao = match (true) {
-            $hora >= 0 and $hora <= 5 => 'boa madrugada!',
-            $hora >= 6 and $hora <= 12 => 'bom dia!',
-            $hora >= 13 and $hora <= 18 => 'boa tarde!',
-            default => 'boa noite!'
+            $hora >= 0 and $hora <= 5 => 'Boa madrugada!',
+            $hora >= 6 and $hora <= 12 => 'Bom dia!',
+            $hora >= 13 and $hora <= 18 => 'Boa tarde!',
+            default => 'Boa noite!'
         };
         return $saudacao;
     }

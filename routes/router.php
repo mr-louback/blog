@@ -14,6 +14,10 @@ try {
     SimpleRouter::get(URL_BASE . 'erro', 'SiteController@erro');
     // separação de namespaces
     SimpleRouter::group(['namespace' => 'Admin'], function () {
+        
+        // admin login
+        SimpleRouter::match(['get', 'post'], URL_ADMIN. 'login', 'AdminLogin@login');
+        // admin dashboard
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
         // admin posts
         SimpleRouter::get(URL_ADMIN . 'posts/list', 'AdminPosts@list');

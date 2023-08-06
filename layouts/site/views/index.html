@@ -1,31 +1,45 @@
 {%extends 'base.html'%}
+{%block inicio%}
+{% include 'menu.html' %}
+{% block conteudo%}
+<div id="layoutSidenav">
+    {% include 'sideBar.html'%}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Lista de postagens, {{saudacao()}}</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Postagens</li>
+                </ol>
 
-{%block conteudo%}
-<div class="container my-5">
-    <div class="row">
-        
-        <div class="col-lg-9 col-md-12">
-            <div class="row">
+                    <div class="row">
 
-                {%for post in posts%}
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100 ">
-                    <a style="text-decoration: none; margin-bottom: 0;" class="{{alert_warning}}" href="{{url('post/'~post.id)}}">
-                            <div class="card-body ">
-                                <h5 class="card-title">{{post.titulo}}</h5>
-                                <p class="card-text">
-                                    {{resumeTexto(''~post.texto,30)}}
-                                </p>
+                        <div class="col-lg-9 col-md-12">
+                            <div class="row">
+
+                                {%for post in posts%}
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100 ">
+                                        
+                                            <div class="card-body ">
+                                                <h5 class="card-title">{{post.titulo}}</h5>
+                                                <p class="card-text">
+                                                    {{resumeTexto(''~post.texto,30)}}
+                                                </p>
+                                            </div>
+                                    </div>
+                                </div>
+                                {%endfor%}
                             </div>
-                        </a>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
                     </div>
-                </div>
-                {%endfor%}
             </div>
-        </div>
-        <div class="col-lg-3">
-            {% include 'sidebar.html'%}
-        </div>
+        </main>
+        {% include 'footer.html'%}
     </div>
 </div>
+
+{%endblock%}
 {%endblock%}
