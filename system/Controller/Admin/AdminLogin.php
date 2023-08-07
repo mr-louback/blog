@@ -28,7 +28,7 @@ class AdminLogin extends Controller
                 } elseif ($user->senha !== $dados['senha']) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } else {
-                    (new UserModel())->insertLastLog($user->id);
+                    (new UserModel())->updateLastLog($user->id);
                     (new Session())->sessionCreate('userId', $user->id);
                     Helpers::redirect('/admin/dashboard');
                 }

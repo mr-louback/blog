@@ -2,6 +2,7 @@
 
 namespace system\Support;
 
+use system\Controller\UserController;
 use system\Model\PostModel;
 use system\Nucleus\Helpers;
 use system\Nucleus\RenderClass;
@@ -112,8 +113,17 @@ class Template
                     return Helpers::flash();
                 })
             ),
-            
-            
+            $this->twig->addFunction(
+                new TwigFunction('user',function (){
+                    return UserController::sessionIdUser();
+                })
+            ),
+
+            $this->twig->addFunction(
+                new TwigFunction('posts',function (){
+                    return (new PostModel())->readAllPosts();
+                })
+            ),
         );
     }
     public function rendering(string $view, array $dados)

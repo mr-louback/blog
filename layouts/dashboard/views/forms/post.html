@@ -10,23 +10,24 @@
                 <h1 class="mt-4">Dashboard</h1>
                 Olá {{user().nome}}, voce está no dashboard. {{saudacao()}}
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">{{flash()}} </li>
+                    <li class="breadcrumb-item active"></li>
                 </ol>
                 <div class="row">
                     <div class="col-lg-9 col-md-12">
                         <div class="row">
-                            {% for post in posts() %}
-                            <a href="{{url('admin/post/'~post.id)}}" style="text-decoration: none;" class="col-md-6 mb-4">
-                                <div class="h-100 card alert alert-dark text-black">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{post.titulo}}</h5>
-                                        <p class="card-text">
-                                            {{resumeTexto(''~post.texto,30)}}
-                                        </p>
-                                    </div>
+
+                            {% if posts().id %}
+
+
+                            <div class="card mb-4 {{alert_light}} container  ">
+                                <div class="{{alert_dark}}">
+                                    <h1>{{posts().titulo}}dasdas</h1>
                                 </div>
-                            </a>
-                            {%endfor%}
+                                <div class="{{alert_light}}">
+                                    <p>{{posts().texto}}</p>
+                                </div>
+                            </div>
+                            {%endif%}
                         </div>
                     </div>
                     <div class="col-lg-3">

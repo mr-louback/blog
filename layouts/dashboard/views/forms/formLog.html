@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+
+{%block conteudo%}
+<div class="container">
+
+    <div style="margin: 126px 0;" class="container">
+            <h3>{{titulo}}</h3>
+            <form action="log.php" method="POST">
+                <div style="width: 40%;" class="mb-3">
+                    <label for="email" class="form-label">Email <sup>*</sup></label>
+                    <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
+                </div>
+                <div style="width: 40%;" class="mb-3">
+                    <label for="pass" class="form-label">Senha <sup>*</sup></label>
+                    <input type="password" class="form-control" name="pass" placeholder="********" required>
+                </div>
+                <input type="submit" class="{{success}}" value="Login">
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

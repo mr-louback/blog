@@ -14,7 +14,7 @@ class PostModel extends Model
     }
     public function readAllPosts(): array
     {
-        $query = "SELECT * FROM categorias";
+        $query = "SELECT * FROM " . self::TBL_POSTS ;
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         return $result;
@@ -28,9 +28,9 @@ class PostModel extends Model
     public function searchIdPost(int $id): array
     {
         $where = ("WHERE id = {$id}" ?: '');
-        $query = "SELECT id FROM " . self::TBL_POSTS . " {$where}";
+        $query = "SELECT * FROM " . self::TBL_POSTS . " {$where}";
         $stmt = NucleusConnection::getInstance()->query($query);
-        $result = $stmt->fetch();
+        $result = $stmt->fetchAll();
         return $result;
     }
     public function updateLinePosts(array $dados): void

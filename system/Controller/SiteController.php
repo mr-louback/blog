@@ -5,6 +5,7 @@ namespace system\Controller;
 use system\Model\PostModel;
 use system\Nucleus\Controller;
 use system\Model\CategoryModel;
+use system\Nucleus\Helpers;
 
 class SiteController extends Controller
 {

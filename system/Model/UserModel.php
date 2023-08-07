@@ -26,7 +26,7 @@ class UserModel
 
         return $result;
     }
-    public function insertLastLog(int $userId): void
+    public function updateLastLog(int $userId): void
     {
         $ultimo_login = date('Y-m-d H:i:s');
         // var_dump($ultimo_login);

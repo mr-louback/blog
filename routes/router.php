@@ -14,22 +14,24 @@ try {
     SimpleRouter::get(URL_BASE . 'erro', 'SiteController@erro');
     // separação de namespaces
     SimpleRouter::group(['namespace' => 'Admin'], function () {
-        
+
         // admin login
-        SimpleRouter::match(['get', 'post'], URL_ADMIN. 'login', 'AdminLogin@login');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'login', 'AdminLogin@login');
         // admin dashboard
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
         SimpleRouter::get(URL_ADMIN . 'logout', 'AdminDashboard@logout');
+        SimpleRouter::get(URL_ADMIN . 'post/{id}', 'AdminDashboard@post');
+
         // admin posts
         SimpleRouter::get(URL_ADMIN . 'posts/list', 'AdminPosts@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/cadastrar', 'AdminPosts@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/{id}', 'AdminPosts@editar');
-        SimpleRouter::get( URL_ADMIN . 'posts/deletar/{id}', 'AdminPosts@deletar');        
+        SimpleRouter::get(URL_ADMIN . 'posts/deletar/{id}', 'AdminPosts@deletar');
         // admin categorias
         SimpleRouter::get(URL_ADMIN . 'categorias/list', 'AdminCategorias@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categorias/{id}', 'AdminCategorias@editar');
-        SimpleRouter::get( URL_ADMIN . 'categorias/deletar/{id}', 'AdminCategorias@deletar');
+        SimpleRouter::get(URL_ADMIN . 'categorias/deletar/{id}', 'AdminCategorias@deletar');
     });
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $e) {

@@ -13,7 +13,6 @@ class AdminController extends Controller
     public function __construct()
     {
         parent::__construct('layouts/dashboard/views');
-
         $this->user = UserController::sessionIdUser();
         if (!$this->user or $this->user->level !== 3) {
             $this->message->messageWarning("Usuário não Logado!")->flash();
