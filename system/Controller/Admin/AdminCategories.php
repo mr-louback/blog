@@ -12,8 +12,13 @@ class AdminCategories extends AdminController
     public function list(): void
     {
         echo $this->template->rendering('categories/list.html', [
-            'cssNavHeader' => alert_warning,
-            'cssNavHeaderButton' => 'btn btn-outline-warning',
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_info' => 'btn btn-outline-info',
             'categorias' => (new CategoryModel())->readAllCategory(),
         ]);
     }
@@ -29,6 +34,13 @@ class AdminCategories extends AdminController
             'categorias' => (new CategoryModel())->readAllCategory(),
             'posts' => (new PostModel())->search(),
 
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
     public function edit(int $id): void
@@ -41,6 +53,13 @@ class AdminCategories extends AdminController
         }
         echo $this->template->rendering('categories/edit.html', [
             'categorias' => (new CategoryModel())->searchIdCategory($id),
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
     public function deletar(int $id): void

@@ -13,8 +13,14 @@ class AdminPosts extends AdminController
     {
         $posts = (new PostModel());
         echo $this->template->rendering('posts/list.html', [
-            'cssNavHeader' => alert_warning,
-            'cssNavHeaderButton' => 'btn btn-outline-warning',
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_info' => 'btn btn-outline-info',
+
             'posts' => $posts->search()->order('status asc, id asc')->result(true),
         ]);
     }
@@ -27,6 +33,14 @@ class AdminPosts extends AdminController
             Helpers::redirect('admin/posts/list');
         }
         echo $this->template->rendering('posts/register.html', [
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_info' => 'btn btn-outline-info',
+
             'categorias' => (new CategoryModel())->readAllCategory(),
             'postsId' => (new PostModel())->readAllPosts(),
         ]);
@@ -40,6 +54,14 @@ class AdminPosts extends AdminController
             Helpers::redirect('admin/posts/list');
         }
         echo $this->template->rendering('posts/edit.html', [
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_info' => 'btn btn-outline-info',
+
             'posts' => (new PostModel())->searchIdPost($id),
             'categorias' => (new CategoryModel())->searchIdCategory($id),
         ]);

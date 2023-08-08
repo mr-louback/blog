@@ -53,20 +53,7 @@ class SiteController extends Controller
             'titulo' => 'Cadastro',
         ]);
     }
-    public function erro(): void
-    {
-        echo $this->template->rendering('erro.html', [
-            'titulo' => 'Página não encontrada.',
 
-            'alert_info' => alert_info,
-            'alert_primary' => alert_primary,
-            'alert_light' => alert_light,
-            'alert_dark' => alert_dark,
-            'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
-            'btn_outline_info' => 'btn btn-outline-info',
-        ]);
-    }
 
     public function register(): void
     {
@@ -83,9 +70,24 @@ class SiteController extends Controller
         }
 
         echo $this->template->rendering('forms/register.html', [
-            'alert_info' => alert_primary,
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
             'alert_light' => alert_light,
-            'alert_dark' => alert_primary,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_info' => 'btn btn-outline-info',
+        ]);
+    }
+    public function erro(): void
+    {
+        echo $this->template->rendering('erro.html', [
+            'titulo' => 'Página não encontrada.',
+
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
             'alert_warning' => alert_warning,
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
