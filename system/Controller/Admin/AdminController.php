@@ -15,9 +15,9 @@ class AdminController extends Controller
         parent::__construct('layouts/dashboard/views');
         $this->user = UserController::sessionIdUser();
         if (!$this->user or $this->user->level != 3) {
-            $this->message->messageWarning("Sentiremos sua falta!")->flash();
+            $this->message->messageWarning("faça login para acessar!")->flash();
             (new Session())->sessionClear('userId');
-            Helpers::redirect("admin/login");
+            Helpers::redirect("/");
         }
     }
 }

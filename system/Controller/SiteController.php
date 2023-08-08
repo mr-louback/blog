@@ -81,7 +81,7 @@ class SiteController extends Controller
     }
     public function erro(): void
     {
-        echo $this->template->rendering('erro.html', [
+        echo $this->template->rendering('error.html', [
             'titulo' => 'Página não encontrada.',
 
             'alert_info' => alert_info,

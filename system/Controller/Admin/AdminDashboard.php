@@ -14,7 +14,7 @@ class AdminDashboard extends AdminController
         $this->user = UserController::sessionIdUser();
         echo $this->template->rendering('dashboard.html', [
 
-            $this->message->messageSuccess("Olá {$this->user->nome}, você está no dashboard!")->flash(),
+            // $this->message->messageSuccess("Olá {$this->user->nome}, você está no dashboard!")->flash(),
             // css
             'alert_primary' => alert_primary,
             'alert_info' => alert_info,
@@ -28,7 +28,6 @@ class AdminDashboard extends AdminController
     public function post(int $id): void
     {
         $posts = (new PostModel())->searchIdPost($id);
-        // var_dump($posts[0]->id);
         if (!$posts) {
             Helpers::redirect('erro');
         }
@@ -44,13 +43,12 @@ class AdminDashboard extends AdminController
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
-        
     }
     
     public function logout(): void
     {
         $session = (new Session());
         $session->sessionClear('userId');
-        Helpers::redirect('admin/login');
+        Helpers::redirect('/');
     }
 }

@@ -34,30 +34,50 @@
                             <tbody>
                                 {%for post in posts%}
                                 <tr>
-                                    <td>{{post.id}}</td>
-                                    <td>{{post.titulo}}</td>
+                                    <td>
+                                        <div class="container btn">
+                                            {{post.id}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="container btn">
+                                            {{post.titulo}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="container btn">
+                                            {{resumeTexto(''~post.texto, 10)}}
+                                        </div>
+                                    </td>
 
-                                    <td>{{resumeTexto(''~post.texto, 10)}}</td>
                                     <td>
                                         {%if post.status == 1 %}
-                                        <div class="container">
+                                        <div class="container  btn">
                                             <i style="color: rgb(0, 179, 119); " class="fa-solid fa-check">
                                             </i>
                                         </div>
                                         {%else%}
-                                        <div class="container">
+                                        <div class="container  btn">
                                             <i style="color: rgb(179, 0, 0); " class="fa-solid fa-x">
                                             </i>
                                         </div>
                                         {%endif%}
                                     </td>
                                     <td>
-                                        <a href="{{url('admin/posts/'~post.id)}}" class="btn">
-                                            Editar
+                                        <a href="{{url('admin/posts/'~post.id)}}">
+                                            <div class="container  btn">
+                                                <i style="color: rgb(95, 112, 174); " class="fa-solid fa-pen">
+                                                </i>
+                                            </div>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{url('admin/posts/delete/'~post.id)}}" class="btn">Deletar</a>
+                                        <a href="{{url('admin/posts/delete/'~post.id)}}">
+                                            <div class="container  btn">
+                                                <i style="color: rgb(158, 84, 84); " class="fa-solid fa-trash">
+                                                </i>
+                                            </div>
+                                        </a>
                                     </td>
                                 </tr>
                                 {%endfor%}
