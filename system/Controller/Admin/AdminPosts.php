@@ -18,7 +18,7 @@ class AdminPosts extends AdminController
             'posts' => $posts->search()->order('status asc, id asc')->result(true),
         ]);
     }
-    public function cadastrar(int $id): void
+    public function register(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
@@ -26,12 +26,12 @@ class AdminPosts extends AdminController
             $this->message->messageSuccess('Post cadastrado com sucesso!')->flash();
             Helpers::redirect('admin/posts/list');
         }
-        echo $this->template->rendering('posts/cadastrar.html', [
+        echo $this->template->rendering('posts/register.html', [
             'categorias' => (new CategoryModel())->readAllCategory(),
             'postsId' => (new PostModel())->readAllPosts(),
         ]);
     }
-    public function editar(int $id): void
+    public function edit(int $id): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
@@ -39,12 +39,12 @@ class AdminPosts extends AdminController
             $this->message->messageInfo('Post editado com sucesso!')->flash();
             Helpers::redirect('admin/posts/list');
         }
-        echo $this->template->rendering('posts/editar.html', [
+        echo $this->template->rendering('posts/edit.html', [
             'posts' => (new PostModel())->searchIdPost($id),
             'categorias' => (new CategoryModel())->searchIdCategory($id),
         ]);
     }
-    public function  deletar(int $id): void
+    public function  delete(int $id): void
     {
         (new PostModel())->deleteLinePosts($id);
         $this->message->messageWarning('Post deletado com sucesso!')->flash();

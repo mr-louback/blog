@@ -6,40 +6,40 @@ use system\Nucleus\Helpers;
 use system\Model\CategoryModel;
 use system\Model\PostModel;
 
-class AdminCategorias extends AdminController
+class AdminCategories extends AdminController
 {
 
     public function list(): void
     {
-        echo $this->template->rendering('categorias/list.html', [
+        echo $this->template->rendering('categories/list.html', [
             'cssNavHeader' => alert_warning,
             'cssNavHeaderButton' => 'btn btn-outline-warning',
             'categorias' => (new CategoryModel())->readAllCategory(),
         ]);
     }
-    public function cadastrar(): void
+    public function register(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             (new CategoryModel())->insertLineCategory($dados);
             $this->message->messageSuccess('Categoria cadastrada com sucesso!')->flash();
-            Helpers::redirect('admin/categorias/list');
+            Helpers::redirect('admin/categories/list');
         }
-        echo $this->template->rendering('categorias/cadastrar.html', [
+        echo $this->template->rendering('categories/register.html', [
             'categorias' => (new CategoryModel())->readAllCategory(),
             'posts' => (new PostModel())->search(),
 
         ]);
     }
-    public function editar(int $id): void
+    public function edit(int $id): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             (new CategoryModel())->updateLineCategory($dados);
             $this->message->messageInfo('Categoria editada com sucesso!')->flash();
-            Helpers::redirect('admin/categorias/list');
+            Helpers::redirect('admin/categories/list');
         }
-        echo $this->template->rendering('categorias/editar.html', [
+        echo $this->template->rendering('categories/edit.html', [
             'categorias' => (new CategoryModel())->searchIdCategory($id),
         ]);
     }
@@ -47,6 +47,6 @@ class AdminCategorias extends AdminController
     {
         (new CategoryModel())->deleteLineCategory($id);
         $this->message->messageWarning('Categoria deletada com sucesso!')->flash();
-        Helpers::redirect('admin/categorias/list');
+        Helpers::redirect('admin/categories/list');
     }
 }

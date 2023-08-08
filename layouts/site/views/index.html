@@ -1,45 +1,41 @@
-{%extends 'base.html'%}
-{%block inicio%}
-{% include 'menu.html' %}
-{% block conteudo%}
+{% extends 'base.html'%}
+{%block dashboard%}
+{% include 'menu.html'%}
+{%block conteudo%}
 <div id="layoutSidenav">
     {% include 'sideBar.html'%}
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Lista de postagens, {{saudacao()}}</h1>
+                <h1 class="mt-4">Home</h1>
+                Olá, você está na Home. {{saudacao()}}
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Postagens</li>
+                    <li class="breadcrumb-item active">{{flash()}} </li>
                 </ol>
-
-                    <div class="row">
-
-                        <div class="col-lg-9 col-md-12">
-                            <div class="row">
-
-                                {%for post in posts%}
-                                <div class="col-md-6 mb-4">
-                                    <div class="card h-100 ">
-                                        
-                                            <div class="card-body ">
-                                                <h5 class="card-title">{{post.titulo}}</h5>
-                                                <p class="card-text">
-                                                    {{resumeTexto(''~post.texto,30)}}
-                                                </p>
-                                            </div>
+                <div class="row">
+                    <div class="col-lg-9 col-md-12">
+                        <div class="row">
+                            {% for post in posts() %}
+                            <a href="{{url('post/'~post.id)}}" style="text-decoration: none;" class="col-md-6 mb-4">
+                                <div class="h-100 card {{alert_primary}} text-black">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{post.titulo}}</h5>
+                                        <p class="card-text">
+                                            {{resumeTexto(''~post.texto,30)}}
+                                        </p>
                                     </div>
                                 </div>
-                                {%endfor%}
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
+                            </a>
+                            {%endfor%}
                         </div>
                     </div>
+                    <div class="col-lg-3">
+                    </div>
+                </div>
             </div>
         </main>
         {% include 'footer.html'%}
     </div>
 </div>
-
 {%endblock%}
 {%endblock%}

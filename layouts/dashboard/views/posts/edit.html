@@ -16,46 +16,47 @@
                         <form method="post">
                             <label for="id" class="form-label">Identificador</label>
                             <div style="width: 70%;" class="mb-2">
-                                
-                                {%for post in posts%}
-                                <input name="id" for="id" value="{{post.id}}" class="form-label" >
-                                {%endfor%}
+                                {% if posts[0] %}
+                                <input name="id"  type="number" for="id" value="{{posts[0].id}}" class="form-control">
+                                {%endif%}
+
                             </div>
 
                             <div style="width: 70%;" class="mb-2">
                                 <label for="titulo" class="form-label ">Título<sup>*</sup></label>
-                                {%for post in posts%}
-                                <input value="{{post.titulo}}" type="text" class="form-control" name="titulo"
+                                {% if posts[0] %}
+
+                                <input value="{{posts[0].titulo}}" type="text" class="form-control" name="titulo"
                                     id="titulo">
-                                {%endfor%}
+                                {%endif%}
                             </div>
                             <label for="textarea">Texto</label>
                             <div style="width: 70%;" class="form-floating">
-                                {%for post in posts%}
-                                <textarea name="textarea" class="form-control" id="textarea">{{post.texto}}</textarea>
-                                {%endfor%}
+                                {% if posts[0] %}
+
+                                <textarea name="textarea" class="form-control"
+                                    id="textarea">{{posts[0].texto}}</textarea>
+                                {%endif%}
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="categoria_id">Categoria identificador</label>
-                                        {%for post in posts%}
-                                        <input style="width: 50%;" type="number" value="{{post.categoria_id}}"
-                                            class="form-control" name="categoria_id" id="categoria_id">
-
-                                        {%endfor%}
                                     </div>
+                                        {% if posts[0].categoria_id %}
+
+                                        <input style="width: 50%;" type="text" value="{{posts[0].categoria_id}}"
+                                            class="form-control" name="categoria_id" id="categoria_id">
+                                        {%endif%}
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="select_status">Status</label>
-
-                                        {%for post in posts%}
-                                        <input style="width: 35%;" type="number" value="{{post.status}}"
+                                        {% if posts[0] %}
+                                        <input style="width: 35%;" type="number" value="{{posts[0].status}}"
                                             class="form-control" name="select_status" id="select_status">
 
-                                        {%endfor%}
-
+                                        {%endif%}
                                     </div>
                                 </div>
                             </div>

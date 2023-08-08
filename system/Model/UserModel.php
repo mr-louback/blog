@@ -34,4 +34,10 @@ class UserModel
         $stmt = Connection::getInstance()->prepare($query);
         $stmt->execute();
     }
+    public function insertUser(array $dados): void
+    {
+        $query = "INSERT INTO usuarios( nome, level, email, senha, status) VALUES ( '$dados[nome]', $dados[level],'$dados[email]','$dados[senha]',$dados[status])";
+        $stmt = Connection::getInstance()->prepare($query);
+        $stmt->execute();
+    }
 }

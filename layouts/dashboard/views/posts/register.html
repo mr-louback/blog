@@ -5,24 +5,25 @@
         {% include 'sideBar.html'%}
         <main>
             <div class="container-fluid px-4 p-2">
-                <h1 class="mt-4">Categorias</h1>
+                <h1 class="mt-4">Postagens</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">
-                        Formulário de categoria
+                        Formulário de postagens
                     </li>
                 </ol>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="{{url('admin/categorias/cadastrar')}}" method="post">
+                        <form method="post">
                             <div style="width: 70%;" class="mb-2">
                                 <label for="titulo" class="form-label">Título<sup>*</sup></label>
                                 <input type="text" class="form-control" name="titulo" id="titulo">
                             </div>
                             <label for="texto">Texto</label>
                             <div style="width: 70%;" class="form-floating">
-                                <textarea name="texto" class="form-control" id="texto"></textarea>
+                                <textarea name="texto" class="form-control" id="textarea"></textarea>
                             </div>
                             <div class="row">
+
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="status">Status</label>
@@ -31,6 +32,21 @@
                                             <option value="1">Ativo</option>
                                             <option value="0">Inativo</option>
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="mb-3">
+                                            <label for="id">Categoria</label>
+                                            <select style="width: 35%;" name="id" class="mt-2 form-select"
+                                                aria-label="Default select example">                                                
+                                                {% for categoria in categorias %}
+                                                <option value="{{categoria.id}}">{{categoria.titulo}}</option>
+                                                {%endfor%}
+                                               
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

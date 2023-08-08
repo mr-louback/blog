@@ -7,27 +7,20 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Dashboard</h1>
-                Olá {{user().nome}}, voce está no dashboard. {{saudacao()}}
+                <h1 class="mt-4">Postagem</h1>
+                Olá {{user().nome}}, voce está em postagem. {{saudacao()}}
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active"></li>
+                    <li class="breadcrumb-item active">{{flash()}}</li>
                 </ol>
                 <div class="row">
                     <div class="col-lg-9 col-md-12">
                         <div class="row">
-
-                            {% if posts().id %}
-
-
-                            <div class="card mb-4 {{alert_light}} container  ">
-                                <div class="{{alert_dark}}">
-                                    <h1>{{posts().titulo}}dasdas</h1>
-                                </div>
-                                <div class="{{alert_light}}">
-                                    <p>{{posts().texto}}</p>
+                            <div class="h-100 card {{alert_dark}} text-black">
+                                <div class="card-body">
+                                    <h5 class="{{alert_light}}  card-title">{{posts_titulo}}</h5>
+                                    <p class="{{alert_light}} card-text">{{posts_texto}}</p>
                                 </div>
                             </div>
-                            {%endif%}
                         </div>
                     </div>
                     <div class="col-lg-3">
@@ -35,6 +28,7 @@
                 </div>
             </div>
         </main>
+
         {% include 'footer.html'%}
     </div>
 </div>

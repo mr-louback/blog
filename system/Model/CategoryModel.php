@@ -36,6 +36,7 @@ class CategoryModel
     public function updateLineCategory(array $dados): void
     {
         $query = "UPDATE categorias SET id = $dados[id], titulo ='$dados[titulo]', texto =  '$dados[texto]', status = $dados[status] WHERE id = $dados[id]";
+        // var_dump($query);
         $stmt = NucleusConnection::getInstance()->query($query);
         $stmt->execute();
     }
@@ -43,7 +44,8 @@ class CategoryModel
     {
         // "DELETE FROM `categorias` WHERE `categorias`.`id` = 9"?
 
-        $query = "DELETE FROM categorias WHERE `categorias`.`id` = {$id}";
+        $query = "DELETE FROM categorias WHERE id = {$id}";
+// var_dump($query);
         $stmt = NucleusConnection::getInstance()->query($query);
         $stmt->execute();
     }

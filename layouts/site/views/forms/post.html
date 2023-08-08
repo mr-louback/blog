@@ -1,25 +1,36 @@
-{%extends 'base.html'%}
-
+{% extends 'base.html'%}
+{%block dashboard%}
+{% include 'menu.html'%}
 {%block conteudo%}
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-lg-9 col-md-12">
-            {% for post in posts%}
-
-            <div class="card mb-4 {{alert_light}} container  ">
-                <div class="{{alert_dark}}">
-                    <h1>{{post.titulo}}</h1>
-                </div>
-                <div class="{{alert_light}}">
-                    <p>{{post.texto}}</p>
+<div id="layoutSidenav">
+    {% include 'sideBar.html'%}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Postagem</h1>
+                Olá, voce está em postagem. {{saudacao()}}
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active"></li>
+                </ol>
+                <div class="row">
+                    <div class="col-lg-9 col-md-12">
+                        <div class="row">
+                            <div class="h-100 card {{alert_dark}} text-black">
+                                <div class="card-body">
+                                    <h5 class="{{alert_light}}  card-title">{{posts_titulo}}</h5>
+                                    <p class="{{alert_light}} card-text">{{posts_texto}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                    </div>
                 </div>
             </div>
+        </main>
 
-            {%endfor%}
-        </div>
-        <div class="col-lg-3">
-        </div>
+        {% include 'footer.html'%}
     </div>
 </div>
-
+{%endblock%}
 {%endblock%}

@@ -5,7 +5,7 @@
         {% include 'sideBar.html'%}
         <main>
             <div class="container-fluid px-4 py-2">
-                <a href="{{url('admin/categorias/cadastrar')}}" class=" btn btn-primary">Cadastrar</a>
+                <a href="{{url('admin/categories/register')}}" class=" btn btn-primary">Cadastrar</a>
                 <h1 class="mt-4">Categorias</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Lista de categorias</li>
@@ -49,12 +49,12 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{url('admin/categorias/'~categoria.id)}}"  class="btn">
+                                        <a href="{{url('admin/categories/'~categoria.id)}}"  class="btn">
                                            Editar
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{url('admin/categorias/deletar/'~categoria.id)}}"  class="btn" >Deletar</a>
+                                        <a href="{{url('admin/categories/deletar/'~categoria.id)}}"  class="btn" >Deletar</a>
                                     </td>
 
                                 </tr>
