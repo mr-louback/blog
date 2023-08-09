@@ -1,0 +1,78 @@
+{% extends 'dashboard.html'%}
+{%block conteudo%}
+<div id="layoutSidenav">
+    <div id="layoutSidenav_content">
+        {% include 'sideBar.html'%}
+        <main>
+            <div class="container-fluid px-4 p-2">
+                <h1 class="mt-4">Usuários</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">
+                        Formulário de edição de usuário
+                    </li>
+                </ol>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form method="post">
+                            <label for="id" class="form-label">Identificador</label>
+                            <div style="width: 70%;" class="mb-2">
+                                {% if user %}
+                                <input name="id"  type="number" for="id" value="{{user.id}}" class="form-control">
+                                {%endif%}
+                            </div>
+                            <div style="width: 70%;" class="mb-2">
+                                <label for="nome" class="form-label ">Nome<sup>*</sup></label>
+                                {% if user%}
+                                <input value="{{user.nome}}" type="text" class="form-control" name="nome"
+                                    id="nome">
+                                {%endif%}
+                            </div>
+                            <label for="email">Email</label>
+                            <div style="width: 70%;" class="form-floating">
+                                {% if user %}
+                                <input type="email" name="email" class="form-control"
+                                    id="email" value="{{user.email}}" disabled>
+                                {%endif%}
+                            </div>
+                            <label for="senha">Senha</label>
+                            <div style="width: 70%;" class="form-floating">
+                                {% if user %}
+                                <input type="text" name="senha" class="form-control"
+                                    id="email" value="{{user.senha}}">
+                                {%endif%}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="level">Level</label>
+                                        {% if user %}
+                                        <input style="width: 50%;" type="text" value="{{user.level}}"
+                                            class="form-control" name="level" id="level">
+                                        {%endif%}
+                                    </div>
+                                        
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="status">Status</label>
+                                        {% if user %}
+                                        <input style="width: 35%;" type="number" value="{{user.status}}"
+                                            class="form-control" name="status" id="status">
+
+                                        {%endif%}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <input type="submit" class="{{btn_outline_info}}" value="Atualizar">
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {% include 'footer.html'%}
+    </div>
+</div>
+{%endblock%}

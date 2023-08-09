@@ -30,7 +30,7 @@ class AdminLogin extends Controller
                 } else {
                     (new UserModel())->updateLastLog($user->id);
                     (new Session())->sessionCreate('userId', $user->id);
-                    Helpers::redirect('/admin/dashboard');
+                    // Helpers::redirect('/admin/dashboard');
                 }
             }
         }

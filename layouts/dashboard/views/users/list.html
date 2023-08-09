@@ -1,0 +1,110 @@
+{% extends 'dashboard.html'%}
+{%block conteudo%}
+<div id="layoutSidenav">
+    <div id="layoutSidenav_content">
+        {% include 'sideBar.html'%}
+        <main>
+            <div class="container-fluid px-4 p-2">
+                <a href="{{url('forms/register')}}" class="{{btn_outline_info}}">Criar usuário</a>
+                <h1 class="mt-4">Usuários</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Lista de usuários</li>
+                </ol>
+                {{flash()}}
+                <div class="card mb-4">
+                    <div>
+                    </div>
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        DataTable Example
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Level</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Editar</th>
+                                    <th>Deletar</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for post in posts%}
+                                <tr>
+                                   
+                                    
+                                    <td>
+                                        <div class="container btn">
+                                            {{post.nome}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {%if post.level == 1 %}
+                                        <div class="container  btn">
+                                           Usuário
+                                        </div>
+                                        {%endif%}
+
+                                        {% if post.level == 3%}
+                                        <div class="container  btn">
+                                           Admin
+                                        </div>
+                                        {%endif%}
+
+                                        {% if post.level == 2%}
+                                        <div class="container  btn">
+                                            Funcionário
+                                        </div>
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        <div class="container btn">
+                                            {{resumeTexto(''~post.email, 10)}}
+                                        </div>
+                                    </td>
+                                    
+                                    <td>
+                                        {%if post.status == 1 %}
+                                        <div class="container  btn">
+                                            <i style="color: rgb(0, 179, 119); " class="fa-solid fa-check">
+                                            </i>
+                                        </div>
+                                        {%else%}
+                                        <div class="container  btn">
+                                            <i style="color: rgb(179, 0, 0); " class="fa-solid fa-x">
+                                            </i>
+                                        </div>
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        <a href="{{url('admin/users/'~post.id)}}">
+                                            <div class="container  btn">
+                                                <i style="color: rgb(95, 112, 174); " class="fa-solid fa-pen">
+                                                </i>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{url('admin/users/delete/'~post.id)}}">
+                                            <div class="container  btn">
+                                                <i style="color: rgb(158, 84, 84); " class="fa-solid fa-trash">
+                                                </i>
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        {% include 'footer.html'%}
+    </div>
+</div>
+{%endblock%}

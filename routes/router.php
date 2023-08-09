@@ -9,9 +9,9 @@ try {
     SimpleRouter::get(URL_BASE . 'post/{id}', 'SiteController@post');
     // SimpleRouter::get(URL_BASE . 'categoria/{id}', 'SiteController@categoria');
     SimpleRouter::get(URL_BASE, 'SiteController@index');
-    SimpleRouter::match(['get', 'post'], URL_BASE . 'register', 'SiteController@register');
+    SimpleRouter::match(['get', 'post'], URL_BASE . 'forms/register', 'SiteController@register');
     // SimpleRouter::get(URL_BASE . 'login', 'SiteController@login');
-    // SimpleRouter::match(['get', 'post'], URL_BASE . 'login', 'SiteController@login');
+    SimpleRouter::match(['get', 'post'], URL_BASE . 'forms/login', 'SiteController@login');
     SimpleRouter::get(URL_BASE . 'erro', 'SiteController@erro');
     // separação de namespaces
     SimpleRouter::group(['namespace' => 'Admin'], function () {
@@ -22,6 +22,11 @@ try {
         SimpleRouter::get(URL_ADMIN . 'logout', 'AdminDashboard@logout');
         SimpleRouter::get(URL_ADMIN . 'post/{id}', 'AdminDashboard@post');
         SimpleRouter::get(URL_ADMIN . 'register', 'AdminDashboard@register');
+        // admin users
+        SimpleRouter::get(URL_ADMIN . 'users/list', 'AdminUsers@list');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'users/register', 'AdminUsers@register');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'users/{id}', 'AdminUsers@edit');
+        SimpleRouter::get(URL_ADMIN . 'users/delete/{id}', 'AdminUsers@delete');
         // admin posts
         SimpleRouter::get(URL_ADMIN . 'posts/list', 'AdminPosts@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/register', 'AdminPosts@register');
