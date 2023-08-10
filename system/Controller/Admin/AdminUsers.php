@@ -10,6 +10,8 @@ use system\Nucleus\RenderClass;
 
 class AdminUsers extends AdminController
 {
+    protected $user;
+
     public function list(): void
     {
         $posts = (new UserModel())->getAllUsers();
@@ -29,6 +31,7 @@ class AdminUsers extends AdminController
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } elseif ($dados['email'] == (new UserModel())->getUser($dados)->email) {

@@ -59,11 +59,12 @@ class SiteController extends Controller
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userEmail = (new UserModel())->getUserEmail($dados);
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
-            } elseif ($dados['email'] == (new UserModel())->getUser($dados)->email) {
-                Helpers::redirect('/forms/register');
+            } elseif ($dados['email'] == $userEmail) {
                 $this->message->messageDanger('Usuário existente!')->flash();
+                // Helpers::redirect('/forms/register');
             } else {
                 (new UserModel())->insertUser($dados);
                 $this->message->messageSuccess('Todos os dados foram salvos com sucesso!')->flash();

@@ -21,21 +21,25 @@ class AdminLogin extends Controller
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
                 $user = (new UserModel())->getUser($dados);
-                if(!$user){
+                if (!$user) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
-                }elseif ($user->email !== $dados['email']) {
+                } elseif ($user->email !== $dados['email']) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } elseif ($user->senha !== $dados['senha']) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } else {
                     (new UserModel())->updateLastLog($user->id);
                     (new Session())->sessionCreate('userId', $user->id);
-                    // Helpers::redirect('/admin/dashboard');
+                    if ($user->level == 2) {
+                        Helpers::redirect('admin/posts/list');
+                    } else {
+                        Helpers::redirect('/admin/dashboard');
+                    }
                 }
             }
         }
         echo $this->template->rendering('forms/login.html', [
-            
+
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }

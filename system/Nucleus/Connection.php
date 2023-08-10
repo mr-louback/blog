@@ -1,9 +1,10 @@
 <?php
 
 namespace system\Nucleus;
+
 use PDO;
 use PDOException;
-
+use system\Nucleus\Config;
 class Connection
 {
     private static $instance;
@@ -11,16 +12,18 @@ class Connection
     {
         if (empty(self::$instance)) {
             try {
-                self::$instance = new PDO('mysql:host=localhost;dbname='.DB_DATABASE, DB_USER, DB_PASSWORD, [
+                $db_config = (new Config())->getDBConfig();
+                $dsn = "mysql:host={$db_config['db_host']};dbname={$db_config['db_name']}";
+                $options = [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
                     PDO::ATTR_CASE => PDO::CASE_NATURAL,
-                ]);
+                ];
+                self::$instance = new PDO($dsn, $db_config['db_user'], $db_config['db_password'], $options);
             } catch (PDOException $th) {
                 die('Erro de conexão: ' . $th->getMessage());
             }
         }
         return self::$instance;
     }
-   
 }

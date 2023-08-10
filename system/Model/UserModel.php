@@ -34,6 +34,11 @@ class UserModel
 
         return $result;
     }
+    /**
+     * Summary of getUserId
+     * @param int $id
+     * @return mixed
+     */
     public function getUserId(int $id)
     {
         $where = ("WHERE id = {$id}" ?: '');
@@ -44,6 +49,11 @@ class UserModel
 
         return $result;
     }
+    /**
+     * Summary of updateUser
+     * @param array $dados
+     * @return void
+     */
     public function updateUser(array $dados): void
     {
         $query = "UPDATE usuarios SET  nome='$dados[nome]', level=$dados[level], senha='$dados[senha]', status=$dados[status] where id = $dados[id]";
@@ -51,6 +61,11 @@ class UserModel
         $stmt = Connection::getInstance()->prepare($query);
         $stmt->execute();
     }
+    /**
+     * Summary of updateLastLog
+     * @param int $userId
+     * @return void
+     */
     public function updateLastLog(int $userId): void
     {
         $ultimo_login = date('Y-m-d H:i:s');
