@@ -1,6 +1,6 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    
+
     <a class="navbar-brand ps-3" href="{{url('admin/dashboard')}}">Start Bootstrap</a>
 
     <!-- Sidebar Toggle-->
@@ -25,11 +25,11 @@
                 <li>
                     <hr class="dropdown-divider" />
                 </li>
-                <li><a class="dropdown-item" href="{{url('admin/logout')}}">Logout</a></li>
+                <li><a class="dropdown-item" href="{{url('admin/logout')}}">Sair</a></li>
                 {%else%}
-                <li><a class="dropdown-item" href="{{url('admin/login')}}">Login</a></li>
+                <li><a class="dropdown-item" href="{{url('admin/login')}}">Entrar</a></li>
+                <li><a class="dropdown-item" href="{{url('admin/register')}}">Cadastre-se</a></li>
                 {%endif%}
-
             </ul>
         </li>
     </ul>

@@ -5,39 +5,37 @@
 <div id="layoutSidenav">
     <div id="layoutSidenav_content">
         {% include 'sideBar.html'%}
-        <div class="container">
-            <div style="margin: 95px 0;" class="container">
-                <h1>Criando Usuário</h1>
-                {{flash()}}
-                <form method="post">
-                    <div style="width: 70%;" class="mb-2">
-                        <label for="nome" class="form-label">Nome <sup>*</sup></label>
-                        <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite seu nome">
-                    </div>
-                    <div style="width: 70%;" class="mb-2">
-                        <label for="email" class="form-label">Email <sup>*</sup></label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
-                    </div>
-                    <div style="width: 70%;" class="mb-2">
-                        <label for="senha" class="form-label">Senha <sup>*</sup></label>
-                        <input type="password" class="form-control" name="senha" id="senha" placeholder="**********">
-                    </div>
+        <div style="margin: 50px 0;" class="container">
+            {{flash()}}
+            <h1>Criando Usuário</h1>
+            <form method="post">
+                <div style="width: 70%;" class="mb-2">
+                    <label for="nome" class="form-label">Nome <sup>*</sup></label>
+                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite seu nome">
+                </div>
+                <div style="width: 70%;" class="mb-2">
+                    <label for="email" class="form-label">Email <sup>*</sup></label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+                </div>
+                <div style="width: 70%;" class="mb-2">
+                    <label for="senha" class="form-label">Senha <sup>*</sup></label>
+                    <input type="password" class="form-control" name="senha" id="senha" placeholder="**********">
+                </div>
 
-                    <div style="width: 15%;" class="mb-2">
-                        <label for="level" class="form-label">Nível <sup>*</sup></label>
-                        <input type="number" class="form-control" value="1" name="level" id="level">
-                    </div>
-                    <label for="status" class="form-label">Status <sup>*</sup></label>
+                <div style="width: 15%;" class="mb-2">
+                    <label for="level" class="form-label">Nível <sup>*</sup></label>
+                    <input type="number" class="form-control" value="1" name="level" id="level">
+                </div>
+                <label for="status" class="form-label">Status <sup>*</sup></label>
 
-                    <div style="width: 70%;" class="mb-2">
-                        <select name="status" id="status">
-                            <option value="1">Ativo</option>
-                            <option value="0">Inativo</option>
-                        </select>
-                    </div>
-                    <input type="submit" class="{{btn_outline_info}}" value="Criar Usuário">
-                </form>
-            </div>
+                <div style="width: 70%;" class="mb-2">
+                    <select name="status" id="status">
+                        <option value="1">Ativo</option>
+                        <option value="0">Inativo</option>
+                    </select>
+                </div>
+                <input type="submit" class="{{btn_outline_info}}" value="Criar Usuário">
+            </form>
         </div>
         {% include 'footer.html'%}
     </div>

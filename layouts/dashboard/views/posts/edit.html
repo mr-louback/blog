@@ -40,14 +40,16 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="categoria_id">Categoria identificador</label>
-                                    </div>
-                                        {% if posts[0].categoria_id %}
-
-                                        <input style="width: 50%;" type="text" value="{{posts[0].categoria_id}}"
-                                            class="form-control" name="categoria_id" id="categoria_id">
-                                        {%endif%}
+                                    
+                                        <div class="mb-3">
+                                            <label for="categoria_id">Categoria</label>
+                                            <select style="width: 35%;" name="categoria_id" class="mt-2 form-select"
+                                                aria-label="Default select example">
+                                                {% for categoria in categorias %}
+                                                <option value="{{categoria.id}}">{{categoria.titulo}}</option>
+                                                {%endfor%}
+                                            </select>
+                                        </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">

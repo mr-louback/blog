@@ -27,10 +27,16 @@ class AdminPosts extends AdminController
     public function register(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (isset($dados)) {
-            (new PostModel())->insertLinePosts($dados);
-            $this->message->messageSuccess('Post cadastrado com sucesso!')->flash();
-            Helpers::redirect('admin/posts/list');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            if (in_array('', $dados)) {
+                $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
+            } else {
+                (new PostModel())->insertLinePosts($dados);
+
+                $this->message->messageSuccess('Postagem feita com sucesso!')->flash();
+                Helpers::redirect('admin/posts/list');
+            }
         }
         echo $this->template->rendering('posts/register.html', [
             'alert_info' => alert_info,
@@ -41,7 +47,6 @@ class AdminPosts extends AdminController
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
 
-            'categorias' => (new CategoryModel())->readAllCategory(),
             'postsId' => (new PostModel())->readAllPosts(),
         ]);
     }
@@ -63,7 +68,7 @@ class AdminPosts extends AdminController
             'btn_outline_info' => 'btn btn-outline-info',
 
             'posts' => (new PostModel())->searchIdPost($id),
-            'categorias' => (new CategoryModel())->searchIdCategory($id),
+            'categorias' => (new CategoryModel())->readAllCategory(),
         ]);
     }
     public function  delete(int $id): void

@@ -37,9 +37,11 @@
                                     <label for="id">Categoria</label>
                                     <select style="width: 35%;" name="id" class="mt-2 form-select"
                                         aria-label="Default select example">
-                                        {% for categoria in categorias %}
-                                        <option value="{{categoria.id}}">{{categoria.titulo}}</option>
+                                        <!-- {% if posts.id %} -->
+                                        {% for post in posts %}
+                                        <option value="{{post.id}}">{{post.id}}</option>
                                         {%endfor%}
+                                        <!-- {%endif%} -->
 
                                     </select>
                                 </div>

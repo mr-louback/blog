@@ -45,8 +45,6 @@ class AdminUsers extends AdminController
                 Helpers::redirect('admin/login');
             }
         }
-
-
         echo $this->template->rendering('users/register.html', [
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,

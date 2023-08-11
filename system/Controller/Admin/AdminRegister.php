@@ -32,7 +32,7 @@ class AdminRegister extends Controller
                 }
             }
         }
-        echo $this->template->rendering('forms/register.html', [
+        echo $this->template->rendering('users/register.html', [
 
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
