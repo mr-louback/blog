@@ -2,7 +2,10 @@
 
 namespace system\Model;
 
+use PDOException;
 use system\Nucleus\Connection;
+use system\Nucleus\Helpers;
+use system\Nucleus\RenderMessage;
 
 class UserModel
 {
@@ -81,6 +84,7 @@ class UserModel
         
         $stmt = Connection::getInstance()->prepare($query);
         $stmt->execute();
+        
     }
     public function deleteLineUser(int $id): void
     {

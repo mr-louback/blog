@@ -31,9 +31,10 @@ class AdminDashboard extends AdminController
         if (!$posts) {
             Helpers::redirect('erro');
         }
-        echo $this->template->rendering('forms/post.html', [
+        echo $this->template->rendering('posts/post.html', [
             'posts_titulo' => $posts[0]->titulo,
             'posts_texto' => $posts[0]->texto,
+            'posts_id' => $posts[0]->id,
             // css
             'alert_primary' => alert_primary,
             'alert_info' => alert_info,

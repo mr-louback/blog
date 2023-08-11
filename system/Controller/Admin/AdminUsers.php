@@ -2,11 +2,13 @@
 
 namespace system\Controller\Admin;
 
+use PDOException;
 use system\Model\PostModel;
 use system\Nucleus\Helpers;
 use system\Model\CategoryModel;
 use system\Model\UserModel;
 use system\Nucleus\RenderClass;
+use system\Nucleus\RenderMessage;
 
 class AdminUsers extends AdminController
 {
@@ -31,12 +33,12 @@ class AdminUsers extends AdminController
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
-            } elseif ($dados['email'] == (new UserModel())->getUser($dados)->email) {
-                $this->message->messageDanger('Usuário existente!')->flash();
-                Helpers::redirect('admin/users/register');
+            } elseif ((new UserModel())->getUser($dados)) {
+                (new RenderMessage())->messageDanger('Usuário existente!')->flash();
+                Helpers::redirect('admin/register');
             } else {
                 (new UserModel())->insertUser($dados);
                 $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
@@ -62,7 +64,7 @@ class AdminUsers extends AdminController
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
-            (new UserModel())->updateUser($dados);
+            // (new UserModel())->updateUser($dados);
             $this->message->messageInfo('Usuário editado com sucesso!')->flash();
             Helpers::redirect('admin/users/list');
         }

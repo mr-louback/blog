@@ -28,13 +28,18 @@ class AdminLogin extends Controller
                 } elseif ($user->senha !== $dados['senha']) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } else {
+                   
                     (new UserModel())->updateLastLog($user->id);
                     (new Session())->sessionCreate('userId', $user->id);
-                    if ($user->level == 2) {
-                        Helpers::redirect('admin/posts/list');
-                    } else {
+                    if ($user->level == 1) {
                         Helpers::redirect('/admin/dashboard');
                     }
+                    if ($user->level == 2) {
+                        Helpers::redirect('/admin/posts/list');
+                    }
+                    if ($user->level == 3) {
+                        Helpers::redirect('/admin/categories/list');
+                    } 
                 }
             }
         }
@@ -43,4 +48,5 @@ class AdminLogin extends Controller
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
+    
 }

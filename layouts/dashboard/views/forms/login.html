@@ -3,14 +3,11 @@
 {% include 'menu.html'%}
 {%block conteudo%}
 <div id="layoutSidenav">
-    {% include 'sideBar.html'%}
     <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4 p-2">
-                <h1 class="mt-4">{{saudacao()}} </h1>
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Login</li>
-                </ol>
+        {% include 'sideBar.html'%}
+        <div class="container">
+            <div style="margin: 95px 0;" class="container">
+                <h1>Login</h1>
                 {{flash()}}
                 <form method="post">
                     <div style="width: 60%;" class="mb-2">
@@ -26,7 +23,7 @@
                     <input type="submit" class="{{btn_outline_info}}" value="Login">
                 </form>
             </div>
-        </main>
+        </div>
         {% include 'footer.html'%}
     </div>
 </div>

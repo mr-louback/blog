@@ -5,6 +5,7 @@ namespace system\Nucleus;
 use PDO;
 use PDOException;
 use system\Nucleus\Config;
+
 class Connection
 {
     private static $instance;
@@ -20,8 +21,16 @@ class Connection
                     PDO::ATTR_CASE => PDO::CASE_NATURAL,
                 ];
                 self::$instance = new PDO($dsn, $db_config['db_user'], $db_config['db_password'], $options);
-            } catch (PDOException $th) {
-                die('Erro de conexão: ' . $th->getMessage());
+            } catch (PDOException $err) {
+
+                if ($err->getCode()) {
+                    echo "erro 23000";
+                }elseif ($err->getLine()) {
+                    echo "erro line";
+                }else{
+                    die('Erro de conexão: ' . $err->getMessage());
+
+                }
             }
         }
         return self::$instance;
