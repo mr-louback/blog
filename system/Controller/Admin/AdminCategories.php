@@ -33,7 +33,7 @@ class AdminCategories extends AdminController
         }
         echo $this->template->rendering('categories/register.html', [
             'categorias' => (new CategoryModel())->readAllCategory(),
-            'posts' => (new PostModel())->search(),
+            'posts' => (new PostModel())->readAllPosts(),
 
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,

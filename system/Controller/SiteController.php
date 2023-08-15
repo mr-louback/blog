@@ -3,11 +3,8 @@
 namespace system\Controller;
 
 use system\Model\PostModel;
-use system\Model\UserModel;
 use system\Nucleus\Controller;
-use system\Model\CategoryModel;
 use system\Nucleus\Helpers;
-use system\Nucleus\Session;
 
 class SiteController extends Controller
 {
@@ -18,7 +15,7 @@ class SiteController extends Controller
     public function index(): void
     {
         echo $this->template->rendering('index.html', [
-            'posts' => (new PostModel())->search()->result(true),
+            'posts' => (new PostModel())->readAllPosts(),
 
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,

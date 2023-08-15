@@ -1,0 +1,9 @@
+.erro {
+    background-image: url("../img/error-404-monochrome.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-clip: border-box;
+    background-attachment: fixed;
+}
+

@@ -11,9 +11,11 @@
                     <li class="breadcrumb-item active">Lista de categorias</li>
                 </ol>
                 {{flash()}}
-
                 <div class="card mb-4">
-                    <div class="card-header">
+                    {% include 'graffic.html'%}
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header {{alert_warning}}">
                         <i class="fas fa-table me-1"></i>
                         Tabela de dados - Categorias
                     </div>
@@ -78,6 +80,7 @@
                         </table>
                     </div>
                 </div>
+                
             </div>
         </main>
         {% include 'footer.html'%}

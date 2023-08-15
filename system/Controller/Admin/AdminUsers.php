@@ -3,11 +3,8 @@
 namespace system\Controller\Admin;
 
 use PDOException;
-use system\Model\PostModel;
 use system\Nucleus\Helpers;
-use system\Model\CategoryModel;
 use system\Model\UserModel;
-use system\Nucleus\RenderClass;
 use system\Nucleus\RenderMessage;
 
 class AdminUsers extends AdminController

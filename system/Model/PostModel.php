@@ -5,13 +5,10 @@ namespace system\Model;
 use system\Nucleus\Connection;
 use system\Nucleus\Model;
 
-class PostModel extends Model
+class PostModel 
 {
     const TBL_POSTS = 'posts';
-    public function __construct()
-    {
-        parent::__construct('posts');
-    }
+    
     public function readAllPosts(): array
     {
         $query = "SELECT * FROM " . self::TBL_POSTS;

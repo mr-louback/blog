@@ -20,7 +20,7 @@ class AdminPosts extends AdminController
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
 
-            'posts' => $posts->search()->order('status asc, id asc')->result(true),
+            'posts' => $posts->readAllPosts(),
             'categorias' => (new CategoryModel())->readAllCategory(),
 
         ]);

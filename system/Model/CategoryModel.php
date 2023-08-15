@@ -3,17 +3,18 @@
 namespace system\Model;
 
 use system\Nucleus\Connection as NucleusConnection;
-use system\Nucleus\Model;
 
 class CategoryModel
 {
+    const TBL_CATEGORIES = 'categorias';
+
     /**
      * Summary of readAllCategory
      * @return array
      */
     public function readAllCategory(): array
     {
-        $query = "SELECT * FROM categorias";
+        $query = "SELECT * FROM " . self::TBL_CATEGORIES;
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         return $result;
@@ -25,7 +26,7 @@ class CategoryModel
      */
     public function insertLineCategory(array $dados): void
     {
-        $query = "INSERT INTO categorias( titulo, texto,status) VALUES ('$dados[titulo]','$dados[texto]',$dados[status])";
+        $query = "INSERT INTO " . self::TBL_CATEGORIES . "( titulo, texto,status) VALUES ('$dados[titulo]','$dados[texto]',$dados[status])";
         $stmt = NucleusConnection::getInstance()->prepare($query);
         $stmt->execute();
     }
@@ -36,7 +37,7 @@ class CategoryModel
      */
     public function searchIdCategory(int $id): array
     {
-        $query = "SELECT * FROM categorias WHERE id = {$id}";
+        $query = "SELECT * FROM " . self::TBL_CATEGORIES . " WHERE id = {$id}";
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         return $result;
@@ -48,7 +49,7 @@ class CategoryModel
      */
     public function searchCategoryTitle(int $id)
     {
-        $query = "SELECT titulo FROM categorias WHERE id = {$id}";
+        $query = "SELECT titulo FROM " . self::TBL_CATEGORIES . " WHERE id = {$id}";
         $stmt = NucleusConnection::getInstance()->query($query);
         $result = $stmt->fetch();
         return $result;
@@ -60,7 +61,7 @@ class CategoryModel
      */
     public function updateLineCategory(array $dados): void
     {
-        $query = "UPDATE categorias SET id = $dados[id], titulo ='$dados[titulo]', texto =  '$dados[texto]', status = $dados[status] WHERE id = $dados[id]";
+        $query = "UPDATE " . self::TBL_CATEGORIES . " SET id = $dados[id], titulo ='$dados[titulo]', texto =  '$dados[texto]', status = $dados[status] WHERE id = $dados[id]";
         $stmt = NucleusConnection::getInstance()->query($query);
         $stmt->execute();
     }
@@ -71,7 +72,7 @@ class CategoryModel
      */
     public function deleteLineCategory(int $id): void
     {
-        $query = "DELETE FROM categorias WHERE id = {$id}";
+        $query = "DELETE FROM " . self::TBL_CATEGORIES . " WHERE id = {$id}";
         $stmt = NucleusConnection::getInstance()->query($query);
         $stmt->execute();
     }

@@ -46,7 +46,7 @@ try {
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $e) {
     if (Helpers::localhost()) {
-        echo $e;
+        Helpers::redirect('erro');
     }
-    Helpers::redirect('erro');
+    echo $e;
 }
