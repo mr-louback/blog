@@ -18,7 +18,7 @@ try {
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'login', 'AdminLogin@login');
         
         // admin register
-        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'register', 'AdminRegister@register');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'register', 'AdminLogin@register');
 
         // admin dashboard
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');

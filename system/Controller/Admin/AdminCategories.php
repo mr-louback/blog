@@ -2,6 +2,7 @@
 
 namespace system\Controller\Admin;
 
+use PDOException;
 use system\Nucleus\Helpers;
 use system\Model\CategoryModel;
 use system\Model\PostModel;
@@ -64,8 +65,16 @@ class AdminCategories extends AdminController
     }
     public function deletar(int $id): void
     {
-        (new CategoryModel())->deleteLineCategory($id);
-        $this->message->messageWarning('Categoria deletada com sucesso!')->flash();
-        Helpers::redirect('admin/categories/list');
+        try {
+                (new CategoryModel())->deleteLineCategory($id);
+                $this->message->messageWarning('Categoria deletada com sucesso!')->flash();
+                Helpers::redirect('admin/categories/list');
+        } catch (PDOException $err) {
+            if ($err->getCode() == '23000' and $err->errorInfo[1] == 1451) {
+                $categoriaTitle = (new CategoryModel())->searchCategoryTitle($id);
+                $this->message->messageDanger("Tenha certeza de que não existem postagens vinculadas a categoria {$categoriaTitle->titulo}!")->flash();
+                Helpers::redirect('admin/categories/list');
+            }
+        }
     }
 }

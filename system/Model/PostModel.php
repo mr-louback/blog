@@ -2,7 +2,7 @@
 
 namespace system\Model;
 
-use system\Nucleus\Connection ;
+use system\Nucleus\Connection;
 use system\Nucleus\Model;
 
 class PostModel extends Model
@@ -14,14 +14,21 @@ class PostModel extends Model
     }
     public function readAllPosts(): array
     {
-        $query = "SELECT * FROM " . self::TBL_POSTS ;
+        $query = "SELECT * FROM " . self::TBL_POSTS;
+        $stmt = Connection::getInstance()->query($query);
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+    public function searchCategoryId(int $id): array
+    {
+        $query = "SELECT categoria_id FROM " . self::TBL_POSTS . " WHERE categoria_id = {$id}";
         $stmt = Connection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         return $result;
     }
     public function insertLinePosts(array $dados): void
     {
-        $query = "INSERT INTO " . self::TBL_POSTS . "( titulo, texto, status) VALUES ( '$dados[titulo]','$dados[texto]',$dados[status])";
+        $query = "INSERT INTO " . self::TBL_POSTS . "( categoria_id, titulo, texto, status) VALUES ( $dados[categoria_id],'$dados[titulo]','$dados[texto]',$dados[status])";
         $stmt = Connection::getInstance()->prepare($query);
         $stmt->execute();
     }

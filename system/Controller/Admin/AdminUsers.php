@@ -16,7 +16,7 @@ class AdminUsers extends AdminController
 
     public function list(): void
     {
-        $posts = (new UserModel())->getAllUsers();
+        $users = (new UserModel())->getAllUsers();
         echo $this->template->rendering('users/list.html', [
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
@@ -25,23 +25,22 @@ class AdminUsers extends AdminController
             'alert_warning' => alert_warning,
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
-
-            'posts' => $posts,
+            'users' => $users,
         ]);
     }
     public function register(): void
     {
-        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+            $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
-            } elseif ((new UserModel())->getUser($dados)) {
+            } elseif ((new UserModel())->getUserEmail($dados)) {
                 (new RenderMessage())->messageDanger('Usuário existente!')->flash();
                 Helpers::redirect('admin/register');
             } else {
                 (new UserModel())->insertUser($dados);
-                $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
+                $user = (new UserModel())->getUserEmail($dados);
+                $this->message->messageSuccess('Usuário '.$user->email.' cadastrado com sucesso!')->flash();
                 Helpers::redirect('admin/login');
             }
         }
@@ -53,20 +52,32 @@ class AdminUsers extends AdminController
             'alert_warning' => alert_warning,
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
-
-            // 'categorias' => (new CategoryModel())->readAllCategory(),
-            // 'postsId' => (new PostModel())->readAllPosts(),
         ]);
     }
     public function edit(int $id): void
     {
-        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (isset($dados)) {
-            // (new UserModel())->updateUser($dados);
-            $this->message->messageInfo('Usuário editado com sucesso!')->flash();
-            Helpers::redirect('admin/users/list');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+            if (in_array('', $dados)) {
+                $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
+            } else {
+                try {
+                    (new UserModel())->updateUser($dados);
+                    $this->message->messageInfo(" Usuário editado com sucesso!")->flash();
+                    Helpers::redirect('admin/users/list');
+                    $user = (new UserModel())->getUserEmail($dados);
+                    if ($user->email) {
+                        (new UserModel())->updateUser($dados);
+                        $this->message->messageInfo(" Usuário editado com sucesso!")->flash();
+                        Helpers::redirect('admin/users/list');
+                    }
+                } catch (PDOException $err) {
+                    if ($err->getCode() == '23000' and $err->errorInfo[1] == 1062) {
+                        $this->message->messageDanger("Usuário existente, tente outro e-mail!")->flash();
+                    }
+                }
+            }
         }
-        $user = (new UserModel())->getUserId($id);
         echo $this->template->rendering('users/edit.html', [
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
@@ -76,12 +87,12 @@ class AdminUsers extends AdminController
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
 
-            'user' => $user,
+            'user' => (new UserModel())->getUserId($id),
         ]);
     }
     public function  delete(int $id): void
     {
-        (new UserModel())->deleteLineUser($id);
+        (new UserModel())->deleteUserId($id);
         $this->message->messageWarning('Usuário deletado com sucesso!')->flash();
         Helpers::redirect('admin/users/list');
     }

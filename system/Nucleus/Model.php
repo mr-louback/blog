@@ -82,4 +82,5 @@ class Model
             $filter[$key] = is_null($value) ? null : filter_var($value, FILTER_DEFAULT);
         }
     }
+    
 }

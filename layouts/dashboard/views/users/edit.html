@@ -11,54 +11,58 @@
                         Formulário de edição de usuário
                     </li>
                 </ol>
+                {{flash()}}
                 <div class="card mb-4">
                     <div class="card-body">
                         <form method="post">
                             <label for="id" class="form-label">Identificador</label>
                             <div style="width: 70%;" class="mb-2">
-                                {% if user %}
-                                <input name="id"  type="number" for="id" value="{{user.id}}" class="form-control">
+                                {% if user %}                                
+                                <select style="width: 35%;" name="id" id="id">
+                                    <option value="{{user.id}}">{{user.id}}</option>
+                                </select>
                                 {%endif%}
                             </div>
                             <div style="width: 70%;" class="mb-2">
                                 <label for="nome" class="form-label ">Nome<sup>*</sup></label>
                                 {% if user%}
-                                <input value="{{user.nome}}" type="text" class="form-control" name="nome"
-                                    id="nome">
+                                <input value="{{user.nome}}" type="text" class="form-control" name="nome" id="nome">
                                 {%endif%}
                             </div>
                             <label for="email">Email</label>
                             <div style="width: 70%;" class="form-floating">
                                 {% if user %}
-                                <input type="email" name="email" class="form-control"
-                                    id="email" value="{{user.email}}" disabled>
+                                <input type="email" name="email" class="form-control" id="email" value="{{user.email}}">
                                 {%endif%}
                             </div>
                             <label for="senha">Senha</label>
                             <div style="width: 70%;" class="form-floating">
                                 {% if user %}
-                                <input type="text" name="senha" class="form-control"
-                                    id="email" value="{{user.senha}}">
+                                <input type="text" name="senha" class="form-control" id="email" value="{{user.senha}}">
                                 {%endif%}
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
+                                    <label for="level" class="form-label">Nível <sup>*</sup></label>
                                     <div class="mb-3">
-                                        <label for="level">Level</label>
-                                        {% if user %}
-                                        <input style="width: 50%;" type="text" value="{{user.level}}"
-                                            class="form-control" name="level" id="level">
+                                        {% if user.level %}
+                                        <select style="width: 35%;" name="level" id="level">
+                                            <option value="1">Usuaŕio</option>
+                                            <option value="2">Funcionário</option>
+                                            <option value="3">Administrador</option>
+                                        </select>
                                         {%endif%}
                                     </div>
-                                        
+
                                 </div>
                                 <div class="col-md-6">
+                                    <label for="status">Status</label>
                                     <div class="mb-3">
-                                        <label for="status">Status</label>
-                                        {% if user %}
-                                        <input style="width: 35%;" type="number" value="{{user.status}}"
-                                            class="form-control" name="status" id="status">
-
+                                        {% if user.level %}
+                                        <select style="width: 35%;" name="status" id="status">
+                                            <option value="1">Ativo</option>
+                                            <option value="0">Inativo</option>
+                                        </select>
                                         {%endif%}
                                     </div>
                                 </div>

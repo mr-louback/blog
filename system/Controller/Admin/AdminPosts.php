@@ -5,7 +5,6 @@ namespace system\Controller\Admin;
 use system\Model\PostModel;
 use system\Nucleus\Helpers;
 use system\Model\CategoryModel;
-use system\Nucleus\RenderClass;
 
 class AdminPosts extends AdminController
 {
@@ -22,6 +21,8 @@ class AdminPosts extends AdminController
             'btn_outline_info' => 'btn btn-outline-info',
 
             'posts' => $posts->search()->order('status asc, id asc')->result(true),
+            'categorias' => (new CategoryModel())->readAllCategory(),
+
         ]);
     }
     public function register(): void
@@ -33,7 +34,6 @@ class AdminPosts extends AdminController
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
                 (new PostModel())->insertLinePosts($dados);
-
                 $this->message->messageSuccess('Postagem feita com sucesso!')->flash();
                 Helpers::redirect('admin/posts/list');
             }
@@ -47,7 +47,7 @@ class AdminPosts extends AdminController
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
 
-            'postsId' => (new PostModel())->readAllPosts(),
+            'categorias' => (new CategoryModel())->readAllCategory(),
         ]);
     }
     public function edit(int $id): void
@@ -74,7 +74,7 @@ class AdminPosts extends AdminController
     public function  delete(int $id): void
     {
         (new PostModel())->deleteLinePosts($id);
-        $this->message->messageWarning('Post deletado com sucesso!')->flash();
+        $this->message->messageDanger('Post deletado com sucesso!')->flash();
         Helpers::redirect('admin/posts/list');
     }
 }

@@ -13,6 +13,30 @@ class AdminLogin extends Controller
     {
         parent::__construct('layouts/dashboard/views');
     }
+    public function register()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+            if (in_array('', $dados)) {
+                $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
+            } else {
+                $user = (new UserModel())->getUserEmail($dados);
+                if ($user) {
+                    $this->message->messageDanger('Usuário existente!')->flash();
+                    Helpers::redirect('admin/register');
+
+                } else {
+                    (new UserModel())->insertUser($dados);
+                    $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
+                    Helpers::redirect('admin/login');
+                }
+            }
+        }
+        echo $this->template->rendering('forms/register.html', [
+
+            'btn_outline_info' => 'btn btn-outline-info',
+        ]);
+    }
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -20,7 +44,7 @@ class AdminLogin extends Controller
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
-                $user = (new UserModel())->getUser($dados);
+                $user = (new UserModel())->getUserEmail($dados);
                 if (!$user) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } elseif ($user->email !== $dados['email']) {
@@ -35,10 +59,10 @@ class AdminLogin extends Controller
                         Helpers::redirect('/admin/dashboard');
                     }
                     if ($user->level == 2) {
-                        Helpers::redirect('/admin/posts/list');
+                        Helpers::redirect('/admin/dashboard');
                     }
                     if ($user->level == 3) {
-                        Helpers::redirect('/admin/categories/list');
+                        Helpers::redirect('/admin/dashboard');
                     } 
                 }
             }

@@ -32,29 +32,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {%for post in posts%}
+                                {%for user in users%}
                                 <tr>
                                    
                                     
                                     <td>
                                         <div class="container btn">
-                                            {{post.nome}}
+                                            {{user.nome}}
                                         </div>
                                     </td>
                                     <td>
-                                        {%if post.level == 1 %}
+                                        {%if user.level == 1 %}
                                         <div class="container  btn">
                                            Usuário
                                         </div>
                                         {%endif%}
 
-                                        {% if post.level == 3%}
+                                        {% if user.level == 3%}
                                         <div class="container  btn">
                                            Admin
                                         </div>
                                         {%endif%}
 
-                                        {% if post.level == 2%}
+                                        {% if user.level == 2%}
                                         <div class="container  btn">
                                             Funcionário
                                         </div>
@@ -62,12 +62,12 @@
                                     </td>
                                     <td>
                                         <div class="container btn">
-                                            {{resumeTexto(''~post.email, 10)}}
+                                            {{resumeTexto(''~user.email, 10)}}
                                         </div>
                                     </td>
                                     
                                     <td>
-                                        {%if post.status == 1 %}
+                                        {%if user.status == 1 %}
                                         <div class="container  btn">
                                             <i style="color: rgb(0, 179, 119); " class="fa-solid fa-check">
                                             </i>
@@ -80,7 +80,7 @@
                                         {%endif%}
                                     </td>
                                     <td>
-                                        <a href="{{url('admin/users/'~post.id)}}">
+                                        <a href="{{url('admin/users/'~user.id)}}">
                                             <div class="container  btn">
                                                 <i style="color: rgb(95, 112, 174); " class="fa-solid fa-pen">
                                                 </i>
@@ -88,7 +88,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{url('admin/users/delete/'~post.id)}}">
+                                        <a href="{{url('admin/users/delete/'~user.id)}}">
                                             <div class="container  btn">
                                                 <i style="color: rgb(158, 84, 84); " class="fa-solid fa-trash">
                                                 </i>

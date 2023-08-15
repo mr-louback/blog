@@ -22,14 +22,13 @@ class Connection
                 ];
                 self::$instance = new PDO($dsn, $db_config['db_user'], $db_config['db_password'], $options);
             } catch (PDOException $err) {
-
-                if ($err->getCode()) {
-                    echo "erro 23000";
-                }elseif ($err->getLine()) {
+                if ($err->getCode() == "erro 23000") {
+                    echo $err->getMessage();
+                } elseif ($err->getLine()) {
+                    
                     echo "erro line";
-                }else{
+                } else {
                     die('Erro de conexão: ' . $err->getMessage());
-
                 }
             }
         }
