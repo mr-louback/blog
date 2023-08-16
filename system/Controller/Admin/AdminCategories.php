@@ -18,7 +18,7 @@ class AdminCategories extends AdminController
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,
             'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
             'categorias' => (new CategoryModel())->readAllCategory(),
         ]);
@@ -31,7 +31,7 @@ class AdminCategories extends AdminController
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
                 (new CategoryModel())->insertLineCategory($dados);
-                $this->message->messageInfo('Categoria cadastrada com sucesso!')->flash();
+                $this->message->messageSuccess('Categoria criada com sucesso!')->flash();
                 Helpers::redirect('admin/categories/list');
             }
         }
@@ -56,7 +56,7 @@ class AdminCategories extends AdminController
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
                 (new CategoryModel())->updateLineCategory($dados);
-                $this->message->messageInfo('Categoria editada com sucesso!')->flash();
+                $this->message->messageWarning('Categoria editada com sucesso!')->flash();
                 Helpers::redirect('admin/categories/list');
             }
         }
@@ -75,12 +75,12 @@ class AdminCategories extends AdminController
     {
         try {
             (new CategoryModel())->deleteLineCategory($id);
-            $this->message->messageInfo('Categoria deletada com sucesso!')->flash();
+            $this->message->messageDanger('Categoria deletada com sucesso!')->flash();
             Helpers::redirect('admin/categories/list');
         } catch (PDOException $err) {
             if ($err->getCode() == '23000' and $err->errorInfo[1] == 1451) {
                 $categoriaTitle = (new CategoryModel())->searchCategoryTitle($id);
-                $this->message->messageDanger("Tenha certeza de que não existem postagens vinculadas a categoria {$categoriaTitle->titulo}!")->flash();
+                $this->message->messagePrimary("Tenha certeza de que não existem postagens vinculadas a categoria {$categoriaTitle->titulo}!")->flash();
                 Helpers::redirect('admin/categories/list');
             }
         }
