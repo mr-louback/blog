@@ -51,12 +51,11 @@ class PostModel
     }
     public function updateLinePosts(array $dados): void
     {
-        $query = "UPDATE " . self::TBL_POSTS . " SET id = $dados[id] , categoria_id = $dados[categoria_id], titulo = '$dados[titulo]', texto = '$dados[textarea]', status = $dados[select_status] WHERE id = $dados[id] ";
-        // var_dump($query);
+        $created_at = date('Y-m-d H:i:s');
+        $query = "UPDATE " . self::TBL_POSTS . " SET id = $dados[id] , categoria_id = $dados[categoria_id], titulo = '$dados[titulo]', texto = '$dados[textarea]', status = $dados[select_status], created_at = '{$created_at}' WHERE id = $dados[id] ";
         $stmt = Connection::getInstance()->query($query);
         $stmt->execute();
     }
-
     public function deleteLinePosts(int $id): void
     {
         $query = "DELETE FROM " . self::TBL_POSTS . " WHERE id = $id";
