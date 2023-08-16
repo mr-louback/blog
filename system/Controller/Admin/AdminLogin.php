@@ -33,7 +33,12 @@ class AdminLogin extends Controller
             }
         }
         echo $this->template->rendering('forms/register.html', [
-
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
@@ -68,7 +73,12 @@ class AdminLogin extends Controller
             }
         }
         echo $this->template->rendering('forms/login.html', [
-
+            'alert_info' => alert_info,
+            'alert_primary' => alert_primary,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
