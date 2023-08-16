@@ -2,51 +2,51 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
+                <!-- <div class="sb-sidenav-menu-heading">Core</div> -->
                 {% if user() == false%}
-                <a class="nav-link" href="{{url('/')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('/')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Home
                 </a>
                 {%endif%}
                 {% if user().level == 1%}
-                <a class="nav-link" href="{{url('admin/dashboard')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('admin/dashboard')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Dashboard
                 </a>
-                <a class="nav-link" href="{{url('admin/posts/list')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('admin/posts/list')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Postagens
                 </a>
                 {%endif%}
                 {%if user().level == 2%}
-                <a class="nav-link" href="{{url('admin/dashboard')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('admin/dashboard')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Dashboard
                 </a>
-                <a class="nav-link" href="{{url('admin/posts/list')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('admin/posts/list')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Postagens
                 </a>
-                <a class="nav-link" href="{{url('admin/categories/list')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('admin/categories/list')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Categorias
                 </a>
                 {%endif%}
                 {%if user().level == 3%}
-                <a class="nav-link" href="{{url('admin/dashboard')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('admin/dashboard')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Dashboard
                 </a>
-                <a class="nav-link" href="{{url('admin/users/list')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('admin/users/list')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Usuários
                 </a>
-                <a class="nav-link" href="{{url('admin/posts/list')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('admin/posts/list')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Postagens
                 </a>
-                <a class="nav-link" href="{{url('admin/categories/list')}}">
+                <a class="nav-link btn btn-outline-info" href="{{url('admin/categories/list')}}">
                     <div class="sb-nav-link-icon"><i class=" fas fa-bars"></i></div>
                     Categorias
                 </a>
