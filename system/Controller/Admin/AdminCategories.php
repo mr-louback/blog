@@ -25,11 +25,15 @@ class AdminCategories extends AdminController
     }
     public function register(): void
     {
-        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (isset($dados)) {
-            (new CategoryModel())->insertLineCategory($dados);
-            $this->message->messageSuccess('Categoria cadastrada com sucesso!')->flash();
-            Helpers::redirect('admin/categories/list');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+            if (in_array('', $dados)) {
+                $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
+            } else {
+                (new CategoryModel())->insertLineCategory($dados);
+                $this->message->messageInfo('Categoria cadastrada com sucesso!')->flash();
+                Helpers::redirect('admin/categories/list');
+            }
         }
         echo $this->template->rendering('categories/register.html', [
             'categorias' => (new CategoryModel())->readAllCategory(),
@@ -46,11 +50,15 @@ class AdminCategories extends AdminController
     }
     public function edit(int $id): void
     {
-        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (isset($dados)) {
-            (new CategoryModel())->updateLineCategory($dados);
-            $this->message->messageInfo('Categoria editada com sucesso!')->flash();
-            Helpers::redirect('admin/categories/list');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+            if (in_array('', $dados)) {
+                $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
+            } else {
+                (new CategoryModel())->updateLineCategory($dados);
+                $this->message->messageInfo('Categoria editada com sucesso!')->flash();
+                Helpers::redirect('admin/categories/list');
+            }
         }
         echo $this->template->rendering('categories/edit.html', [
             'categorias' => (new CategoryModel())->searchIdCategory($id),
@@ -66,9 +74,9 @@ class AdminCategories extends AdminController
     public function deletar(int $id): void
     {
         try {
-                (new CategoryModel())->deleteLineCategory($id);
-                $this->message->messageWarning('Categoria deletada com sucesso!')->flash();
-                Helpers::redirect('admin/categories/list');
+            (new CategoryModel())->deleteLineCategory($id);
+            $this->message->messageInfo('Categoria deletada com sucesso!')->flash();
+            Helpers::redirect('admin/categories/list');
         } catch (PDOException $err) {
             if ($err->getCode() == '23000' and $err->errorInfo[1] == 1451) {
                 $categoriaTitle = (new CategoryModel())->searchCategoryTitle($id);
