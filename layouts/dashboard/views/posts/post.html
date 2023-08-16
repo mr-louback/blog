@@ -8,18 +8,17 @@
         <main>
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Postagem</h1>
-                Olá, voce está em postagem. {{saudacao()}}
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active"></li>
-                </ol>
-                
+                Olá, {{user().nome}} voce está em postagem. {{saudacao()}}
+
                 <div class="row">
                     <div class="col-lg-9 col-md-12">
                         <div class="row">
                             <div class="h-100 card {{alert_dark}} text-black">
                                 <div class="card-body">
+                                    <span>Postagem feita {{createdAt(posts_id)}}</span>
                                     <h5 class="{{alert_light}}  card-title">{{posts_titulo}}</h5>
                                     <p class="{{alert_light}} card-text">{{posts_texto}}</p>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -29,7 +28,6 @@
                 </div>
             </div>
         </main>
-
         {% include 'footer.html'%}
     </div>
 </div>

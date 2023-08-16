@@ -3,18 +3,30 @@
 namespace system\Model;
 
 use system\Nucleus\Connection;
+use system\Nucleus\Helpers;
 use system\Nucleus\Model;
 
-class PostModel 
+class PostModel
 {
     const TBL_POSTS = 'posts';
-    
+
     public function readAllPosts(): array
     {
         $query = "SELECT * FROM " . self::TBL_POSTS;
         $stmt = Connection::getInstance()->query($query);
         $result = $stmt->fetchAll();
         return $result;
+    }
+    /**
+     * Summary of readPostsCreated
+     * @return mixed
+     */
+    public function readPostsCreated(int $id)
+    {
+        $query = "SELECT * FROM " . self::TBL_POSTS ." WHERE id = {$id}";
+        $stmt = Connection::getInstance()->query($query);
+        $result = $stmt->fetch();
+        return $result->created_at ;
     }
     public function searchCategoryId(int $id): array
     {

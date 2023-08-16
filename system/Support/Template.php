@@ -31,73 +31,11 @@ class Template
                     return Helpers::url($texto);
                 })
             ),
-           
-            $this->twig->addFunction(
-                new TwigFunction('urlIndex', function () {
-                    return Helpers::url('');
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('urlFormCad', function () {
-                    return Helpers::url('formCad');
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('urlFormLog', function () {
-                    return Helpers::url('formLog');
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('urlSidebar', function () {
-                    return Helpers::url('../../../layouts/site/views/sidebar.html');
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('urlCssSite', function () {
-                    return Helpers::url('../../../layouts/site/assets/css/site.css');
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('urlCss', function () {
-                    return Helpers::url('../../../layouts/assets/css/style.css');
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('urlJsSite', function () {
-                    return Helpers::url('../../../layouts/site/assets/js/site.js');
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('urlJs', function () {
-                    return Helpers::url('../../../layouts/assets/js/script.js');
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('urlCssSiteAdmin', function () {
-                    return Helpers::url('../../dashboard/views/assets/css/style.css');
-                })
-            ),            
-            $this->twig->addFunction(
-                new TwigFunction('urlCssAdmin', function () {
-                return Helpers::url('../../dashboard/assets/css/style.css');
-            })
-        ), 
-            $this->twig->addFunction(
-                new TwigFunction('urlLogin', function () {
-                    return Helpers::url('formLog');
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('urlHome', function (string $texto) {
-                    return Helpers::url($texto);
-                })
-            ),
             $this->twig->addFunction(
                 new TwigFunction('saudacao', function () {
                     return Helpers::saudacao();
                 })
             ),
-           
             $this->twig->addFunction(
                 new TwigFunction('contaTempo', function (string $texto) {
                     return Helpers::contaTempo($texto);
@@ -118,10 +56,14 @@ class Template
                     return UserController::sessionIdUser();
                 })
             ),
-
             $this->twig->addFunction(
                 new TwigFunction('posts',function (){
                     return (new PostModel())->readAllPosts();
+                })
+            ),
+            $this->twig->addFunction(
+                new TwigFunction('createdAt',function (int $id){
+                    return Helpers::contaTempo((new PostModel())->readPostsCreated($id));
                 })
             ),
         );

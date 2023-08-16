@@ -77,4 +77,19 @@ class AdminPosts extends AdminController
         $this->message->messageInfo('Post deletado com sucesso!')->flash();
         Helpers::redirect('admin/posts/list');
     }
+    public function erro(){
+        
+        echo $this->template->rendering('error.html', [
+            $this->message->messageDanger('Postagem não encontrada!')->flash(),
+            
+            // css
+            'alert_primary' => alert_primary,
+            'alert_info' => alert_info,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'alert_warning' => alert_warning,
+            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_info' => 'btn btn-outline-info',
+        ]);
+    }
 }

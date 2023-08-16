@@ -17,8 +17,10 @@
                         <div class="row">
                             {% for post in posts() %}
                             <a href="{{url('admin/post/'~post.id)}}" style="text-decoration: none;" class="col-md-6 mb-4">
-                                <div class="h-100 card {{btn_outline_info}} text-black">
+                                <div class="h-100 card {{alert_dark}} text-black">
+                                    
                                     <div class="card-body">
+                                        {{createdAt(post.id)}}
                                         <h5 class="card-title">{{post.titulo}}</h5>
                                         <p class="card-text">
                                             {{resumeTexto(''~post.texto,30)}}

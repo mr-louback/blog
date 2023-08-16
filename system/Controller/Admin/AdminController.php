@@ -17,6 +17,5 @@ class AdminController extends Controller
         if(!$this->user){
             Helpers::redirect("/");
         }
-        // você sabe
     }
 }
