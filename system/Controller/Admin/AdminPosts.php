@@ -17,7 +17,7 @@ class AdminPosts extends AdminController
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,
             'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
             'posts' => $posts->readAllPosts(),
             'categorias' => (new CategoryModel())->readAllCategory(),
@@ -25,9 +25,8 @@ class AdminPosts extends AdminController
     }
     public function register(): void
     {
-        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+            $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
