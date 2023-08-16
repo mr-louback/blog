@@ -32,7 +32,7 @@ class AdminPosts extends AdminController
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
                 (new PostModel())->insertLinePosts($dados);
-                $this->message->messageInfo('Postagem feita com sucesso!')->flash();
+                $this->message->messageInfo('Postagem criada com sucesso!')->flash();
                 Helpers::redirect('admin/posts/list');
             }
         }
