@@ -5,19 +5,17 @@
         {% include 'sideBar.html'%}
         <main>
             <div class="container-fluid px-4 p-2">
-                <a href="{{url('admin/users/register')}}" class="{{btn_outline_info}}">Criar usuário</a>
                 <h1 class="mt-4">Usuários</h1>
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Lista de usuários</li>
-                </ol>
+                
                 {{flash()}}
                 <div class="card mb-4">
                     <div>
                     </div>
-                    <div class="card-header {{alert_warning}}">
+                    <div class="card-header {{alert_primary}}">
                         <i class="fas fa-table me-1"></i>
-                        Tabela de Usuários
+                        Tabela de dados - Usuários
                     </div>
+                    <a href="{{url('admin/users/register')}}" class="mx-3 my-1 {{btn_outline_info}} ">Criar usuário</a>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
@@ -26,74 +24,70 @@
                                     <th>Level</th>
                                     <th>Email</th>
                                     <th>Status</th>
-                                    <th>Editar</th>
-                                    <th>Deletar</th>
-
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {%for user in users%}
                                 <tr>
-                                   
-                                    
+
+
                                     <td>
-                                        <div class="container btn">
+                                        <div class="containe">
                                             {{user.nome}}
                                         </div>
                                     </td>
                                     <td>
                                         {%if user.level == 1 %}
-                                        <div class="container  btn">
-                                           Usuário
+                                        <div class="container">
+                                            Usuário
                                         </div>
                                         {%endif%}
 
                                         {% if user.level == 3%}
-                                        <div class="container  btn">
-                                           Admin
+                                        <div class="container">
+                                            Admin
                                         </div>
                                         {%endif%}
 
                                         {% if user.level == 2%}
-                                        <div class="container  btn">
+                                        <div class="container">
                                             Funcionário
                                         </div>
                                         {%endif%}
                                     </td>
                                     <td>
-                                        <div class="container btn">
+                                        <div class="containe">
                                             {{resumeTexto(''~user.email, 10)}}
                                         </div>
                                     </td>
-                                    
+
                                     <td>
                                         {%if user.status == 1 %}
-                                        <div class="container  btn">
+                                        <div class="container">
                                             <i style="color: rgb(0, 179, 119); " class="fa-solid fa-check">
                                             </i>
                                         </div>
                                         {%else%}
-                                        <div class="container  btn">
+                                        <div class="container">
                                             <i style="color: rgb(179, 0, 0); " class="fa-solid fa-x">
                                             </i>
                                         </div>
                                         {%endif%}
-                                    </td>
+                                    </td>{{alert_info}}
                                     <td>
-                                        <a href="{{url('admin/users/'~user.id)}}">
-                                            <div class="container  btn">
-                                                <i style="color: rgb(95, 112, 174); " class="fa-solid fa-pen">
+                                        <div class="d-flex">
+
+                                            <a class="{{btn_outline_info}}" href="{{url('admin/users/'~user.id)}}">
+                                                <i class="fa-solid fa-pen">
                                                 </i>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{url('admin/users/delete/'~user.id)}}">
-                                            <div class="container  btn">
-                                                <i style="color: rgb(158, 84, 84); " class="fa-solid fa-trash">
+                                            </a>
+
+                                            <a class="{{btn_outline_danger}}" href="{{url('admin/users/delete/'~user.id)}}">
+                                                <i class="fa-solid fa-trash">
                                                 </i>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                                 {%endfor%}
@@ -101,7 +95,6 @@
                         </table>
                     </div>
                 </div>
-
             </div>
         </main>
         {% include 'footer.html'%}
