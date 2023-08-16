@@ -20,7 +20,7 @@ class AdminUsers extends AdminController
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,
             'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
             'users' => $users,
         ]);
@@ -38,7 +38,7 @@ class AdminUsers extends AdminController
                 (new UserModel())->insertUser($dados);
                 $user = (new UserModel())->getUserEmail($dados);
                 $this->message->messageSuccess('Usuário '.$user->email.' cadastrado com sucesso!')->flash();
-                Helpers::redirect('admin/login');
+                Helpers::redirect('admin/users/list');
             }
         }
         echo $this->template->rendering('users/register.html', [
@@ -81,7 +81,7 @@ class AdminUsers extends AdminController
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,
             'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
 
             'user' => (new UserModel())->getUserId($id),
