@@ -2,12 +2,14 @@
 
 namespace system\Model;
 
+use mysqli;
+use mysqli_stmt;
 use PDOException;
+use system\Nucleus\Config;
 use system\Nucleus\Connection;
 
 class UserModel
 {
-    
     /**
      * Summary of getUserEmail
      * @param array $dados
@@ -33,7 +35,6 @@ class UserModel
         $result = $stmt->fetchAll();
         return $result;
     }
-    
     /**
      * Summary of getUserId
      * @param int $id
@@ -77,7 +78,7 @@ class UserModel
      */
     public function insertUser(array $dados): void
     {
-        $query = "INSERT INTO usuarios( nome, level, email, senha, status) VALUES ( '$dados[nome]', $dados[level],'$dados[email]','$dados[senha]',$dados[status])";
+        $query = "INSERT INTO usuarios( nome, level, email, senha, status) VALUES ( '$dados[nome]', $dados[level],'$dados[email]',{$dados['senha']},$dados[status])";
         $stmt = Connection::getInstance()->prepare($query);
         $stmt->execute();
     }
