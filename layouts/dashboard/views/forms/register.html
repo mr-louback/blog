@@ -6,9 +6,9 @@
     <div id="layoutSidenav_content">
         {% include 'sideBar.html'%}
         <div class="container">
-            <div style="margin: 95px 0;" class="container">
+            <div style="margin: 75px 0;" class="container">
                 {{flash()}}
-                <h1 class="{{alert_primary}}">Criando Usuário</h1>
+                <h1 class="mt-1 {{alert_primary}}">Criando Usuário</h1>
                 <div class="card mb-4">
                     <div class="card-body">
                         <form method="post">
@@ -35,10 +35,7 @@
                                     <option value="2">Funcionário</option>
                                     <option value="3">Administrador(a)</option>
                                 </select>
-                            </div>
-                            <label for="status" class="form-label">Status <sup>*</sup></label>
-
-                            <div style="width: 70%;" class="mb-2">
+                                <label for="status" class="form-label">Status <sup>*</sup></label>
                                 <select name="status" id="status">
                                     <option value="1">Ativo</option>
                                     <option value="0">Inativo</option>
