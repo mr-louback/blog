@@ -5,6 +5,7 @@ namespace system\Controller\Admin;
 use system\Model\UserModel;
 use system\Nucleus\Controller;
 use system\Nucleus\Helpers;
+use system\Nucleus\RenderMessage;
 use system\Nucleus\Session;
 
 class AdminLogin extends Controller
@@ -24,8 +25,9 @@ class AdminLogin extends Controller
                 if ($user) {
                     $this->message->messageDanger('Usuário existente!')->flash();
                     Helpers::redirect('admin/register');
-
-                } else {
+                }elseif (!Helpers::validatePassword($dados['senha'])) {
+                    (new RenderMessage())->messageDanger('Senha pracisa ter mais de 6(seis) caracteres!')->flash();
+                }  else {
                     (new UserModel())->insertUser($dados);
                     $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
                     Helpers::redirect('admin/login');

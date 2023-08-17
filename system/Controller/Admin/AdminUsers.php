@@ -25,29 +25,35 @@ class AdminUsers extends AdminController
             'users' => $users,
         ]);
     }
-    public function register(): void
+    public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
-            } elseif ((new UserModel())->getUserEmail($dados)) {
-                (new RenderMessage())->messageDanger('Usuário existente!')->flash();
-                Helpers::redirect('admin/register');
             } else {
-                (new UserModel())->insertUser($dados);
-                $user = (new UserModel())->getUserEmail($dados);
-                $this->message->messageSuccess('Usuário '.$user->email.' cadastrado com sucesso!')->flash();
-                Helpers::redirect('admin/users/list');
+
+                    $user = (new UserModel())->getUserEmail($dados);
+                    if ($user) {
+                        $this->message->messageDanger('Usuário existente, tente outro e-mail!')->flash();
+                        Helpers::redirect('admin/register');
+                    } elseif (!Helpers::validatePassword($dados['senha'])) {
+                        (new RenderMessage())->messageDanger('Senha pracisa ter mais de 6(seis) a 20 caracteres!')->flash();
+                    } else {
+                        (new UserModel())->insertUser($dados);
+                        $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
+                        Helpers::redirect('admin/users/list');
+                    }
+               
             }
         }
-        echo $this->template->rendering('users/register.html', [
+        echo $this->template->rendering('forms/register.html', [
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,
             'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
@@ -59,13 +65,19 @@ class AdminUsers extends AdminController
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
                 try {
-                    (new UserModel())->updateUser($dados);
-                    $this->message->messageInfo(" Usuário editado com sucesso!")->flash();
-                    Helpers::redirect('admin/users/list');
                     $user = (new UserModel())->getUserEmail($dados);
-                    if ($user->email) {
+                    if ($user and Helpers::validatePassword($dados['senha'])) {
                         (new UserModel())->updateUser($dados);
                         $this->message->messageInfo(" Usuário editado com sucesso!")->flash();
+                        Helpers::redirect('admin/users/list');
+                    } elseif (!Helpers::validatePassword($dados['senha'])) {
+                        (new RenderMessage())->messageDanger('Senha pracisa ter mais de 6(seis) a 20 caracteres!')->flash();
+                    } else {
+                        if (!Helpers::validatePassword($dados['senha'])) {
+                            (new RenderMessage())->messageDanger('Senha prdsgdsacisa ter mais de 6(seis) a 20 caracteres!')->flash();
+                        }
+                        (new UserModel())->updateUser($dados);
+                        $this->message->messageInfo(" Usuáridfsghdsgfho editado com sucesso!")->flash();
                         Helpers::redirect('admin/users/list');
                     }
                 } catch (PDOException $err) {
