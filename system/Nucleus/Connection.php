@@ -25,8 +25,7 @@ class Connection
                 if ($err->getCode() == "erro 23000") {
                     echo $err->getMessage();
                 } elseif ($err->getLine()) {
-                    
-                    echo "erro line";
+                    echo $err->getMessage();
                 } else {
                     die('Erro de conexão: ' . $err->getMessage());
                 }
