@@ -10,7 +10,19 @@ use Pecee\Http\Request;
 
 class Helpers
 {
+    public static function validatePassword(string $senha): bool
+    {
+        if (mb_strlen($senha) >= 6 and mb_strlen($senha) <= 20) {
+            return true;
+        }
+        return false;
 
+    }
+    public static function encriptGenerate(string $senha): string
+    {
+        return md5($senha);
+
+    }
     public static function flash(): ?string
     {
         $session = new Session();
@@ -225,12 +237,6 @@ class Helpers
     }
     public static function texto(string $name)
     {
-        // if ($_SERVER['REQUEST_METHOD' === "POST"]) {
-        //     $email = $_POST['email'];
-        //     $senha = $_POST['passw'];
-        //     $name = $_POST['nome'];
-        //     return array($name, $email, $senha);
-        // }
         return $name;
     }
 }
