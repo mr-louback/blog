@@ -10,23 +10,28 @@ use Pecee\Http\Request;
 
 class Helpers
 {
-    public static function validatePassword(string $senha): bool
+    public static function passwordValidated(string $senha): bool
     {
-        if (mb_strlen($senha) >= 6 and mb_strlen($senha) <= 20) {
+        if (mb_strlen($senha) >= 6 and mb_strlen($senha) <= 50) {
             return true;
         }
         return false;
-
     }
-    public static function encriptGenerate(string $senha): string
+    public static function generateEncript(string $senha): string
     {
-        return md5($senha);
-
+        return password_hash($senha, PASSWORD_DEFAULT, ["cost" => 10]);
+    } public static function generateDecript(string $hash): array
+    {
+        return password_get_info($hash);
+    }
+    public static function passwordVerified(string $password, string $hash): bool
+    {
+        return password_verify($password, $hash);
     }
     public static function flash(): ?string
     {
         $session = new Session();
-        if ($flash = $session->flash()){
+        if ($flash = $session->flash()) {
             echo $flash;
         }
         return null;

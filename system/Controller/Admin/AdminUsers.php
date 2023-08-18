@@ -13,7 +13,7 @@ class AdminUsers extends AdminController
 
     public function list(): void
     {
-        $users = (new UserModel())->getAllUsers();
+        $users = (new UserModel())->searchAllUsers();
         echo $this->template->rendering('users/list.html', [
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
@@ -33,18 +33,17 @@ class AdminUsers extends AdminController
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
 
-                    $user = (new UserModel())->getUserEmail($dados);
-                    if ($user) {
-                        $this->message->messageDanger('Usuário existente, tente outro e-mail!')->flash();
-                        Helpers::redirect('admin/register');
-                    } elseif (!Helpers::validatePassword($dados['senha'])) {
-                        (new RenderMessage())->messageDanger('Senha pracisa ter mais de 6(seis) a 20 caracteres!')->flash();
-                    } else {
-                        (new UserModel())->insertUser($dados);
-                        $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
-                        Helpers::redirect('admin/users/list');
-                    }
-               
+                $user = (new UserModel())->searchUserEmail($dados);
+                if ($user) {
+                    $this->message->messageDanger('Usuário existente, tente outro e-mail!')->flash();
+                    Helpers::redirect('admin/register');
+                } elseif (!Helpers::passwordValidated($dados['senha'])) {
+                    (new RenderMessage())->messageDanger('Senha pracisa ter mais de 6(seis) a 20 caracteres!')->flash();
+                } else {
+                    (new UserModel())->insertUser($dados);
+                    $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
+                    Helpers::redirect('admin/users/list');
+                }
             }
         }
         echo $this->template->rendering('forms/register.html', [
@@ -65,19 +64,19 @@ class AdminUsers extends AdminController
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
                 try {
-                    $user = (new UserModel())->getUserEmail($dados);
-                    if ($user and Helpers::validatePassword($dados['senha'])) {
+                    $user = (new UserModel())->searchUserId($id);
+                    if ($user->email and Helpers::passwordValidated($dados['senha'])) {
                         (new UserModel())->updateUser($dados);
                         $this->message->messageInfo(" Usuário editado com sucesso!")->flash();
                         Helpers::redirect('admin/users/list');
-                    } elseif (!Helpers::validatePassword($dados['senha'])) {
+                    } elseif (!Helpers::passwordValidated($dados['senha'])) {
                         (new RenderMessage())->messageDanger('Senha pracisa ter mais de 6(seis) a 20 caracteres!')->flash();
                     } else {
-                        if (!Helpers::validatePassword($dados['senha'])) {
-                            (new RenderMessage())->messageDanger('Senha prdsgdsacisa ter mais de 6(seis) a 20 caracteres!')->flash();
+                        if (!Helpers::passwordValidated($dados['senha'])) {
+                            (new RenderMessage())->messageDanger('Senha precisa ter mais de 6(seis) a 20 caracteres!')->flash();
                         }
                         (new UserModel())->updateUser($dados);
-                        $this->message->messageInfo(" Usuáridfsghdsgfho editado com sucesso!")->flash();
+                        $this->message->messageInfo(" Usuário editado com sucesso!")->flash();
                         Helpers::redirect('admin/users/list');
                     }
                 } catch (PDOException $err) {
@@ -96,7 +95,8 @@ class AdminUsers extends AdminController
             'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
 
-            'user' => (new UserModel())->getUserId($id),
+            'user' => (new UserModel())->searchUserId($id),
+            // 'userPassword' => var_dump(Helpers::),
         ]);
     }
     public function  delete(int $id): void

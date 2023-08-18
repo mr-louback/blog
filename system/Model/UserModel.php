@@ -7,6 +7,7 @@ use mysqli_stmt;
 use PDOException;
 use system\Nucleus\Config;
 use system\Nucleus\Connection;
+use system\Nucleus\Helpers;
 
 class UserModel
 {
@@ -15,7 +16,7 @@ class UserModel
      * @param array $dados
      * @return mixed
      */
-    public function getUserEmail(array $dados)
+    public function searchUserEmail(array $dados)
     {
         $where = ("WHERE email = '{$dados['email']}'" ?: '');
         $query = "SELECT * FROM usuarios {$where}";
@@ -23,12 +24,12 @@ class UserModel
         $result = $stmt->fetch();
         return $result;
     }
-    
+
     /**
      * Summary of getAllUsers
      * @return array
      */
-    public function getAllUsers()
+    public function searchAllUsers()
     {
         $query = "SELECT * FROM usuarios ";
         $stmt = Connection::getInstance()->query($query);
@@ -40,24 +41,14 @@ class UserModel
      * @param int $id
      * @return mixed
      */
-    public function getUserId(int $id)
+    public function searchUserId(int $id)
     {
+
         $where = ("WHERE id = {$id}" ?: '');
         $query = "SELECT * FROM usuarios {$where}";
         $stmt = Connection::getInstance()->query($query);
         $result = $stmt->fetch();
         return $result;
-    }
-    /**
-     * Summary of updateUser
-     * @param array $dados
-     * @return void
-     */
-    public function updateUser(array $dados): void
-    {
-        $query = "UPDATE usuarios SET  id = $dados[id], nome='$dados[nome]',email='$dados[email]', level=$dados[level], senha='$dados[senha]', status=$dados[status] where id = $dados[id]";
-        $stmt = Connection::getInstance()->prepare($query);
-        $stmt->execute();
     }
     /**
      * Summary of updateLastLog
@@ -78,7 +69,22 @@ class UserModel
      */
     public function insertUser(array $dados): void
     {
-        $query = "INSERT INTO usuarios( nome, level, email, senha, status) VALUES ( '$dados[nome]', $dados[level],'$dados[email]',{$dados['senha']},$dados[status])";
+        $hash = Helpers::generateEncript($dados['senha']);
+        $query = "INSERT INTO usuarios( nome, level, email, senha, status) VALUES ( '$dados[nome]', $dados[level],'$dados[email]','{$hash}',$dados[status])";
+        $stmt = Connection::getInstance()->prepare($query);
+        $stmt->execute();
+    }
+    /**
+     * Summary of updateUser
+     * @param array $dados
+     * @return void
+     */
+    public function updateUser(array $dados): void
+    {
+        $hash = Helpers::generateEncript($dados['senha']);
+
+        // var_dump($password);
+        $query = "UPDATE usuarios SET  id = $dados[id], nome='$dados[nome]',email='$dados[email]', level=$dados[level], senha='{$hash}', status=$dados[status] where id = $dados[id]";
         $stmt = Connection::getInstance()->prepare($query);
         $stmt->execute();
     }

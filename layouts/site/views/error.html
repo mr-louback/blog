@@ -1,13 +1,37 @@
 {% extends 'base.html'%}
 {%block dashboard%}
-<div id="layoutSidenav_content ">
-    <div id="layoutError">
-        <div class="erro " id="layoutError_content">
-            <h1 class="mt-4">{{flash()}}</h1>
-            <a class="w-100 btn btn-outline-warning" href="{{url('/')}}">
-                Voltar ao Home
-            </a>
-        </div>
+<div id="layoutError">
+    <div id="layoutError_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="text-center mt-1">
+                            <a href="{{'admin/dashboard'}}">
+                                <i class="fas fa-arrow-left me-1"></i>
+                                Return to Home
+                            </a>
+                                <p class="lead">{{flash()}}</p>
+                            <img class="mb-4 img-error" src="../../../layouts/site/assets/img/error-404-monochrome.png" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="layoutError_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </div>
 {%endblock%}

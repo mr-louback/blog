@@ -21,13 +21,13 @@ class AdminLogin extends Controller
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
-                $user = (new UserModel())->getUserEmail($dados);
+                $user = (new UserModel())->searchUserEmail($dados);
                 if ($user) {
                     $this->message->messageDanger('Usuário existente!')->flash();
                     Helpers::redirect('admin/register');
-                }elseif (!Helpers::validatePassword($dados['senha'])) {
+                } elseif (!Helpers::passwordValidated($dados['senha'])) {
                     (new RenderMessage())->messageDanger('Senha pracisa ter mais de 6(seis) caracteres!')->flash();
-                }  else {
+                } else {
                     (new UserModel())->insertUser($dados);
                     $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
                     Helpers::redirect('admin/login');
@@ -51,15 +51,15 @@ class AdminLogin extends Controller
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
-                $user = (new UserModel())->getUserEmail($dados);
+                $user = (new UserModel())->searchUserEmail($dados);
                 if (!$user) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } elseif ($user->email !== $dados['email']) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
-                } elseif ($user->senha !== $dados['senha']) {
+                } elseif (!Helpers::passwordVerified($dados['senha'], $user->senha)) {
                     $this->message->messageWarning('Falha ao efetuar login!')->flash();
                 } else {
-                   
+
                     (new UserModel())->updateLastLog($user->id);
                     (new Session())->sessionCreate('userId', $user->id);
                     if ($user->level == 1) {
@@ -70,7 +70,7 @@ class AdminLogin extends Controller
                     }
                     if ($user->level == 3) {
                         Helpers::redirect('/admin/dashboard');
-                    } 
+                    }
                 }
             }
         }
@@ -84,5 +84,4 @@ class AdminLogin extends Controller
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
-    
 }

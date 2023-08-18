@@ -22,6 +22,8 @@ try {
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
         SimpleRouter::get(URL_ADMIN . 'logout', 'AdminDashboard@logout');
         SimpleRouter::get(URL_ADMIN . 'post/{id}', 'AdminDashboard@post');
+        SimpleRouter::get(URL_ADMIN . 'erro', 'AdminDashboard@erro');
+
         // admin users
         SimpleRouter::get(URL_ADMIN . 'users/list', 'AdminUsers@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'users/register', 'AdminUsers@register');
@@ -38,6 +40,7 @@ try {
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categories/register', 'AdminCategories@register');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categories/{id}', 'AdminCategories@edit');
         SimpleRouter::get(URL_ADMIN . 'categories/deletar/{id}', 'AdminCategories@deletar');
+
     });
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $e) {

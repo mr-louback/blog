@@ -3,7 +3,9 @@
 namespace system\Controller\Admin;
 
 use system\Controller\UserController;
+use system\Model\CategoryModel;
 use system\Model\PostModel;
+use system\Model\UserModel;
 use system\Nucleus\Helpers;
 use system\Nucleus\Session;
 
@@ -18,9 +20,17 @@ class AdminDashboard extends AdminController
             'alert_info' => alert_info,
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,
+            'alert_danger' => alert_danger,
             'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
+            'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
+            'btn_outline_success' => 'btn btn-outline-success',
+            'btn_outline_warning' => 'btn btn-outline-warning',
+            'categorias' => (new CategoryModel())->readAllCategory(),
+            'posts' => (new PostModel())->readAllPosts(),
+            'users' => (new UserModel())->searchAllUsers()
+
+
         ]);
     }
     public function post(int $id): void
@@ -43,9 +53,10 @@ class AdminDashboard extends AdminController
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
-    
-    public function erro(){
-        
+
+    public function erro()
+    {
+
         echo $this->template->rendering('error.html', [
             // css
             'alert_primary' => alert_primary,
