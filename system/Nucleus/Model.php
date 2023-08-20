@@ -2,6 +2,7 @@
 
 namespace system\Nucleus;
 
+use PDOException;
 use system\Nucleus\Connection;
 
 class Model
@@ -35,52 +36,75 @@ class Model
         $this->offset = " offset {$offset}";
         return $this;
     }
-    public function search(?string $terms = null, ?string $parameters = null, string $columns = '*')
+    public function search(?int $id = null, ?string $columns = '*')
     {
-        if ($terms) {
-            $this->query = "SELECT {$columns} FROM " . $this->table . "WHERE {$terms}";
-            parse_str($parameters, $this->parameters);
-            return $this;
-        }
-        $this->query = "SELECT {$columns} FROM " . $this->table;
-        return $this;
-    }
-    public function result(bool $all = false)
-    {
-        try {
+        if ($id) {
+            $where = (" WHERE id = {$id}");
+            $this->query = "SELECT {$columns} FROM " . $this->table . $where;
             $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
             $stmt->execute($this->parameters);
-            if (!$stmt->rowCount()) {
-                return null;
-            }
-            if ($all) {
-                return $stmt->fetchAll();
-            }
             return $stmt->fetchObject();
-        } catch (\PDOException $ex) {
-            $this->error = $ex;
+            // parse_str($parameters, $this->parameters);
         }
+        $this->query = "SELECT {$columns} FROM " . $this->table;
+        $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+        $stmt->execute($this->parameters);
+        return  $stmt->fetchAll();
     }
-    protected function insertLineModel(array $dados)
-    {
-        try {
 
-            $this->columns = implode(',', array_keys($dados));
-            $query = "INSERT INTO categorias({$this->columns}) VALUES ('$dados[titulo]','$dados[texto]',$dados[status])";
-            $stmt = Connection::getInstance()->prepare($query);
-            $stmt->execute();
-            return Connection::getInstance()->lastInsertId();
-        } catch (\PDOException $th) {
-            echo $this->error = $th;
-            return null;
-        }
+    public function countReigisters()
+    {
+        $this->query = "SELECT COUNT(*) FROM {$this->table}";
+        $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+    public function insertLineModel(array $dados)
+    {
+        $this->columns = implode(',', array_keys($dados));
+        $this->values = implode(',', array_fill(0, count($dados), '?'));
+        $this->query = "INSERT INTO {$this->table}({$this->columns}) VALUES ({$this->values})";
+        $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+        $stmt->execute(array_values($dados));
+    }
+    public function updateLineModel(int $id, array $dados)
+    {
+        $setClause = implode('=?,', array_keys($dados)) . '=?';
+        $this->query = "UPDATE {$this->table} SET {$setClause} WHERE id = ?";
+        $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+        $stmt->execute(array_merge(array_values($dados), [$id]));
+    }
+    public function deleteLineModel(int $id)
+    {
+        $this->query = "DELETE FROM {$this->table} WHERE id = $id";
+        $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+        $stmt->execute();
     }
     private function filter(array $dados)
     {
-        $filter = [];
         foreach ($dados as $key => $value) {
-            $filter[$key] = is_null($value) ? null : filter_var($value, FILTER_DEFAULT);
-        }
+            if (!is_array($value)) {
+                $value = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+            } else {
+                $this->filter($value);
+            }
+        };
     }
-    
+
+    // public function result(bool $all = false)
+    // {
+    //     try {
+    //         $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+    //         $stmt->execute($this->parameters);
+    //         if (!$stmt->rowCount()) {
+    //             return null;
+    //         }
+    //         if ($all) {
+    //             return $stmt->fetchAll();
+    //         }
+    //         return $stmt->fetchObject();
+    //     } catch (\PDOException $ex) {
+    //         $this->error = $ex;
+    //     }
+    // }
 }

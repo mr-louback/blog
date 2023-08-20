@@ -65,7 +65,7 @@
                         <a class="nav-link" href="#!">Light Sidenav</a>
                     </nav>
                 </div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                <a class="nav-link collapsed btn btn-outline-info  my-1 mx-3" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                     aria-expanded="false" aria-controls="collapsePages">
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                     Pages
@@ -75,7 +75,7 @@
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         {%if user() == false%}
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                        <a class="nav-link collapsed btn btn-outline-info  my-1 mx-3" href="#" data-bs-toggle="collapse"
                             data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Authentication
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -83,8 +83,8 @@
                         <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{{url('admin/login')}}">Entrar</a>
-                                <a class="nav-link" href="{{url('admin/register')}}">Cadastre-se</a>
+                                <a class="nav-link btn btn-outline-info  my-1 mx-3" href="{{url('admin/login')}}">Entrar</a>
+                                <a class="nav-link btn btn-outline-success  my-1 mx-3" href="{{url('admin/register')}}">Cadastre-se</a>
                             </nav>
                         </div>
                         {%endif%}

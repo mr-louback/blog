@@ -20,7 +20,7 @@ class AdminCategories extends AdminController
             'alert_warning' => alert_warning,
             'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
-            'categorias' => (new CategoryModel())->readAllCategory(),
+            'categorias' => (new CategoryModel())->search(),
         ]);
     }
     public function register(): void
@@ -30,15 +30,13 @@ class AdminCategories extends AdminController
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
-                (new CategoryModel())->insertLineCategory($dados);
+                (new CategoryModel())->insertLineModel($dados);
                 $this->message->messageSuccess('Categoria criada com sucesso!')->flash();
                 Helpers::redirect('admin/categories/list');
             }
         }
-        echo $this->template->rendering('categories/register.html', [
-            'categorias' => (new CategoryModel())->readAllCategory(),
-            'posts' => (new PostModel())->readAllPosts(),
 
+        echo $this->template->rendering('categories/register.html', [
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
             'alert_light' => alert_light,
@@ -55,13 +53,13 @@ class AdminCategories extends AdminController
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
-                (new CategoryModel())->updateLineCategory($dados);
-                $this->message->messageWarning('Categoria editada com sucesso!')->flash();
+                (new CategoryModel())->updateLineModel($id, $dados);
+                $this->message->messageSuccess('Categoria editada com sucesso!')->flash();
                 Helpers::redirect('admin/categories/list');
             }
         }
         echo $this->template->rendering('categories/edit.html', [
-            'categorias' => (new CategoryModel())->searchIdCategory($id),
+            'categorias' => (new CategoryModel())->search($id),
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
             'alert_light' => alert_light,
@@ -74,13 +72,12 @@ class AdminCategories extends AdminController
     public function deletar(int $id): void
     {
         try {
-            (new CategoryModel())->deleteLineCategory($id);
-            $this->message->messageDanger('Categoria deletada com sucesso!')->flash();
+            (new CategoryModel())->deleteLineModel($id);
+            $this->message->messageSuccess('Categoria deletada com sucesso!')->flash();
             Helpers::redirect('admin/categories/list');
         } catch (PDOException $err) {
             if ($err->getCode() == '23000' and $err->errorInfo[1] == 1451) {
-                $categoriaTitle = (new CategoryModel())->searchCategoryTitle($id);
-                $this->message->messagePrimary("Tenha certeza de que não existem postagens vinculadas a categoria {$categoriaTitle->titulo}!")->flash();
+                $this->message->messageWarning("Existem postagens vinculadas a essa categoria!")->flash();
                 Helpers::redirect('admin/categories/list');
             }
         }

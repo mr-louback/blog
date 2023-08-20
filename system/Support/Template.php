@@ -56,16 +56,7 @@ class Template
                     return UserController::sessionIdUser();
                 })
             ),
-            $this->twig->addFunction(
-                new TwigFunction('posts',function (){
-                    return (new PostModel())->readAllPosts();
-                })
-            ),
-            $this->twig->addFunction(
-                new TwigFunction('createdAt',function (int $id){
-                    return Helpers::contaTempo((new PostModel())->readPostsCreated($id));
-                })
-            ),
+            
         );
     }
     public function rendering(string $view, array $dados)

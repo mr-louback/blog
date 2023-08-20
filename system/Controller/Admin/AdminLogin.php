@@ -28,7 +28,7 @@ class AdminLogin extends Controller
                 } elseif (!Helpers::passwordValidated($dados['senha'])) {
                     (new RenderMessage())->messageDanger('Senha pracisa ter mais de 6(seis) caracteres!')->flash();
                 } else {
-                    (new UserModel())->insertUser($dados);
+                    (new UserModel())->insertLineModel($dados);
                     $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
                     Helpers::redirect('admin/login');
                 }

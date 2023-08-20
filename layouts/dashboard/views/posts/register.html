@@ -6,7 +6,7 @@
     <div id="layoutSidenav_content">
         {% include 'sideBar.html'%}
         <div class="container">
-            <div style="margin: 75px 0;" class="container">
+            <div  class="mt-1 container">
                 <h1 class="mt-1 {{alert_primary}}">Criando postagem</h1>
                 {{flash()}}
                 <div class="card mb-4">
@@ -39,12 +39,10 @@
                                             <label for="categoria_id">Categoria</label>
                                             <select style="width: 35%;" name="categoria_id" class="mt-2 form-select"
                                                 aria-label="Default select example">
-                                                {% if categorias %}
                                                 {% for categoria in categorias %}
                                                 <option name="categoria_id" value="{{categoria.id}}">
                                                     {{categoria.titulo}}</option>
                                                 {%endfor%}
-                                                {%endif%}
                                             </select>
                                         </div>
                                     </div>

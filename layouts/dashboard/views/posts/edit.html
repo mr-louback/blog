@@ -11,49 +11,36 @@
                         <form method="post">
                             <label for="id" class="form-label">Identificador</label>
                             <div style="width: 70%;" class="mb-2">
-                                {% if posts[0] %}
-                                <input name="id"  type="number" for="id" value="{{posts[0].id}}" class="form-control">
-                                {%endif%}
-
+                                <input name="id" type="number" for="id" value="{{posts_id}}" class="form-control">
                             </div>
 
                             <div style="width: 70%;" class="mb-2">
                                 <label for="titulo" class="form-label ">Título<sup>*</sup></label>
-                                {% if posts[0] %}
-
-                                <input value="{{posts[0].titulo}}" type="text" class="form-control" name="titulo"
+                                <input value="{{posts_titulo}}" type="text" class="form-control" name="titulo"
                                     id="titulo">
-                                {%endif%}
                             </div>
-                            <label for="textarea">Texto</label>
+                            <label for="texto">Texto</label>
                             <div style="width: 70%;" class="form-floating">
-                                {% if posts[0] %}
-
-                                <textarea name="textarea" class="form-control"
-                                    id="textarea">{{posts[0].texto}}</textarea>
-                                {%endif%}
+                                <textarea name="texto" class="form-control" id="texto">{{posts_texto}}</textarea>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    
-                                        <div class="mb-3">
-                                            <label for="categoria_id">Categoria</label>
-                                            <select style="width: 35%;" name="categoria_id" class="mt-2 form-select"
-                                                aria-label="Default select example">
-                                                {% for categoria in categorias %}
-                                                <option value="{{categoria.id}}">{{categoria.titulo}}</option>
-                                                {%endfor%}
-                                            </select>
-                                        </div>
+                                    <div class="mb-3">
+                                        <label for="categoria_id">Categoria</label>
+                                        <select style="width: 35%;" name="categoria_id" class="mt-2 form-select"
+                                            aria-label="Default select example">
+                                            {% for categoria in categorias %}
+                                            <option value="{{categoria.id}}">{{categoria.titulo}}</option>
+                                            {%endfor%}
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="select_status">Status</label>
-                                        {% if posts[0] %}
-                                        <input style="width: 35%;" type="number" value="{{posts[0].status}}"
-                                            class="form-control" name="select_status" id="select_status">
+                                        <label for="status">Status</label>
+                                        <input style="width: 35%;" type="number" value="{{posts_status}}"
+                                            class="form-control" name="status" id="status">
 
-                                        {%endif%}
                                     </div>
                                 </div>
                             </div>

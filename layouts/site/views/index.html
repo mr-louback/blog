@@ -7,29 +7,36 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-1 {{alert_primary}}">Home</h1>
-                Olá, você está na Home. {{saudacao()}}
-                {{flash()}} 
                 <div class="row">
-                    <div class="col-lg-9 col-md-12">
+                    <h1 class="mt-1 {{alert_dark}}">Home</h1>
+                    <div class="col-lg-9 col-md-12 p-0">
                         <div class="row">
-                            {% for post in posts() %}
-                            <a href="{{url('post/'~post.id)}}" style="text-decoration: none;" class="col-md-6 mb-4">
-                                <div class="h-100 card {{alert_dark}} text-black">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{post.titulo}}</h5>
+                            {% for post in posts %}
+                            <a href="{{url('post/'~post.id)}}" style="text-decoration: none;" class=" col-lg-6 mb-1">
+                                <div class="h-100 card text-black">
+                                    <div class="{{alert_dark}} mb-0">
+
+                                        <h2 class="card-title">{{post.titulo}}</h2>
                                         <p class="card-text">
-                                            {{resumeTexto(''~post.texto,30)}}
+                                            {{resumeTexto(''~post.texto,50)}}
+
                                         </p>
+                                        <div class=" {{alert_light}}"
+                                            style="display: flex; flex-direction: row; justify-content: space-between;">
+                                            {% for categoria in categorias %}
+                                            {% if post.categoria_id == categoria.id %}
+                                            <span>Categoria {{categoria.titulo}}</span>
+                                            {%endif%}
+                                            {%endfor%}
+                                            <span>{{contaTempo(post.created_at)}}</span>
+                                        </div>
+
                                     </div>
                                 </div>
                             </a>
                             {%endfor%}
                         </div>
-                    </div>
-                    <div class="col-lg-3">
-                    
-                    
+
                     </div>
                 </div>
             </div>

@@ -6,39 +6,29 @@
         <main>
             <div class="container-fluid px-4 p-2">
                 <h1 class="mt-1 {{alert_primary}}">Categorias editar</h1>
-               
+
                 <div class="card mb-4">
                     <div class="card-body">
                         <form method="post">
                             <div style="width: 70%;" class="mb-2">
                                 <label for="id" class="form-label">Identificador<sup>*</sup></label>
-                                {% if categorias[0] %}
-
-                                <input style="width: 35%;" type="number" value="{{categorias[0].id}}"
-                                class="form-control" name="id" id="id" >
-                                {%endif%}
-
+                                <input style="width: 35%;" type="number" value="{{categorias.id}}" class="form-control"
+                                    name="id" id="id">
                             </div>
                             <label for="titulo" class="form-label">Título<sup>*</sup></label>
                             <div style="width: 70%;" class="mb-2">
-
-                                {% if categorias[0] %}
                                 <input type="text" class="form-control" name="titulo" id="titulo"
-                                    value="{{categorias[0].titulo}}">
-
-                                {%endif%}
-
+                                    value="{{categorias.titulo}}">
                             </div>
                             <label for="texto">Texto</label>
                             <div style="width: 70%;" class="form-floating">
-                                <textarea name="texto" class="form-control"
-                                    id="texto">{{categorias[0].texto}}</textarea>
+                                <textarea name="texto" class="form-control" id="texto">{{categorias.texto}}</textarea>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="status">Status</label>
-                                        <input style="width: 35%;" type="number" value="{{categorias[0].status}}"
+                                        <input style="width: 35%;" type="number" value="{{categorias.status}}"
                                             class="form-control" name="status" id="status">
                                     </div>
                                 </div>

@@ -40,7 +40,7 @@
                                     <label for="level" class="form-label">Nível <sup>*</sup></label>
                                     <div class="mb-3">
                                         {% if user.level %}
-                                        <select style="width: 35%;" name="level" id="level">
+                                        <select class="{{alert_primary}} p-1"  style="width: 35%;" name="level" id="level">
                                             <option value="1">Usuaŕio</option>
                                             <option value="2">Funcionário</option>
                                             <option value="3">Administrador</option>
@@ -53,7 +53,7 @@
                                     <label for="status">Status</label>
                                     <div class="mb-3">
                                         {% if user.level %}
-                                        <select style="width: 35%;" name="status" id="status">
+                                        <select class="{{alert_primary}} p-1" style="width: 35%;" name="status" id="status">
                                             <option value="1">Ativo</option>
                                             <option value="0">Inativo</option>
                                         </select>

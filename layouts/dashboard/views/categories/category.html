@@ -8,16 +8,15 @@
         <main>
             <div class="container-fluid px-4">
                 <div class="row">
-                    <h1 class="mt-1 {{alert_primary}}">Postagem</h1>
-                    Olá, voce está em postagem. {{saudacao()}}
+                    <h1 class="mt-1 {{alert_primary}}">Categoria</h1>
+                    Olá, {{user().nome}} você está na categoria {{categories_titulo}}. {{saudacao()}}
                     <div class="col-lg-9 col-md-12">
                         <div class="row">
                             <div class="h-100 card {{alert_dark}} text-black">
                                 <div class="card-body">
-                                    <h2 class="{{alert_light}}  card-title">{{posts_titulo}}</h2>
-                                    <p class="{{alert_light}} card-text">{{posts_texto}}</p>
+                                    <h2 class="{{alert_light}}  card-title">{{categories_titulo}}</h2>
+                                    <p class="{{alert_light}} card-text">{{categories_texto}}</p>
                                     <div class="{{alert_light}} card-text" style="display: flex; flex-direction: row; justify-content: space-between;">
-                                        <span>Categorizado como {{categoria_titulo}}</span>
                                         <span>Postado em {{date}} ás {{hour}}</span>
                                     </div>
                                     <a href="{{url('admin/dashboard')}}" class="{{btn_outline_info}}">Voltar</a>

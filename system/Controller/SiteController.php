@@ -2,6 +2,8 @@
 
 namespace system\Controller;
 
+use DateTime;
+use system\Model\CategoryModel;
 use system\Model\PostModel;
 use system\Nucleus\Controller;
 use system\Nucleus\Helpers;
@@ -15,8 +17,8 @@ class SiteController extends Controller
     public function index(): void
     {
         echo $this->template->rendering('index.html', [
-            'posts' => (new PostModel())->readAllPosts(),
-
+            'posts' => (new PostModel())->search(),
+            'categorias' => (new CategoryModel())->search(),
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
             'alert_light' => alert_light,
@@ -24,18 +26,23 @@ class SiteController extends Controller
             'alert_warning' => alert_warning,
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
+            'btn_outline_dark' => 'btn btn-outline-dark',
+            'btn_outline_success'=> 'btn btn-outline-success',
         ]);;
     }
     public function post(int $id): void
     {
-        $posts = (new PostModel())->searchIdPost($id);
+        $posts = (new PostModel())->search($id);
+        $categorias = (new CategoryModel())->searchCategoryTitle($posts->categoria_id);
         if (!$posts) {
             Helpers::redirect('erro');
         }
         echo $this->template->rendering('forms/post.html', [
-            'posts_titulo' => $posts[0]->titulo,
-            'posts_texto' => $posts[0]->texto,
-
+            'posts_titulo' => $posts->titulo,
+            'posts_texto' => $posts->texto,
+            'categoria_titulo' => $categorias->titulo,
+            'date'=> (new DateTime(date($posts->created_at)))->format('d/m/Y'),
+            'hour'=> (new DateTime(date($posts->created_at)))->format('H:i'),
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
             'alert_light' => alert_light,
@@ -43,9 +50,6 @@ class SiteController extends Controller
             'alert_warning' => alert_warning,
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
-
-
-            'titulo' => 'Cadastro',
         ]);
     }
     public function erro(): void

@@ -19,6 +19,6 @@ class UserController extends Controller
     if(!$session->sessionCheck('userId')){
         return null;
     }
-    return (new UserModel())->searchUserId($session->userId);
+    return (new UserModel())->search($session->userId);
    }
 }

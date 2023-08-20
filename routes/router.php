@@ -22,7 +22,8 @@ try {
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
         SimpleRouter::get(URL_ADMIN . 'logout', 'AdminDashboard@logout');
         SimpleRouter::get(URL_ADMIN . 'post/{id}', 'AdminDashboard@post');
-        SimpleRouter::get(URL_ADMIN . 'erro', 'AdminDashboard@erro');
+        SimpleRouter::get(URL_ADMIN . 'category/{id}', 'AdminDashboard@category');
+        // SimpleRouter::get(URL_ADMIN . 'erro', 'AdminDashboard@erro');
 
         // admin users
         SimpleRouter::get(URL_ADMIN . 'users/list', 'AdminUsers@list');
@@ -30,17 +31,17 @@ try {
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'users/{id}', 'AdminUsers@edit');
         SimpleRouter::get(URL_ADMIN . 'users/delete/{id}', 'AdminUsers@delete');
         // admin posts
+        // SimpleRouter::get(URL_ADMIN . 'posts/{id}', 'AdminPosts@post');
         SimpleRouter::get(URL_ADMIN . 'posts/list', 'AdminPosts@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/register', 'AdminPosts@register');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/{id}', 'AdminPosts@edit');
         SimpleRouter::get(URL_ADMIN . 'posts/delete/{id}', 'AdminPosts@delete');
-        SimpleRouter::get(URL_ADMIN . 'erro', 'AdminPosts@erro');
+        // SimpleRouter::get(URL_ADMIN . 'erro', 'AdminPosts@erro');
         // admin categorias
         SimpleRouter::get(URL_ADMIN . 'categories/list', 'AdminCategories@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categories/register', 'AdminCategories@register');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categories/{id}', 'AdminCategories@edit');
         SimpleRouter::get(URL_ADMIN . 'categories/deletar/{id}', 'AdminCategories@deletar');
-
     });
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $e) {

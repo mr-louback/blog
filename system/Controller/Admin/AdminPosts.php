@@ -2,6 +2,7 @@
 
 namespace system\Controller\Admin;
 
+use DateTime;
 use system\Model\PostModel;
 use system\Nucleus\Helpers;
 use system\Model\CategoryModel;
@@ -10,7 +11,6 @@ class AdminPosts extends AdminController
 {
     public function list(): void
     {
-        $posts = (new PostModel());
         echo $this->template->rendering('posts/list.html', [
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
@@ -19,8 +19,8 @@ class AdminPosts extends AdminController
             'alert_warning' => alert_warning,
             'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
-            'posts' => $posts->readAllPosts(),
-            'categorias' => (new CategoryModel())->readAllCategory(),
+            'posts' => (new PostModel())->search(),
+            'categorias' => (new CategoryModel())->search(),
         ]);
     }
     public function register(): void
@@ -29,21 +29,16 @@ class AdminPosts extends AdminController
             $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
-            } else {
-                (new PostModel())->insertLinePosts($dados);
-                $this->message->messageInfo('Postagem criada com sucesso!')->flash();
+            }else {
+                (new PostModel())->insertLineModel($dados);
+                $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
                 Helpers::redirect('admin/posts/list');
             }
         }
         echo $this->template->rendering('posts/register.html', [
-            'alert_info' => alert_info,
             'alert_primary' => alert_primary,
-            'alert_light' => alert_light,
-            'alert_dark' => alert_dark,
-            'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
-            'categorias' => (new CategoryModel())->readAllCategory(),
+            'categorias' => (new CategoryModel())->search(),
         ]);
     }
     public function edit(int $id): void
@@ -53,11 +48,13 @@ class AdminPosts extends AdminController
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
-                (new PostModel())->updateLinePosts($dados);
-                $this->message->messageInfo('Post editado com sucesso!')->flash();
+                (new PostModel())->updateLineModel($id, $dados);
+                $this->message->messageSuccess('Post editado com sucesso!')->flash();
                 Helpers::redirect('admin/posts/list');
             }
         }
+        $posts = (new PostModel())->search($id);
+        $categorias = (new CategoryModel())->searchCategoryTitle($posts->categoria_id);
         echo $this->template->rendering('posts/edit.html', [
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
@@ -66,14 +63,22 @@ class AdminPosts extends AdminController
             'alert_warning' => alert_warning,
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
-            'posts' => (new PostModel())->searchIdPost($id),
-            'categorias' => (new CategoryModel())->readAllCategory(),
+            'posts_id' => $posts->id,
+            'posts_titulo' => $posts->titulo,
+            'posts_texto' => $posts->texto,
+            'posts_categoria_id' => $posts->categoria_id,
+            'categoria_titulo' => $categorias->titulo,
+            'posts_status' => $posts->status,
+            'categorias' => (new CategoryModel())->search(),
+            // 'categorias'=> $categorias,
+            'date'=> (new DateTime(date($posts->created_at)))->format('d/m/Y'),
+            'hour'=> (new DateTime(date($posts->created_at)))->format('H:i'),
         ]);
     }
     public function  delete(int $id): void
     {
-        (new PostModel())->deleteLinePosts($id);
-        $this->message->messageInfo('Post deletado com sucesso!')->flash();
+        (new PostModel())->deleteLineModel($id);
+        $this->message->messageSuccess('Post deletado com sucesso!')->flash();
         Helpers::redirect('admin/posts/list');
     }
     public function erro(){
