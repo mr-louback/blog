@@ -10,17 +10,16 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-12 pl-2">
                         <div class="row">
-
                             <div class="container-fluid">
                                 <div class="card mb-4">
-                                    <div class="card-header {{alert_dark}}">
+                                    <div class="card-header {{alert_primary}}">
                                         <i class="fas fa-table me-1"></i>
                                         postagens
                                     </div>
-                                    <div class="row">
+                                    <div class="card-body mb-0 row px-3 py-1">
                                         {% for post in posts %}
                                         <a href="{{url('admin/post/'~post.id)}}" style="text-decoration: none;"
-                                            class=" col-lg-6 mb-1">
+                                            class="col-lg-6 mb-1">
                                             <div class="h-100 card text-black">
                                                 <div class="{{alert_dark}} mb-0">
                                                     <h2 class="card-title">{{post.titulo}}</h2>
@@ -34,8 +33,30 @@
                                                         {%endfor%}
                                                         <span>{{contaTempo(post.created_at)}}</span>
                                                     </div>
-
                                                 </div>
+                                            </div>
+                                        </a>
+                                        {%endfor%}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid">
+                                <div class="card mb-4">
+                                    <div class="card-header {{alert_info}}">
+                                        <i class="fas fa-table me-1"></i>
+                                        Usuários
+                                    </div>
+                                    
+                                    <div class="card-body mb-0 row px-3 py-1 ">
+                                        {% for user in users %}
+                                        <a href="{{url('admin/user/'~user.id)}}" class="col-lg-6 mb-1" 
+                                            style="text-decoration: none;">
+                                            <div class="card-body {{alert_dark}}">
+                                                <h5 class="card-title">{{user.nome}}</h5>
+                                                <p class="card-text">
+                                                    {{resumeTexto(''~user.email, 10)}}
+                                                </p>
+                                                <span>{{contaTempo(user.created_at)}}</span>
                                             </div>
                                         </a>
                                         {%endfor%}
@@ -49,13 +70,11 @@
                         <div class="row">
                             <div class="container-fluid">
                                 <div class="card mb-4">
-                                    <div class="card-header {{alert_dark}}">
+                                    <div class="card-header {{alert_warning}}">
                                         <i class="fas fa-table me-1"></i>
                                         Categorias
                                     </div>
-                                    <a href="{{url('admin/categories/register')}}"
-                                        class="mx-3 my-1 {{btn_outline_info}}">Criar
-                                        categoria</a>
+                                    
                                     <div class="col px-3 py-0">
                                         {% for categoria in categorias %}
                                         <a href="{{url('admin/category/'~categoria.id)}}" style="text-decoration: none;"
@@ -72,32 +91,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="container-fluid">
-                                <div class="card mb-4">
-                                    <div class="card-header {{alert_dark}}">
-                                        <i class="fas fa-table me-1"></i>
-                                        Usuários
-                                    </div>
-                                    <a href="{{url('admin/users/register')}}"
-                                        class="mx-3 my-1 {{btn_outline_info}}">Criar
-                                        usuário</a>
-                                    {% for user in users %}
-                                    <div class="card-body mb-0  px-3 py-1 ">
-                                        <a href="{{url('admin/dashboard')}}" class="w-100"
-                                            style="text-decoration: none;">
-                                            <div class="card-body {{alert_dark}}">
-                                                <h5 class="card-title">{{user.nome}}</h5>
-                                                <p class="card-text">
-                                                    {{resumeTexto(''~user.email, 10)}}
-                                                </p>
-                                                <span>{{contaTempo(user.created_at)}}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    {%endfor%}
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
 
