@@ -44,14 +44,12 @@ class Model
             $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
             $stmt->execute($this->parameters);
             return $stmt->fetchObject();
-            // parse_str($parameters, $this->parameters);
         }
         $this->query = "SELECT {$columns} FROM " . $this->table;
         $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
         $stmt->execute($this->parameters);
         return  $stmt->fetchAll();
     }
-
     public function countReigisters()
     {
         $this->query = "SELECT COUNT(*) FROM {$this->table}";
@@ -80,31 +78,4 @@ class Model
         $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
         $stmt->execute();
     }
-    private function filter(array $dados)
-    {
-        foreach ($dados as $key => $value) {
-            if (!is_array($value)) {
-                $value = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
-            } else {
-                $this->filter($value);
-            }
-        };
-    }
-
-    // public function result(bool $all = false)
-    // {
-    //     try {
-    //         $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
-    //         $stmt->execute($this->parameters);
-    //         if (!$stmt->rowCount()) {
-    //             return null;
-    //         }
-    //         if ($all) {
-    //             return $stmt->fetchAll();
-    //         }
-    //         return $stmt->fetchObject();
-    //     } catch (\PDOException $ex) {
-    //         $this->error = $ex;
-    //     }
-    // }
 }
