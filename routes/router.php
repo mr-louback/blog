@@ -23,6 +23,7 @@ try {
         SimpleRouter::get(URL_ADMIN . 'logout', 'AdminDashboard@logout');
         SimpleRouter::get(URL_ADMIN . 'post/{id}', 'AdminDashboard@post');
         SimpleRouter::get(URL_ADMIN . 'category/{id}', 'AdminDashboard@category');
+        SimpleRouter::get(URL_ADMIN . 'user/{id}', 'AdminDashboard@user');
         // SimpleRouter::get(URL_ADMIN . 'erro', 'AdminDashboard@erro');
 
         // admin users
