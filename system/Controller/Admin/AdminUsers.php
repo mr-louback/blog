@@ -36,7 +36,7 @@ class AdminUsers extends AdminController
                 } elseif (!Helpers::passwordValidated($dados['senha'])) {
                     (new RenderMessage())->messageDanger('Senha pracisa ter mais de 6(seis) a 20 caracteres!')->flash();
                 } else {
-                    (new UserModel())->insertLineModel($dados);
+                    (new UserModel())->insertLineUser($dados);
                     $this->message->messageSuccess('Usuário cadastrado com sucesso!')->flash();
                     Helpers::redirect('admin/users/list');
                 }
@@ -44,7 +44,7 @@ class AdminUsers extends AdminController
         }
         echo $this->template->rendering('forms/register.html', [
             'btn_outline_info' => 'btn btn-outline-info',
-            'alert_primary'=> alert_primary,
+            'alert_primary' => alert_primary,
         ]);
     }
     public function edit(int $id): void
@@ -57,7 +57,7 @@ class AdminUsers extends AdminController
                 try {
                     $user = (new UserModel())->search($id);
                     if ($user->email and Helpers::passwordValidated($dados['senha'])) {
-                        (new UserModel())->updateLineModel($id, $dados);
+                        (new UserModel())->updateLineUser($id, $dados);
                         $this->message->messageSuccess(" Usuário editado com sucesso!")->flash();
                         Helpers::redirect('admin/users/list');
                     } elseif (!Helpers::passwordValidated($dados['senha'])) {
@@ -66,7 +66,7 @@ class AdminUsers extends AdminController
                         if (!Helpers::passwordValidated($dados['senha'])) {
                             (new RenderMessage())->messageDanger('Senha precisa ter mais de 6(seis) a 20 caracteres!')->flash();
                         }
-                        (new UserModel())->updateLineModel($id, $dados);
+                        (new UserModel())->updateLineUser($id, $dados);
                         $this->message->messageSuccess(" Usuário editado com sucesso!")->flash();
                         Helpers::redirect('admin/users/list');
                     }
@@ -80,8 +80,7 @@ class AdminUsers extends AdminController
         echo $this->template->rendering('users/edit.html', [
             'btn_outline_info' => 'btn btn-outline-info',
             'user' => (new UserModel())->search($id),
-            'alert_primary'=> alert_primary,
-
+            'alert_primary' => alert_primary,
         ]);
     }
     public function  delete(int $id): void
