@@ -4,15 +4,15 @@ namespace system\Model;
 
 
 use system\Nucleus\Connection;
-use system\Nucleus\Helpers;
 use system\Nucleus\Model;
+use system\Nucleus\Helpers;
+
 
 class UserModel extends Model
 {
-    const TBL_USERS = 'usuarios';
     public function __construct()
     {
-        $this->table = self::TBL_USERS;
+        $this->table = 'usuarios';
     }
     /**
      * Summary of getUserEmail
@@ -39,5 +39,21 @@ class UserModel extends Model
         $stmt = Connection::getInstance()->prepare($query);
         $stmt->execute();
     }
-    
+    public function updateLineUser(int $id, array $dados)
+    {
+        $dados['senha'] = [Helpers::generateEncript($dados['senha'])][0];
+        $setClause = implode('=?,', array_keys($dados)) . '=?';
+        $this->query = "UPDATE {$this->table} SET {$setClause} WHERE id = ?";
+        $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+        $stmt->execute(array_merge(array_values($dados), [$id]));
+    }
+    public function insertLineUser(array $dados)
+    {
+        $dados['senha'] = [Helpers::generateEncript($dados['senha'])][0];
+        $this->columns = implode(',', array_keys($dados));
+        $this->values = implode(',', array_fill(0, count($dados), '?'));
+        $this->query = "INSERT INTO {$this->table}({$this->columns}) VALUES ({$this->values})";
+        $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+        $stmt->execute(array_values($dados));
+    }
 }
