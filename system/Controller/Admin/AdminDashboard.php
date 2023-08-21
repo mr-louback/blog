@@ -47,16 +47,13 @@ class AdminDashboard extends AdminController
             'posts_titulo' => $posts->titulo,
             'posts_texto' => $posts->texto,
             'categoria_titulo' => $categorias->titulo,
-            'date'=> (new DateTime(date($posts->created_at)))->format('d/m/Y'),
-            'hour'=> (new DateTime(date($posts->created_at)))->format('H:i'),
+            'date' => (new DateTime(date($posts->created_at)))->format('d/m/Y'),
+            'hour' => (new DateTime(date($posts->created_at)))->format('H:i'),
             // css
             'alert_primary' => alert_primary,
-            'alert_info' => alert_info,
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,
-            'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
-            'btn_outline_info' => 'btn btn-outline-info',
+            'btn_outline_primary' => 'btn btn-outline-primary',
         ]);
     }
     public function category(int $id): void
@@ -68,19 +65,34 @@ class AdminDashboard extends AdminController
         echo $this->template->rendering('categories/category.html', [
             'categories_titulo' => $categorias->titulo,
             'categories_texto' => $categorias->texto,
-            'date'=> (new DateTime(date($categorias->created_at)))->format('d/m/Y'),
-            'hour'=> (new DateTime(date($categorias->created_at)))->format('H:i'),
+            'date' => (new DateTime(date($categorias->created_at)))->format('d/m/Y'),
+            'hour' => (new DateTime(date($categorias->created_at)))->format('H:i'),
             // // css
-            'alert_primary' => alert_primary,
+
+            'alert_warning' => alert_warning,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'btn_outline_warning' => 'btn btn-outline-warning',
+        ]);
+    }
+    public function user(int $id): void
+    {
+        $categorias = (new UserModel())->search($id);
+        if (!$categorias) {
+            Helpers::redirect('admin/erro');
+        }
+        echo $this->template->rendering('users/user.html', [
+            'categories_titulo' => $categorias->nome,
+            'categories_texto' => $categorias->email,
+            'date' => (new DateTime(date($categorias->created_at)))->format('d/m/Y'),
+            'hour' => (new DateTime(date($categorias->created_at)))->format('H:i'),
+            // // css
             'alert_info' => alert_info,
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,
-            'alert_warning' => alert_warning,
-            'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
-
     public function erro()
     {
 
