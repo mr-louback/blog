@@ -2,7 +2,8 @@
 
 namespace system\Model;
 
-use system\Nucleus\Connection as NucleusConnection;
+
+use system\Nucleus\Connection;
 use system\Nucleus\Model;
 
 class CategoryModel extends Model
@@ -20,8 +21,9 @@ class CategoryModel extends Model
     public function searchCategoryTitle(int $id)
     {
         $query = "SELECT titulo FROM " . self::TBL_CATEGORIES . " WHERE id = {$id}";
-        $stmt = NucleusConnection::getInstance()->query($query);
+        $stmt = Connection::getInstance()->query($query);
         $result = $stmt->fetch();
         return $result;
     }
+    
 }
