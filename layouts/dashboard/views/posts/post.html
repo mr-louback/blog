@@ -8,8 +8,7 @@
         <main>
             <div class="container-fluid px-4">
                 <div class="row">
-                    <h1 class="mt-1 {{alert_primary}}">Postagem</h1>
-                    Olá, voce está em postagem. {{saudacao()}}
+                    <span class="mt-1 {{alert_primary}}">Olá {{user().nome}}, você está na postagem {{posts.titulo}}. {{saudacao()}}</span>
                     <div class="col-lg-9 col-md-12">
                         <div class="row">
                             <div class="h-100 card {{alert_dark}} text-black">
@@ -17,10 +16,10 @@
                                     <h2 class="{{alert_light}}  card-title">{{posts_titulo}}</h2>
                                     <p class="{{alert_light}} card-text">{{posts_texto}}</p>
                                     <div class="{{alert_light}} card-text" style="display: flex; flex-direction: row; justify-content: space-between;">
-                                        <span>Categorizado como {{categoria_titulo}}</span>
-                                        <span>Postado em {{date}} ás {{hour}}</span>
+                                        <span>Categoria {{categoria_titulo}}</span>
+                                        <span>Criado em {{date}} ás {{hour}}</span>
                                     </div>
-                                    <a href="{{url('admin/dashboard')}}" class="{{btn_outline_info}}">Voltar</a>
+                                    <a href="{{url('admin/dashboard')}}" class="{{btn_outline_primary}}">Voltar</a>
                                 </div>
                             </div>
                         </div>
