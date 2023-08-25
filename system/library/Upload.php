@@ -19,25 +19,25 @@ class Upload
     {
         return $this->error;
     }
-    public function __construct(?string $directory = null)
+    public function __construct(?string $directory = "uploads")
     {
-        $this->directory =  !is_null($directory) ?? "uploads" ;
+        $this->directory =  $directory;
         if (!file_exists($this->directory) and !is_dir($this->directory)) {
             mkdir($directory, 0755);
         }
     }
-    public function file(array $file, ?string $name = null, ?string $subDirectory = null, ?int $length = null)
+    public function file(array $file, string $name, ?string $subDirectory = null, ?int $length = null)
     {
-        $this->name = !is_null($name) ?? pathinfo($name, PATHINFO_FILENAME);
+        $this->name = $name ?? pathinfo($file['name'], PATHINFO_FILENAME);
         $this->file = $file;
         $this->subDirectory = $subDirectory ?? $this->name;
-        $nameExtension = pathinfo($name, PATHINFO_EXTENSION);
-        $extensionValidated = ['.pdf', 'jpeg', 'png'];
+        $extensionValidated = ['jpeg', 'png', 'jpg'];
+        $nameExtension =  pathinfo($file['name'], PATHINFO_EXTENSION);
         $typesValidated = ['application/pdf', 'image/png', 'image/jpeg', 'text/plain'];
         $this->length = $length ?? 1;
 
         if (!in_array($nameExtension, $extensionValidated)) {
-            $this->error =  'As extensões permitidas são ' . implode('.', $extensionValidated);
+            $this->error =  'As extensões permitidas são ' .  implode(' .', $extensionValidated);
         } elseif (!in_array($this->file['type'], $typesValidated)) {
             $this->error = 'Tipo não permitido!';
         } elseif ($this->file['size'] > $this->length * (1024 * 1024)) {
@@ -58,8 +58,9 @@ class Upload
     {
         if (move_uploaded_file($this->file['tmp_name'], $this->directory . DIRECTORY_SEPARATOR . $this->subDirectory . DIRECTORY_SEPARATOR . $this->name)) {
             $this->result = $this->name;
+            // return;
         } else {
-            $this->result = null;
+            $this->result = $this->error;
         }
     }
     private function renameFile()

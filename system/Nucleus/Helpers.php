@@ -143,7 +143,7 @@ class Helpers
         // Converte para letras minúsculas
         $slug = strtolower($slug);
         // Retira dois ou mais hífens
-        $slug = str_replace(['-----', '----', '---', '--', '-'], '-', $slug);
+        $slug = str_replace(['-----', '----', '---', '--'], '-', $slug);
         return $slug;
     }
 

@@ -33,14 +33,15 @@ class AdminPosts extends AdminController
             } else {
                 if (!empty($_FILES['thumb'])) {
                     $upload = new Upload();
-                    $upload->file($_FILES['thumb']['name'], $_FILES['thumb']['name'], 'images');
+                    $upload->file($_FILES['thumb'], $_FILES['thumb']['name'], 'images');
                     if ($upload->getResult()) {
-                        $upload->getResult();
-                        // r($upload->getResult());
-                        $dados['thumb'] = Helpers::criarSlug($_FILES['thumb']['name']);
+                        $dados['slug'] = Helpers::criarSlug(pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME));
+                        $dados['thumb'] =  Helpers::criarSlug(pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME));
+                        (new PostModel())->insertLineModel($dados);
+                        $this->message->messageSuccess('Pooooostagem criada com sucesso!')->flash();
                         Helpers::redirect('admin/posts/list');
                     } else {
-                        r($upload->getError());
+                        $this->message->messageWarning($upload->getError())->flash();
                     }
                 }
                 $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
