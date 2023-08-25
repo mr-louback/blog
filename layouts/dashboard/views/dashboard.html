@@ -7,60 +7,118 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid py-2">
+
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 pl-2">
-                        <div class="row">
-                            <div class="container-fluid">
-                                <div class="card mb-4">
-                                    <div class="card-header {{alert_primary}}">
-                                        <i class="fas fa-table me-1"></i>
-                                        postagens
-                                    </div>
-                                    <div class="card-body mb-0 row px-3 py-1">
-                                        {% for post in posts %}
-                                        <a href="{{url('admin/post/'~post.id)}}" style="text-decoration: none;"
-                                            class="col-lg-6 mb-1">
-                                            <div class="h-100 card text-black">
-                                                <div class="{{alert_dark}} mb-0">
-                                                    <h2 class="card-title">{{post.titulo}}</h2>
-                                                    <p class="card-text">{{resumeTexto(''~post.texto,50)}}</p>
-                                                    <div class=" {{alert_light}}"
-                                                        style="display: flex; flex-direction: row; justify-content: space-between;">
-                                                        {% for categoria in categorias %}
-                                                        {% if post.categoria_id == categoria.id %}
-                                                        <span>Categoria {{categoria.titulo}}</span>
-                                                        {%endif%}
-                                                        {%endfor%}
-                                                        <span>{{contaTempo(post.created_at)}}</span>
-                                                    </div>
+                    <div class="col-lg-8">
+                        <div class="container-fluid ">
+                            <div class="card">
+                                <span class="mb-0 {{alert_dark}}">
+                                    Ola {{users[0].nome}}, seu ultimo login foi em {{users[0].ultimo_login |
+                                    date('d/m/Y')}}
+                                    ás {{users[0].ultimo_login | date('H:i')}}
+                                </span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="container-fluid">
+                            <div class="row">
+
+                                <div class="col-lg-6 mb-1">
+                                    <div class="card ">
+
+                                        <div
+                                            class="d-flex justify-content-between align-items-center card-header {{alert_warning}}">
+                                            <span class="card-title">Categorias</span>
+                                            <i class="fas fa-list me-1"></i>
+                                        </div>
+                                        <div class="card-body row">
+                                            <h1 class="text-black">{{categoriesCount}} Categorias</h1>
+                                            <div class=" card-text d-flex align-items-center mt-5">
+                                                <div class="{{alert_success}}">
+                                                    Ativos {{categoriesCountAtivos}}
+                                                </div>
+                                                <div class=" mx-3 {{alert_danger}}">
+                                                    Inativos {{categoriesCountInativos}}
                                                 </div>
                                             </div>
-                                        </a>
-                                        {%endfor%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-1">
+
+                                    <div class="card ">
+                                        <div
+                                            class="card-header d-flex justify-content-between align-items-center {{alert_primary}}">
+                                            <span class="card-title">Postagens</span>
+                                            <i class="fas fa-file-pen me-1"></i>
+
+                                        </div>
+                                        <div class="card-body row">
+                                            <h1 class="text-black">{{postsCount}} Postagens</h1>
+                                            <div class=" card-text d-flex align-items-center mt-5">
+                                                <div class=" {{alert_success}}">
+                                                    Ativos {{postsCountAtivos}}
+                                                </div>
+                                                <div class="mx-3  {{alert_danger}}">
+                                                    Inativos {{postsCountInativos}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-1">
+                                    <div class="card ">
+                                        <div
+                                            class="card-header d-flex align-items-center justify-content-between {{alert_info}} ">
+                                            <span class="card-title">Usuários</span>
+                                            <i class="fas fa-users me-1"></i>
+                                        </div>
+                                        <div class="card-body row">
+                                            <h1 class="text-black">{{usersCount}} Usuários</h1>
+                                            <div class="card-text  card-text d-flex align-items-center mt-5">
+
+                                                <div class=" {{alert_success}}">
+                                                    Ativos {{usersCountAtivos}}
+                                                </div>
+
+                                                <div class="mx-3 {{alert_danger}}">
+                                                    Inativos {{usersCountInativos}}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="container-fluid">
-                                <div class="card mb-4">
-                                    <div class="card-header {{alert_info}}">
-                                        <i class="fas fa-table me-1"></i>
-                                        Usuários
-                                    </div>
-                                    
-                                    <div class="card-body mb-0 row px-3 py-1 ">
-                                        {% for user in users %}
-                                        <a href="{{url('admin/user/'~user.id)}}" class="col-lg-6 mb-1" 
-                                            style="text-decoration: none;">
-                                            <div class="card-body {{alert_dark}}">
-                                                <h5 class="card-title">{{user.nome}}</h5>
-                                                <p class="card-text">
-                                                    {{resumeTexto(''~user.email, 10)}}
-                                                </p>
-                                                <span>{{contaTempo(user.created_at)}}</span>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="card mb-4">
+                                <div class="card-header {{alert_primary}}">
+                                    <i class="fas fa-table me-1"></i>
+                                    postagens
+                                </div>
+                                <div class="card-body mb-0 row px-3 py-1">
+                                    {% for post in posts %}
+                                    <a href="{{url('admin/post/'~post.slug)}}" style="text-decoration: none;"
+                                        class="col-lg-6 mb-1">
+                                        <div class="h-100 card text-black">
+                                            <div class="{{alert_dark}} mb-0">
+                                                <h2 class="card-title">{{post.titulo}}</h2>
+                                                <p class="card-text">{{resumeTexto(''~post.texto,50)}}</p>
+                                                <div
+                                                    class="d-flex justify-content-between align-items-center {{alert_light}}">
+                                                    {% for categoria in categorias %}
+                                                    {% if post.categoria_id == categoria.id %}
+                                                    <span>Categoria {{categoria.titulo}}</span>
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                    <span>{{contaTempo(post.created_at)}}</span>
+                                                </div>
                                             </div>
-                                        </a>
-                                        {%endfor%}
-                                    </div>
+                                        </div>
+                                    </a>
+                                    {%endfor%}
                                 </div>
                             </div>
                         </div>
@@ -74,7 +132,7 @@
                                         <i class="fas fa-table me-1"></i>
                                         Categorias
                                     </div>
-                                    
+
                                     <div class="col px-3 py-0">
                                         {% for categoria in categorias %}
                                         <a href="{{url('admin/category/'~categoria.id)}}" style="text-decoration: none;"
@@ -91,15 +149,37 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="container-fluid">
+                                <div class="card mb-4">
+                                    <div class="card-header {{alert_info}}">
+                                        <i class="fas fa-user fa-fw me-1"></i>
+                                        Usuários
+                                    </div>
+
+                                    <div class="card-body mb-0 row px-3 py-1 ">
+                                        {% for user in users %}
+                                        <a href="{{url('admin/user/'~user.id)}}" class="col-lg-6 mb-1"
+                                            style="text-decoration: none;">
+                                            <div class="card-body {{alert_dark}}">
+                                                <h5 class="card-title">{{user.nome}}</h5>
+                                                <p class="card-text">
+                                                    {{resumeTexto(''~user.email, 10)}}
+                                                </p>
+                                                <span>{{contaTempo(user.created_at)}}</span>
+                                            </div>
+                                        </a>
+                                        {%endfor%}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+            {% include 'footer.html'%}
         </main>
-        {% include 'footer.html'%}
     </div>
+</div>
 </div>
 {%endblock%}
 {%endblock%}

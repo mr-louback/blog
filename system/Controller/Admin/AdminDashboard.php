@@ -21,29 +21,44 @@ class AdminDashboard extends AdminController
             'alert_info' => alert_info,
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,
-            'alert_danger' => alert_danger,
+            'alert_success' => alert_success . ' px-4 py-3 ',
+            'alert_danger' => alert_danger . ' px-4 py-3 ',
             'alert_warning' => alert_warning,
             'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
             'btn_outline_success' => 'btn btn-outline-success',
             'btn_outline_warning' => 'btn btn-outline-warning',
             // tabelas
-            'categorias' => (new CategoryModel())->search(),
             'posts' => (new PostModel())->search(),
-            'users' => (new UserModel())->search()
+            'postsCount' => (new PostModel())->countRegisters(),
+            'postsCountAtivos' => (new PostModel())->countRegisters(1),
+            'postsCountInativos' => (new PostModel())->countRegisters(0), 
+            
+            'users' => (new UserModel())->search(),
+            'usersCount' => (new UserModel())->countRegisters(),
+            'usersCountAtivos' => (new UserModel())->countRegisters(1),
+            'usersCountInativos' => (new UserModel())->countRegisters(0),
+            
+            'categorias' => (new CategoryModel())->search(),
+            'categoriesCount' => (new CategoryModel())->countRegisters(), 
+            'categoriesCountAtivos' => (new CategoryModel())->countRegisters(1),
+            'categoriesCountInativos' => (new CategoryModel())->countRegisters(0),
+
 
 
         ]);
     }
-    public function post(int $id): void
+    public function post(string $slug): void
     {
-        $posts = (new PostModel())->search($id);
+        $posts = (new PostModel())->searchSlug($slug);
+    //    var_dump($posts);
         $categorias = (new CategoryModel())->searchCategoryTitle($posts->categoria_id);
         if (!$posts) {
             Helpers::redirect('admin/erro');
         }
         echo $this->template->rendering('posts/post.html', [
             'posts' => $posts,
+            'postsCounts' => $posts->countRegisters(),
             'posts_titulo' => $posts->titulo,
             'posts_texto' => $posts->texto,
             'categoria_titulo' => $categorias->titulo,
@@ -68,7 +83,6 @@ class AdminDashboard extends AdminController
             'date' => (new DateTime(date($categorias->created_at)))->format('d/m/Y'),
             'hour' => (new DateTime(date($categorias->created_at)))->format('H:i'),
             // // css
-
             'alert_warning' => alert_warning,
             'alert_light' => alert_light,
             'alert_dark' => alert_dark,

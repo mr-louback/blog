@@ -11,7 +11,11 @@
                 {{flash()}}
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form method="post">
+                        <form method="post" enctype="multipart/form-data">
+                            <div style="width: 70%;" class="mb-2">
+                                <label for="thumb" class="form-label">Arquivo<sup>*</sup></label>
+                                <input type="file" class="form-control" name="thumb"  accept=".png, .jpeg, .jpg">
+                            </div>
                             <div style="width: 70%;" class="mb-2">
                                 <label for="titulo" class="form-label">Título<sup>*</sup></label>
                                 <input type="text" class="form-control" name="titulo" id="titulo">
@@ -31,14 +35,14 @@
                                             <option value="0">Inativo</option>
                                         </select>
                                     </div>
-                                        <label for="categoria_id">Categoria</label>
-                                        <select style="width: 35%;" name="categoria_id" class="{{alert_primary}} p-1"
+                                    <label for="categoria_id">Categoria</label>
+                                    <select style="width: 35%;" name="categoria_id" class="{{alert_primary}} p-1"
                                         aria-label="Default select example">
-                                            {% for categoria in categorias %}
-                                            <option name="categoria_id" value="{{categoria.id}}">
-                                                {{categoria.titulo}}</option>
-                                            {%endfor%}
-                                        </select>
+                                        {% for categoria in categorias %}
+                                        <option name="categoria_id" value="{{categoria.id}}">
+                                            {{categoria.titulo}}</option>
+                                        {%endfor%}
+                                    </select>
                                 </div>
                             </div>
                             <input type="submit" class="{{btn_outline_info}}" value="Criar Postagem">

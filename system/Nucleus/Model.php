@@ -17,6 +17,7 @@ class Model
     protected $columns;
     protected $values;
     protected $offset;
+    protected $like;
     public function __construct(string $table)
     {
         $this->table = $table;
@@ -36,26 +37,59 @@ class Model
         $this->offset = " offset {$offset}";
         return $this;
     }
+    public function like(string $like)
+    {
+        $this->like = " WHERE titulo LIKE $like";
+        return $this;
+    }
     public function search(?int $id = null, ?string $columns = '*')
     {
-        if ($id) {
+
+        if ($id !== null) {
             $where = (" WHERE id = {$id}");
             $this->query = "SELECT {$columns} FROM " . $this->table . $where;
             $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
             $stmt->execute($this->parameters);
-            return $stmt->fetchObject();
+            return $stmt->fetchObject(static::class);
         }
+       
         $this->query = "SELECT {$columns} FROM " . $this->table;
         $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
         $stmt->execute($this->parameters);
-        return  $stmt->fetchAll();
+        return  $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
     }
-    public function countReigisters()
+    public function searchSlug(string $slug)
     {
-        $this->query = "SELECT COUNT(*) FROM {$this->table}";
-        $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
-        $stmt->execute();
-        return $stmt->fetchColumn();
+
+        if ($slug) {
+            $where = (" WHERE slug = '{$slug}'");
+            $this->query = "SELECT * FROM " . $this->table . $where;
+            $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+            // var_dump($stmt);
+            $stmt->execute($this->parameters);
+            return $stmt->fetchObject(static::class);
+        }
+       
+       
+    }
+    public function countRegisters(?string $status = '')
+    {
+        if ($status == 0) {
+            $this->query = "SELECT COUNT(*) FROM {$this->table} WHERE status = {$status}";
+            $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        } else if ($status == 1) {
+            $this->query = "SELECT COUNT(*) FROM {$this->table} WHERE status = {$status}";
+            $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        } else {
+            $this->query = "SELECT COUNT(*) FROM {$this->table} ";
+            $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        }
     }
     public function insertLineModel(array $dados)
     {

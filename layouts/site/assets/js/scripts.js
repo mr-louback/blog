@@ -3,7 +3,7 @@
     * Copyright 2013-2023 Start Bootstrap
     * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
     */
-    // 
+// 
 // Scripts
 // 
 
@@ -22,5 +22,28 @@ window.addEventListener('DOMContentLoaded', event => {
             localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
         });
     }
-
+    
 });
+// console.log('ww');
+// function search() {
+//     document.getElementById('searchInput').addEventListener('keyup', () => {
+//        var inputSearch = document.querySelector('#searchInput').value ;
+//        document.getElementById('searchResults').innerText = inputSearch
+//     //    console.log(inputSearch);
+//     })
+
+// }
+// search() 
+// $(document).ready(function () {
+//     $('#searchInput').on('keyup', function () {
+//         var searchText = $(this).val();
+//         $.ajax({
+//             url: 'search.php',
+//             type: 'POST',
+//             data: { searchText: searchText },
+//             success: function (response) {
+//                 $('#searchResults').html(response);
+//             }
+//         })
+//     })
+// })

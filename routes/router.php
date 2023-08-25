@@ -5,13 +5,9 @@ use system\Nucleus\Helpers;
 
 try {
     SimpleRouter::setDefaultNamespace('system\Controller');
-    SimpleRouter::get(URL_BASE, 'SiteController@index');
-    SimpleRouter::get(URL_BASE . 'post/{id}', 'SiteController@post');
+    SimpleRouter::match(['get', 'post'],URL_BASE, 'SiteController@index');
+    SimpleRouter::get(URL_BASE . 'post/{slug}', 'SiteController@post');
     SimpleRouter::get(URL_BASE . 'erro', 'SiteController@erro');
-
-    // SimpleRouter::get(URL_BASE . 'categoria/{id}', 'SiteController@categoria');
-    // SimpleRouter::post(URL_BASE . 'formCadSent', 'SiteController@formCadSent');
-
     // separação de namespaces
     SimpleRouter::group(['namespace' => 'Admin'], function () {
         // admin login
@@ -21,23 +17,21 @@ try {
         // admin dashboard
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
         SimpleRouter::get(URL_ADMIN . 'logout', 'AdminDashboard@logout');
-        SimpleRouter::get(URL_ADMIN . 'post/{id}', 'AdminDashboard@post');
+        SimpleRouter::get(URL_ADMIN . 'post/{slug}', 'AdminDashboard@post');
         SimpleRouter::get(URL_ADMIN . 'category/{id}', 'AdminDashboard@category');
         SimpleRouter::get(URL_ADMIN . 'user/{id}', 'AdminDashboard@user');
-        // SimpleRouter::get(URL_ADMIN . 'erro', 'AdminDashboard@erro');
-
+        SimpleRouter::get(URL_ADMIN . 'erro', 'AdminDashboard@erro');
         // admin users
         SimpleRouter::get(URL_ADMIN . 'users/list', 'AdminUsers@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'users/register', 'AdminUsers@register');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'users/{id}', 'AdminUsers@edit');
         SimpleRouter::get(URL_ADMIN . 'users/delete/{id}', 'AdminUsers@delete');
         // admin posts
-        // SimpleRouter::get(URL_ADMIN . 'posts/{id}', 'AdminPosts@post');
         SimpleRouter::get(URL_ADMIN . 'posts/list', 'AdminPosts@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/register', 'AdminPosts@register');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/{id}', 'AdminPosts@edit');
         SimpleRouter::get(URL_ADMIN . 'posts/delete/{id}', 'AdminPosts@delete');
-        // SimpleRouter::get(URL_ADMIN . 'erro', 'AdminPosts@erro');
+        SimpleRouter::get(URL_ADMIN . 'erro', 'AdminPosts@erro');
         // admin categorias
         SimpleRouter::get(URL_ADMIN . 'categories/list', 'AdminCategories@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categories/register', 'AdminCategories@register');
