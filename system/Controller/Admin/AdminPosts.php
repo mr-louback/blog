@@ -5,7 +5,7 @@ namespace system\Controller\Admin;
 use DateTime;
 use system\library\Upload;
 use system\Model\PostModel;
-use system\Nucleus\Helpers;
+use system\Nucleus\Helpers as HelpNucleus;
 use system\Model\CategoryModel;
 
 class AdminPosts extends AdminController
@@ -31,23 +31,19 @@ class AdminPosts extends AdminController
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
-                if (!empty($_FILES['thumb'])) {
+                if (!empty($_FILES['thumb']['size']) != 0 ) {
+                    // r($file);
                     $upload = new Upload();
                     $upload->file($_FILES['thumb'], $_FILES['thumb']['name'], 'images');
-                    if ($upload->getResult()) {
-                        $dados['slug'] = Helpers::criarSlug(pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME));
-                        $dados['thumb'] =  Helpers::criarSlug(pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME));
-                        (new PostModel())->insertLineModel($dados);
-                        $this->message->messageSuccess('Pooooostagem criada com sucesso!')->flash();
-                        Helpers::redirect('admin/posts/list');
-                    } else {
-                        $this->message->messageWarning($upload->getError())->flash();
-                    }
+                    $dados['thumb'] = $_FILES['thumb']['name'] . '-' . uniqid();
+                    $dados['slug'] = $_FILES['thumb']['name'] . '-' . uniqid();
+                    (new PostModel())->insertLineModel($dados);
+                    HelpNucleus::redirect('admin/posts/list');
                 }
-                $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
+                $dados['slug'] = HelpNucleus::criarSlug($dados['titulo']) . '-' . uniqid();
                 (new PostModel())->insertLineModel($dados);
                 $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
-                Helpers::redirect('admin/posts/list');
+                HelpNucleus::redirect('admin/posts/list');
             }
         }
         echo $this->template->rendering('posts/register.html', [
@@ -63,10 +59,10 @@ class AdminPosts extends AdminController
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } else {
-                $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
+                $dados['slug'] = HelpNucleus::criarSlug($dados['titulo']) . '-' . uniqid();
                 (new PostModel())->updateLineModel($id, $dados);
                 $this->message->messageSuccess('Post editado com sucesso!')->flash();
-                Helpers::redirect('admin/posts/list');
+                HelpNucleus::redirect('admin/posts/list');
             }
         }
         $posts = (new PostModel())->search($id);
@@ -95,7 +91,7 @@ class AdminPosts extends AdminController
     {
         (new PostModel())->deleteLineModel($id);
         $this->message->messageSuccess('Post deletado com sucesso!')->flash();
-        Helpers::redirect('admin/posts/list');
+        HelpNucleus::redirect('admin/posts/list');
     }
     public function erro()
     {

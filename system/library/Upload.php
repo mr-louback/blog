@@ -9,7 +9,7 @@ class Upload
     private ?string $name;
     private ?string $directory;
     private ?string $result = null;
-    private ?string $error;
+    private string $error ;
     private ?int $length;
     public function getResult(): ?string
     {
@@ -26,12 +26,12 @@ class Upload
             mkdir($directory, 0755);
         }
     }
-    public function file(array $file, string $name, ?string $subDirectory = null, ?int $length = null)
+    public function file(array $file, ?string $name = null, ?string $subDirectory = null, ?int $length = null)
     {
         $this->name = $name ?? pathinfo($file['name'], PATHINFO_FILENAME);
         $this->file = $file;
         $this->subDirectory = $subDirectory ?? $this->name;
-        $extensionValidated = ['jpeg', 'png', 'jpg'];
+        $extensionValidated = ['.jpeg', '.png', '.jpg'];
         $nameExtension =  pathinfo($file['name'], PATHINFO_EXTENSION);
         $typesValidated = ['application/pdf', 'image/png', 'image/jpeg', 'text/plain'];
         $this->length = $length ?? 1;
@@ -58,9 +58,9 @@ class Upload
     {
         if (move_uploaded_file($this->file['tmp_name'], $this->directory . DIRECTORY_SEPARATOR . $this->subDirectory . DIRECTORY_SEPARATOR . $this->name)) {
             $this->result = $this->name;
-            // return;
         } else {
-            $this->result = $this->error;
+            $this->result = null;
+            $this->error = 'Erro ao enviar o arquivo';
         }
     }
     private function renameFile()
