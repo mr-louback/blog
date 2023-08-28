@@ -2,6 +2,7 @@
 
 namespace system\library;
 
+use system\Nucleus\Helpers;
 class Upload
 {
     private ?string $subDirectory;
@@ -9,12 +10,13 @@ class Upload
     private ?string $name;
     private ?string $directory;
     private ?string $result = null;
-    private string $error ;
+    private ?string $error = null;
     private ?int $length;
     public function getResult(): ?string
     {
         return $this->result;
     }
+
     public function getError(): ?string
     {
         return $this->error;
@@ -26,12 +28,12 @@ class Upload
             mkdir($directory, 0755);
         }
     }
-    public function file(array $file, ?string $name = null, ?string $subDirectory = null, ?int $length = null)
+    public function file(array $file,  ?string $subDirectory = null, ?int $length = null)
     {
-        $this->name = $name ?? pathinfo($file['name'], PATHINFO_FILENAME);
+        $this->name =  $file['name'] ?? pathinfo($file['name'], PATHINFO_FILENAME);
         $this->file = $file;
-        $this->subDirectory = $subDirectory ?? $this->name;
-        $extensionValidated = ['.jpeg', '.png', '.jpg'];
+        $this->subDirectory = $subDirectory ?? pathinfo($file['name'], PATHINFO_FILENAME);
+        $extensionValidated = ['jpeg', 'png', 'jpg'];
         $nameExtension =  pathinfo($file['name'], PATHINFO_EXTENSION);
         $typesValidated = ['application/pdf', 'image/png', 'image/jpeg', 'text/plain'];
         $this->length = $length ?? 1;
@@ -46,6 +48,8 @@ class Upload
             $this->directoryCreate();
             $this->renameFile();
             $this->moveFile();
+            Helpers::redirect('admin/posts/list');
+
         }
     }
     private function directoryCreate(): void
@@ -57,11 +61,8 @@ class Upload
     private function moveFile()
     {
         if (move_uploaded_file($this->file['tmp_name'], $this->directory . DIRECTORY_SEPARATOR . $this->subDirectory . DIRECTORY_SEPARATOR . $this->name)) {
-            $this->result = $this->name;
-        } else {
-            $this->result = null;
-            $this->error = 'Erro ao enviar o arquivo';
-        }
+            Helpers::redirect('admin/posts/list');
+        } 
     }
     private function renameFile()
     {
