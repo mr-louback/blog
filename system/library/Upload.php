@@ -3,6 +3,7 @@
 namespace system\library;
 
 use system\Nucleus\Helpers;
+
 class Upload
 {
     private ?string $subDirectory;
@@ -48,8 +49,6 @@ class Upload
             $this->directoryCreate();
             $this->renameFile();
             $this->moveFile();
-            Helpers::redirect('admin/posts/list');
-
         }
     }
     private function directoryCreate(): void
@@ -61,8 +60,9 @@ class Upload
     private function moveFile()
     {
         if (move_uploaded_file($this->file['tmp_name'], $this->directory . DIRECTORY_SEPARATOR . $this->subDirectory . DIRECTORY_SEPARATOR . $this->name)) {
+            // $this->result;
             Helpers::redirect('admin/posts/list');
-        } 
+        }
     }
     private function renameFile()
     {
