@@ -61,6 +61,7 @@ class AdminDashboard extends AdminController
             'postsCounts' => $posts->countRegisters(),
             'posts_titulo' => $posts->titulo,
             'posts_texto' => $posts->texto,
+            'posts_thumb' => $posts->thumb,
             'categoria_titulo' => $categorias->titulo,
             'date' => (new DateTime(date($posts->created_at)))->format('d/m/Y'),
             'hour' => (new DateTime(date($posts->created_at)))->format('H:i'),

@@ -8,14 +8,22 @@
         <main>
             <div class="container-fluid px-4">
                 <div class="row">
-                    <span class="mt-1 {{alert_primary}}">Olá {{user().nome}}, você está na postagem {{posts.titulo}}. {{saudacao()}}</span>
+                    <span class="mt-1 {{alert_primary}}">Olá {{user().nome}}, você está na postagem {{posts.titulo}}.
+                        {{saudacao()}}</span>
                     <div class="col-lg-9 col-md-12">
                         <div class="row">
                             <div class="h-100 card {{alert_dark}} text-black">
                                 <div class="card-body">
+                                    <a href="../../../../uploads/images/{{posts_thumb}}"
+                                        data-pswp-width="2500" data-pswp-height="1667" target="_blank">
+                                        
+                                        <img src="../../../../uploads/images/thumbs/{{posts_thumb}}"
+                                            alt="{{posts_titulo}}">
+                                    </a>
                                     <h2 class="{{alert_light}}  card-title">{{posts_titulo}}</h2>
                                     <p class="{{alert_light}} card-text">{{posts_texto}}</p>
-                                    <div class="{{alert_light}} card-text" style="display: flex; flex-direction: row; justify-content: space-between;">
+                                    <div class="{{alert_light}} card-text"
+                                        style="display: flex; flex-direction: row; justify-content: space-between;">
                                         <span>Categoria {{categoria_titulo}}</span>
                                         <span>Criado em {{date}} ás {{hour}}</span>
                                     </div>
@@ -29,7 +37,9 @@
                 </div>
             </div>
         </main>
-
+        <script type="module">
+            
+        </script>
         {% include 'footer.html'%}
     </div>
 </div>

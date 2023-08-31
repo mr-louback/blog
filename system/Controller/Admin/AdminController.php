@@ -14,7 +14,7 @@ class AdminController extends Controller
     {
         parent::__construct('layouts/dashboard/views');
         $this->user = UserController::sessionIdUser();
-        if(!$this->user){
+        if(!$this->user and $this->user !== 3){
             Helpers::redirect("/");
         }
     }

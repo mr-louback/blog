@@ -32,7 +32,7 @@ class Upload
     public function file(array $file,  ?string $subDirectory = null, ?int $length = null)
     {
         $this->name =  $file['name'] ?? pathinfo($file['name'], PATHINFO_FILENAME);
-        $this->file = $file;
+        $this->file = $file['tmp_name'];
         $this->subDirectory = $subDirectory ?? pathinfo($file['name'], PATHINFO_FILENAME);
         $extensionValidated = ['jpeg', 'png', 'jpg'];
         $nameExtension =  pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -48,7 +48,7 @@ class Upload
         } else {
             $this->directoryCreate();
             $this->renameFile();
-            $this->moveFile();
+            $this->moveFile($this->file);
         }
     }
     private function directoryCreate(): void
@@ -57,9 +57,9 @@ class Upload
             mkdir($this->directory . DIRECTORY_SEPARATOR . $this->subDirectory);
         }
     }
-    private function moveFile()
+    private function moveFile(string $file)
     {
-        if (move_uploaded_file($this->file['tmp_name'], $this->directory . DIRECTORY_SEPARATOR . $this->subDirectory . DIRECTORY_SEPARATOR . $this->name)) {
+        if (move_uploaded_file($file , $this->directory . DIRECTORY_SEPARATOR . $this->subDirectory . DIRECTORY_SEPARATOR . $this->name)) {
             // $this->result;
             Helpers::redirect('admin/posts/list');
         }

@@ -7,6 +7,7 @@ use system\library\Upload;
 use system\Model\PostModel;
 use system\Nucleus\Helpers as HelpNucleus;
 use system\Model\CategoryModel;
+use system\Nucleus\Helpers;
 
 class AdminPosts extends AdminController
 {
@@ -30,18 +31,25 @@ class AdminPosts extends AdminController
             $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
+            } elseif (!empty($_FILES['thumb']['name'])) {
+                $handle = new \Verot\Upload\Upload($_FILES['thumb']);
+                $handle->file_new_name_body   = pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME);
+                $handle->process('uploads/images/');
+                $handle->image_resize         = true;
+                $handle->image_x              = 100;
+                $handle->file_new_name_body   = pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME);
+                $handle->image_ratio_y        = true;
+                $handle->process('uploads/images/thumbs/');
+                $dados['thumb'] = $_FILES['thumb']['name'];
+                $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
+                (new PostModel())->insertLineModel($dados);
+                $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
+                HelpNucleus::redirect('admin/posts/list');
             } else {
-                $dados['thumb'] = $_FILES['thumb']['name'] . '-' . uniqid();
-                $dados['slug'] = $_FILES['thumb']['name'] . '-' . uniqid();
+                $dados['thumb'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
+                $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
                 (new PostModel())->insertLineModel($dados);
-                if (!empty($_FILES['thumb']['size'])) {
-                    $upload = new Upload();
-                    $upload->file($_FILES['thumb'], 'images');
-                    
-                }
-                $dados['slug'] = HelpNucleus::criarSlug($dados['titulo']) . '-' . uniqid();
-                (new PostModel())->insertLineModel($dados);
-                $this->message->messageSuccess('Postaaaaaaaaaagem criada com sucesso!')->flash();
+                $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
                 HelpNucleus::redirect('admin/posts/list');
             }
         }
@@ -57,10 +65,26 @@ class AdminPosts extends AdminController
             $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
+            } elseif (!empty($_FILES['thumb']['name'])) {
+                $nameFile = uniqid() . '-' . $_FILES['thumb']['name'];
+                $handle = new \Verot\Upload\Upload($_FILES['thumb']);
+                $handle->file_new_name_body   = $nameFile;
+                $handle->process('uploads/images/');
+                $handle->image_resize         = true;
+                $handle->image_x              = 100;
+                $handle->file_new_name_body   = $nameFile;
+                $handle->image_ratio_y        = true;
+                $handle->process('uploads/images/thumbs/');
+                $dados['thumb'] = $nameFile;
+                $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
+                (new PostModel())->updateLineModel($id, $dados);
+                $this->message->messageSuccess('Postagem editada com sucesso!')->flash();
+                HelpNucleus::redirect('admin/posts/list');
             } else {
+                $dados['thumb'] = HelpNucleus::criarSlug($dados['titulo']) . '-' . uniqid();
                 $dados['slug'] = HelpNucleus::criarSlug($dados['titulo']) . '-' . uniqid();
                 (new PostModel())->updateLineModel($id, $dados);
-                $this->message->messageSuccess('Post editado com sucesso!')->flash();
+                $this->message->messageSuccess('Postagem editada com sucesso!')->flash();
                 HelpNucleus::redirect('admin/posts/list');
             }
         }

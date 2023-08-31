@@ -8,7 +8,11 @@
                 <h1 class="mt-1 {{alert_primary}}">Postagens</h1>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form method="post">
+                        <form method="post" enctype="multipart/form-data">
+                            <div style="width: 70%;" class="mb-2">
+                                <label for="thumb" class="form-label">Arquivo<sup>*</sup></label>
+                                <input type="file" class="form-control" name="thumb" accept=".png, .jpg, .jpeg">
+                            </div>
                             <label for="id" class="form-label">Identificador</label>
                             <div style="width: 70%;" class="mb-2">
                                 <input name="id" type="number" for="id" value="{{posts_id}}" class="form-control">
