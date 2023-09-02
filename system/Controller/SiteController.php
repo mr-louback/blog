@@ -7,7 +7,6 @@ use system\Model\CategoryModel;
 use system\Model\PostModel;
 use system\Nucleus\Controller;
 use system\Nucleus\Helpers;
-use system\Nucleus\RenderMessage;
 
 class SiteController extends Controller
 {
@@ -43,6 +42,7 @@ class SiteController extends Controller
         echo $this->template->rendering('forms/post.html', [
             'posts_titulo' => $posts->titulo,
             'posts_texto' => $posts->texto,
+            'posts_thumb' => $posts->thumb,
             'categoria_titulo' => $categorias->titulo,
             'date' => (new DateTime(date($posts->created_at)))->format('d/m/Y'),
             'hour' => (new DateTime(date($posts->created_at)))->format('H:i'),

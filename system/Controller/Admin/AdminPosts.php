@@ -34,13 +34,17 @@ class AdminPosts extends AdminController
             } elseif (!empty($_FILES['thumb']['name'])) {
                 $handle = new \Verot\Upload\Upload($_FILES['thumb']);
                 $handle->file_new_name_body   = pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME);
+                $handle->image_resize         = true;
+                $handle->image_x              = 825;
+                $handle->image_y              = 500;
                 $handle->process('uploads/images/');
                 $handle->image_resize         = true;
-                $handle->image_x              = 100;
+                $handle->image_x              = 200;
                 $handle->file_new_name_body   = pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME);
                 $handle->image_ratio_y        = true;
                 $handle->process('uploads/images/thumbs/');
                 $dados['thumb'] = $_FILES['thumb']['name'];
+                
                 $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
                 (new PostModel())->insertLineModel($dados);
                 $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
@@ -71,11 +75,11 @@ class AdminPosts extends AdminController
                 $handle->file_new_name_body   = $nameFile;
                 $handle->process('uploads/images/');
                 $handle->image_resize         = true;
-                $handle->image_x              = 100;
+                $handle->image_x              = 200;
                 $handle->file_new_name_body   = $nameFile;
                 $handle->image_ratio_y        = true;
                 $handle->process('uploads/images/thumbs/');
-                $dados['thumb'] = $nameFile;
+                $dados['thumb'] = $_FILES['thumb']['name'];
                 $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
                 (new PostModel())->updateLineModel($id, $dados);
                 $this->message->messageSuccess('Postagem editada com sucesso!')->flash();

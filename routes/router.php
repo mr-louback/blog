@@ -5,7 +5,7 @@ use system\Nucleus\Helpers;
 
 try {
     SimpleRouter::setDefaultNamespace('system\Controller');
-    SimpleRouter::match(['get', 'post'],URL_BASE, 'SiteController@index');
+    SimpleRouter::match(['get', 'post'], URL_BASE, 'SiteController@index');
     SimpleRouter::get(URL_BASE . 'post/{slug}', 'SiteController@post');
     SimpleRouter::get(URL_BASE . 'erro', 'SiteController@erro');
     // separação de namespaces
@@ -22,6 +22,7 @@ try {
         SimpleRouter::get(URL_ADMIN . 'user/{id}', 'AdminDashboard@user');
         SimpleRouter::get(URL_ADMIN . 'erro', 'AdminDashboard@erro');
         // admin users
+        SimpleRouter::get(URL_ADMIN . 'users/user{id}', 'AdminUsers@user');
         SimpleRouter::get(URL_ADMIN . 'users/list', 'AdminUsers@list');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'users/register', 'AdminUsers@register');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'users/{id}', 'AdminUsers@edit');

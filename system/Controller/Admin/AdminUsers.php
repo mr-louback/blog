@@ -2,6 +2,7 @@
 
 namespace system\Controller\Admin;
 
+use DateTime;
 use PDOException;
 use system\Nucleus\Helpers;
 use system\Model\UserModel;
@@ -10,7 +11,6 @@ use system\Nucleus\RenderMessage;
 class AdminUsers extends AdminController
 {
     protected $user;
-
     public function list(): void
     {
         $users = (new UserModel())->search();
@@ -19,6 +19,24 @@ class AdminUsers extends AdminController
             'btn_outline_danger' => 'btn btn-outline-danger',
             'btn_outline_info' => 'btn btn-outline-info',
             'users' => $users,
+        ]);
+    }
+    public function user(int $id): void
+    {
+        $user = (new UserModel())->search($id);
+        if (!$user) {
+            Helpers::redirect('admin/erro');
+        }
+        echo $this->template->rendering('users/user.html', [
+            'categories_titulo' => $user->nome,
+            'categories_texto' => $user->email,
+            'date' => (new DateTime(date($user->created_at)))->format('d/m/Y'),
+            'hour' => (new DateTime(date($user->created_at)))->format('H:i'),
+            // // css
+            'alert_info' => alert_info,
+            'alert_light' => alert_light,
+            'alert_dark' => alert_dark,
+            'btn_outline_info' => 'btn btn-outline-info',
         ]);
     }
     public function register()

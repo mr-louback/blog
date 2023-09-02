@@ -13,9 +13,14 @@
                         <div class="row">
                             <div class="h-100 card {{alert_dark}} text-black">
                                 <div class="card-body">
+                                    <a  href="../../../../uploads/images/{{posts_thumb}}"target="_blank">
+                                        <img class="my-3 "  style="border-radius: 8px ; width: 50%; height: 150px;" src="../../../../uploads/images/thumbs/{{posts_thumb}}"
+                                            alt="{{posts_titulo}}">
+                                    </a>
                                     <h2 class="{{alert_light}}  card-title">{{posts_titulo}}</h2>
                                     <p class="{{alert_light}} card-text">{{posts_texto}}</p>
-                                    <div class="{{alert_light}} card-text" style="display: flex; flex-direction: row; justify-content: space-between;">
+                                    <div class="{{alert_light}} card-text"
+                                        style="display: flex; flex-direction: row; justify-content: space-between;">
                                         <span>Categorizado como {{categoria_titulo}}</span>
                                         <span>Postado em {{date}} ás {{hour}}</span>
                                     </div>
@@ -25,6 +30,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
+
                     </div>
                 </div>
             </div>

@@ -1,0 +1,59 @@
+{% extends 'dashboard.html'%}
+{%block conteudo%}
+<div id="layoutSidenav">
+    <div id="layoutSidenav_content">
+        {% include 'sideBar.html'%}
+        <main>
+            <div class="container-fluid px-4 p-2">
+                <h1 class="mt-1 {{alert_primary}}">Perfil de usuário</h1>
+                {{flash()}}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form method="post">
+                            <div style="width: 70%;" class="mb-2">
+                               <img src="" alt="{{user.nome}}">
+                            </div>
+                            <div style="width: 70%;" class="mb-2">
+                                <label for="nome" class="form-label ">Nome<sup>*</sup></label>
+                                {% if user%}
+                                <input value="{{user.nome}}" type="text" class="form-control" name="nome" id="nome">
+                                {%endif%}
+                            </div>
+                            <label for="email">Email</label>
+                            <div style="width: 70%;" class="form-floating">
+                                {% if user %}
+                                <input type="email" name="email" class="form-control" id="email" value="{{user.email}}">
+                                {%endif%}
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <label for="status">Status</label>
+                                    <div class="mb-3">
+                                        {% if user.level %}
+                                        <select class="{{alert_primary}} p-1" style="width: 35%;" name="status"
+                                            id="status">
+                                            <option value="1">Ativo</option>
+                                            <option value="0">Inativo</option>
+                                        </select>
+                                        {%endif%}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <input type="submit" class="btn btn-outline-info" value="Atualizar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <a href="{{url('admin/dashboard')}}" class="btn btn-outline-info">Voltar</a>
+                </div>
+            </div>
+        </main>
+        {% include 'footer.html'%}
+    </div>
+</div>
+{%endblock%}

@@ -59,17 +59,17 @@ class Upload
     }
     private function moveFile(string $file)
     {
-        if (move_uploaded_file($file , $this->directory . DIRECTORY_SEPARATOR . $this->subDirectory . DIRECTORY_SEPARATOR . $this->name)) {
-            // $this->result;
-            Helpers::redirect('admin/posts/list');
+        if (file_exists(move_uploaded_file($file, $this->directory . DIRECTORY_SEPARATOR . $this->subDirectory . DIRECTORY_SEPARATOR . $this->name))) {
+            $this->result = $this->name;
         }
+        $this->result = $this->error;
     }
     private function renameFile()
     {
         $file = $this->name;
         if (file_exists($this->directory . DIRECTORY_SEPARATOR . $this->subDirectory . DIRECTORY_SEPARATOR . $this->name)) {
-            $file = uniqid() . '-' .  $file;
+            $file +=  '_' . $file;
         }
-        $this->name = uniqid() . '-' . $file;
+        $this->name = $file;
     }
 }

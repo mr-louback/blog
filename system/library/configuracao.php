@@ -7,7 +7,7 @@ define('SITE_NOME', 'LerLivra');
 define('SITE_DESC', 'LerLivra - Sua Biblioteca Online');
 // urls do sistema
 define('URL_PRODUCAO', 'https://lerlivra.com.br');
-define('URL_DESENVOLVIMENTO', 'http://localhost:8000/blog');
+define('URL_DESENVOLVIMENTO', 'http://localhost:3000/blog');
 define('URL_BASE', 'blog/');
 define('URL_ADMIN', 'blog/admin/');
 // css

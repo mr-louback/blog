@@ -92,15 +92,15 @@ class AdminDashboard extends AdminController
     }
     public function user(int $id): void
     {
-        $categorias = (new UserModel())->search($id);
-        if (!$categorias) {
+        $user = (new UserModel())->search($id);
+        if (!$user) {
             Helpers::redirect('admin/erro');
         }
         echo $this->template->rendering('users/user.html', [
-            'categories_titulo' => $categorias->nome,
-            'categories_texto' => $categorias->email,
-            'date' => (new DateTime(date($categorias->created_at)))->format('d/m/Y'),
-            'hour' => (new DateTime(date($categorias->created_at)))->format('H:i'),
+            'categories_titulo' => $user->nome,
+            'categories_texto' => $user->email,
+            'date' => (new DateTime(date($user->created_at)))->format('d/m/Y'),
+            'hour' => (new DateTime(date($user->created_at)))->format('H:i'),
             // // css
             'alert_info' => alert_info,
             'alert_light' => alert_light,

@@ -13,7 +13,6 @@ class UserController extends Controller
     {
         parent::__construct('layouts/site/views');
     }
-
    public static function sessionIdUser(){
     $session = (new Session());
     if(!$session->sessionCheck('userId')){
