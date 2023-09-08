@@ -29,6 +29,7 @@ class AdminPosts extends AdminController
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } elseif (!empty($_FILES['thumb']['size'])  == 0) {
@@ -44,17 +45,12 @@ class AdminPosts extends AdminController
                 $handle->file_new_name_body   = $_FILES['thumb']['name'];
                 $handle->image_ratio_y        = true;
                 $handle->process('uploads/images/thumbs/');
-
-                $dados['thumb'] = $_FILES['thumb']['name'];
-                $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
-            } else {
-                $dados['thumb'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
-                $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
             }
+            $dados['thumb'] = $_FILES['thumb']['name'];
+            (new PostModel())->insertLineModel($dados);
+            $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
+            HelpNucleus::redirect('admin/posts/list');
         }
-        (new PostModel())->insertLineModel($dados);
-        $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
-        HelpNucleus::redirect('admin/posts/list');
         echo $this->template->rendering('posts/register.html', [
             'alert_primary' => alert_primary,
             'btn_outline_info' => 'btn btn-outline-info',
@@ -65,35 +61,32 @@ class AdminPosts extends AdminController
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dados['thumb'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
+            $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
             if (in_array('', $dados)) {
                 $this->message->messageWarning('Todos os campos são obrigatórios!')->flash();
             } elseif (!empty($_FILES['thumb']['size'])) {
                 $handle = new \Verot\Upload\Upload($_FILES['thumb']);
-                $handle->file_new_name_body   = $_FILES['thumb']['name'];
+                $handle->file_new_name_body   = pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME);
                 $handle->image_resize         = true;
                 $handle->image_x              = 825;
                 $handle->image_y              = 500;
                 $handle->process('uploads/images/');
                 $handle->image_resize         = true;
                 $handle->image_x              = 200;
-                $handle->file_new_name_body   = $_FILES['thumb']['name'];
+                $handle->file_new_name_body   = pathinfo($_FILES['thumb']['name'], PATHINFO_FILENAME);
                 $handle->image_ratio_y        = true;
                 $handle->process('uploads/images/thumbs/');
-
-                $dados['thumb'] = $_FILES['thumb']['name'];
-                $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
-                (new PostModel())->updateLineModel($dados['id'], $dados);
-                $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
-                HelpNucleus::redirect('admin/posts/list');
-            } else {
-                $dados['thumb'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
-                $dados['slug'] = Helpers::criarSlug($dados['titulo']) . '-' . uniqid();
-                (new PostModel())->updateLineModel($dados['id'], $dados);
-                $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
-                HelpNucleus::redirect('admin/posts/list');
             }
+            $dados['thumb'] = $_FILES['thumb']['name'];
+
+            (new PostModel())->updateLineModel($dados['id'], $dados);
+            $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
+            HelpNucleus::redirect('admin/posts/list');
+            (new PostModel())->updateLineModel($dados['id'], $dados);
+            $this->message->messageSuccess('Postagem criada com sucesso!')->flash();
+            HelpNucleus::redirect('admin/posts/list');
         }
-        $user = (new UserModel())->search($id);
         $posts = (new PostModel())->search($id);
         $categorias = (new CategoryModel())->searchCategoryTitle($posts->categoria_id);
         echo $this->template->rendering('posts/edit.html', [
@@ -105,7 +98,7 @@ class AdminPosts extends AdminController
             'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
             'posts_id' => $posts->id,
-            'user_name' => $user->id,
+            'user_name' => $posts->user_id,
             'posts_titulo' => $posts->titulo,
             'posts_texto' => $posts->texto,
             'posts_categoria_id' => $posts->categoria_id,
