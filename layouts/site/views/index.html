@@ -7,64 +7,63 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                    <div class="row">
+                <div class="row">
 
-                        <div class="col-lg-7 col-md-12 p-0">
-                            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner" style="border-radius: 8px;">
-                                    {% if posts_images %}
-                                    {% for post in posts_images %}
-                                    <div class="carousel-item active">
-                                        <img src="../../../uploads/images/{{post.thumb}}" class="d-block"
-                                            alt="{{post.titulo}}">
-                                    </div>
-                                    {%endfor%}
-                                    {%else%}
-                                    <div id="carouselExampleAutoplaying" class="carousel-item active">
-                                        <img src="../../../sandbox/image/no-image2.png" class="d-block"
-                                            alt="sem imagens no momento">
-                                    </div>
-                                    {%endif%}
-                                    <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
+                    <div class="col-lg-7 col-md-12 p-0">
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner" style="border-radius: 8px;">
+                                {% if posts_images %}
+                                {% for post in posts_images %}
+                                <div class="carousel-item active">
+                                    <img src="../../../uploads/images/{{post.thumb}}" class="d-block"
+                                        alt="{{post.titulo}}">
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-5 mt-1 ">
-                            <div class="col">
-                                {% for post in posts_number %}
-                                <a href="{{url('post/'~post.slug)}}" style="text-decoration: none;" class="mb-1 col-lg-6">
-                                    <div class="h-100 card text-black mb-0" style="border: none;">
-                                        <div class="{{alert_dark}} mb-1 ">
-                                            <h2 class="card-title">{{resumeTexto(''~post.titulo,50)}}</h2>
-                                            <p class="card-text">
-                                                {{resumeTexto(''~post.texto,50)}}
-                                            </p>
-                                            <div class="p-1 {{alert_light}}"
-                                                style="display: flex; flex-direction: row; justify-content: space-between;">
-                                                {% for categoria in categorias %}
-                                                {% if post.categoria_id == categoria.id %}
-                                                <span>Categoria {{categoria.titulo}}</span>
-                                                {%endif%}
-                                                {%endfor%}
-                                                <span>{{contaTempo(post.created_at)}}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
                                 {%endfor%}
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                </button>
+
+                                {%else%}
+                                <div id="carouselExampleControls" class="carousel-item active">
+                                    <img src="../../../sandbox/image/no-image2.png" class="d-block"
+                                        alt="sem imagens no momento">
+                                </div>
+                                {%endif%}
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-lg-5 mt-1 ">
+                        <div class="col">
+                            {% for post in posts_number %}
+                            <a href="{{url('post/'~post.slug)}}" style="text-decoration: none;" class="mb-1 col-lg-6">
+                                <div class="h-100 card text-black mb-0" style="border: none;">
+                                    <div class="{{alert_dark}} mb-1 ">
+                                        <h2 class="card-title">{{resumeTexto(''~post.titulo,50)}}</h2>
+                                        <p class="card-text">
+                                            {{resumeTexto(''~post.texto,50)}}
+                                        </p>
+                                        <div class="p-1 {{alert_light}}"
+                                            style="display: flex; flex-direction: row; justify-content: space-between;">
+                                            {% for categoria in categorias %}
+                                            {% if post.categoria_id == categoria.id %}
+                                            <span>Categoria {{categoria.titulo}}</span>
+                                            {%endif%}
+                                            {%endfor%}
+                                            <span>{{contaTempo(post.created_at)}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            {%endfor%}
+                        </div>
+                    </div>
+                </div>
         </main>
         {% include 'footer.html'%}
     </div>
