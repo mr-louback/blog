@@ -19,13 +19,20 @@ class PostModel extends Model
         $result = $stmt->fetchAll();
         return $result;
     }
-    // public function searchTitleLike(string $string)
-    // {
-    //     $query = "SELECT * FROM {$this->table} WHERE titulo LIKE '%$string%'";
-    //     $stmt = Connection::getInstance()->query($query);
-    //     $result = $stmt->fetchAll();
-    //     return $result;
-    // }
+    public function searchTitleLike(string $string)
+    {
+        $query = "SELECT * FROM {$this->table} WHERE titulo LIKE '%$string%'";
+        $stmt = Connection::getInstance()->query($query);
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+    public function limitPosts(int $number)
+    {
+        $query = "SELECT * FROM {$this->table} LIMIT {$number} ";
+        $stmt = Connection::getInstance()->query($query);
+        $result = $stmt->fetchAll();
+        return $result;
+    }
 
     /**
      * Summary of inserSlug
@@ -57,5 +64,4 @@ class PostModel extends Model
         $stmt = Connection::getInstance()->prepare($query);
         $stmt->execute();
     }
-    
 }

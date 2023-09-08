@@ -18,6 +18,7 @@
                             <thead>
                                 <tr>
                                     <th>Categoria</th>
+                                    <th>Thumb</th>
                                     <th>Título</th>
                                     <th>Texto</th>
                                     <th>Status</th>
@@ -38,12 +39,17 @@
                                     </td>
                                     <td>
                                         <div class="container">
-                                            {{post.titulo}}
+                                            {{post.thumb}}
                                         </div>
                                     </td>
                                     <td>
                                         <div class="container">
-                                            {{resumeTexto(''~post.texto, 10)}}
+                                            {{resumeTexto(''~post.titulo, 10)}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="container">
+                                            {{resumeTexto(''~post.texto, 30)}}
                                         </div>
                                     </td>
 

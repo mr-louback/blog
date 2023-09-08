@@ -47,9 +47,9 @@ window.addEventListener('DOMContentLoaded', event => {
 //         })
 //     })
 // })
-const myCarouselElement = document.querySelector('#myCarousel')
+// const myCarouselElement = document.querySelector('#carouselExampleAutoplaying')
 
-const carousel = new bootstrap.Carousel(myCarouselElement, {
-  interval: 2000,
-  touch: false
-})
+// const carousel = new bootstrap.Carousel(myCarouselElement, {
+//   interval: 2000,
+//   touch: true
+// })

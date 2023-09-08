@@ -14,10 +14,11 @@ class SiteController extends Controller
     {
         parent::__construct('layouts/site/views');
     }
-    public function index():void
+    public function index()
     {
         echo $this->template->rendering('index.html', [
-            'posts' => (new PostModel())->search(),
+            'posts_number' => (new PostModel())->limitPosts(4),
+            'posts_images' => (new PostModel())->limitPosts(3),
             'categorias' => (new CategoryModel())->search(),
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
@@ -39,11 +40,12 @@ class SiteController extends Controller
         }
         $posts->views += 1;
         (new PostModel())->updateCountView($posts->id, $posts->views);
+        // r($posts);
         echo $this->template->rendering('forms/post.html', [
             'posts_titulo' => $posts->titulo,
             'posts_texto' => $posts->texto,
             'posts_thumb' => $posts->thumb,
-            'categoria_titulo' => $categorias->titulo,
+            'categoria_titulo' => ($categorias->titulo) ?? '',
             'date' => (new DateTime(date($posts->created_at)))->format('d/m/Y'),
             'hour' => (new DateTime(date($posts->created_at)))->format('H:i'),
             'alert_info' => alert_info,

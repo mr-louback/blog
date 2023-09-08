@@ -29,18 +29,18 @@ class AdminDashboard extends AdminController
             'btn_outline_success' => 'btn btn-outline-success',
             'btn_outline_warning' => 'btn btn-outline-warning',
             // tabelas
-            'posts' => (new PostModel())->search(),
+            'posts' => (new PostModel())->limitPosts(5),
             'postsCount' => (new PostModel())->countRegisters(),
             'postsCountAtivos' => (new PostModel())->countRegisters(1),
-            'postsCountInativos' => (new PostModel())->countRegisters(0), 
-            
+            'postsCountInativos' => (new PostModel())->countRegisters(0),
+
             'users' => (new UserModel())->search(),
             'usersCount' => (new UserModel())->countRegisters(),
             'usersCountAtivos' => (new UserModel())->countRegisters(1),
             'usersCountInativos' => (new UserModel())->countRegisters(0),
-            
+
             'categorias' => (new CategoryModel())->search(),
-            'categoriesCount' => (new CategoryModel())->countRegisters(), 
+            'categoriesCount' => (new CategoryModel())->countRegisters(),
             'categoriesCountAtivos' => (new CategoryModel())->countRegisters(1),
             'categoriesCountInativos' => (new CategoryModel())->countRegisters(0),
 
@@ -51,7 +51,6 @@ class AdminDashboard extends AdminController
     public function post(string $slug): void
     {
         $posts = (new PostModel())->searchSlug($slug);
-    //    var_dump($posts);
         $categorias = (new CategoryModel())->searchCategoryTitle($posts->categoria_id);
         if (!$posts) {
             Helpers::redirect('admin/erro');

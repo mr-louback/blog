@@ -17,6 +17,10 @@
                             <div style="width: 70%;" class="mb-2">
                                 <input name="id" type="number" for="id" value="{{posts_id}}" class="form-control">
                             </div>
+                            <label for="user_id" class="form-label">Identificação usuário</label>
+                            <div style="width: 70%;" class="mb-2">
+                                <input name="user_id" type="text" value="{{user_name}}" class="form-control">
+                            </div>
 
                             <div style="width: 70%;" class="mb-2">
                                 <label for="titulo" class="form-label ">Título<sup>*</sup></label>
@@ -26,6 +30,10 @@
                             <label for="texto">Texto</label>
                             <div style="width: 70%;" class="form-floating">
                                 <textarea name="texto" class="form-control" id="texto">{{posts_texto}}</textarea>
+                            </div>
+                            <label for="created_at">Criado</label>
+                            <div style="width: 70%;" class="form-floating">
+                                <input type="datetime" name="created_at" class="form-control" value="{{posts_created_at}}">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
