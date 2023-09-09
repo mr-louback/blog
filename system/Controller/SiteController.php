@@ -16,31 +16,30 @@ class SiteController extends Controller
     }
     public function index()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
             $pagina = (filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT)) ?? 1;
-            $limit = 4;
-            $offset = ($pagina - 1) * $limit;
             $posts = (new PostModel());
-            $total = $posts->countRegisters('id');
-            $paginar = $posts->limitPosts($limit, $offset);
-            $total = ceil($total / $limit);
+            $limit = 3;
+            $offset = ($pagina - 1) * $limit;
+            if ($posts->limitPosts($limit, $offset)) {
+                $total = $posts->countRegisters('id');
+                $paginar = $posts->limitPosts($limit, $offset);
+                $total = ceil($total / $limit);
+            } else {
+                Helpers::redirect('erro');
+            }
         }
         echo $this->template->rendering('index.html', [
             'posts_number' =>  $paginar,
-            'page' => $pagina,
 
+            'page' => $pagina,
             'previewPage' => 1,
             'previewButton' => ($pagina > 1) ? ($pagina - 1) : 1,
-
-            // 'Pagination' => $i ,
-
             'nextPage' => $total,
             'nextButton' => ($pagina < $total) ? ($pagina + 1) : $total,
-
             'totalPages' => "Página {$pagina} de {$total}",
 
-            'posts_images' => (new PostModel())->limitPosts(3),
             'categorias' => (new CategoryModel())->search(),
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,

@@ -12,29 +12,29 @@
                         <div class="container-fluid">
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner" style="border-radius: 8px;">
-                                    {% if posts_images %}
-                                    {% for post in posts_images %}
+                                    {% if posts_number %}
+                                    {% for post in posts_number %}
                                     <div class="carousel-item active">
-                                        <img src="../../../uploads/images/{{post.thumb}}" class="d-block"
+                                        <img src="../../../uploads/images/{{post.thumb}}" class=" mt-1 w-100 d-block"
                                             alt="{{post.titulo}}">
                                     </div>
                                     {%endfor%}
-                                    <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    </button>
 
                                     {%else%}
-                                    <div id="carouselExampleControls" class="carousel-item active">
+                                    <div id="carouselExampleControls" class="carousel-item">
                                         <img src="../../../sandbox/image/no-image2.png" class="d-block"
                                             alt="sem imagens no momento">
                                     </div>
                                     {%endif%}
                                 </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
