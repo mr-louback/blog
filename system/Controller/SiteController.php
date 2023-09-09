@@ -16,28 +16,16 @@ class SiteController extends Controller
     }
     public function index()
     {
-        $pagina = (filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT)) ?? 1;
-        $limit = 4;
-        $offset = ($pagina - 1) * $limit;
-        $posts = (new PostModel());
-        $total = $posts->countRegisters('id', $pagina);
-        $paginar = $posts->limitPosts($limit, $offset);
-        $total = ceil($total / $limit);
-        // foreach ($paginar as $post) {
-        //     $postsList =  array('id' => $post->id, 'titulo' => $post->titulo, 'texto' => $post->texto, 'categoria_id' => $post->categoria_id);
-        // }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        // if ($pagina > 1) {
-        //     $preview = ($pagina - 1);
-        // }
-        $start = max(1, $pagina - 3);
-        $end = min($total, $pagina + 3);
-        for ($i = $start; $i <= $end; $i++) {
-            $i;
+            $pagina = (filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT)) ?? 1;
+            $limit = 4;
+            $offset = ($pagina - 1) * $limit;
+            $posts = (new PostModel());
+            $total = $posts->countRegisters('id');
+            $paginar = $posts->limitPosts($limit, $offset);
+            $total = ceil($total / $limit);
         }
-        // if ($pagina < $total) {
-        //     $next = ($pagina + 1);
-        // }
         echo $this->template->rendering('index.html', [
             'posts_number' =>  $paginar,
             'page' => $pagina,
