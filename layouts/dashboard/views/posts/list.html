@@ -81,6 +81,35 @@
                                     </td>
                                 </tr>
                                 {%endfor%}
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a style="text-decoration: none; color: black;" class="{{btn_outline_warning}} mx-1"
+                                        href="?page={{previewPage}}">
+                                        <i class="fa-solid fa-chevron-left">
+                                        </i>
+                                        Primeira página
+                                    </a>
+                                    <a style="text-decoration: none; color: black;" class="{{btn_outline_warning}} mx-1"
+                                        href="?page={{previewButton}}">
+                                        <i class="fa-solid fa-chevron-left">
+                                        </i>
+                                    </a>
+                                    Página {{page}}
+                                    <a style="text-decoration: none; color: black;" class="{{btn_outline_warning}} mx-1"
+                                        href="?page={{nextButton}}">
+                                        <i class="fa-solid fa-chevron-right">
+                                        </i>
+                                    </a>
+                                    <a style="text-decoration: none; color: black;" class="{{btn_outline_warning}} mx-1"
+                                        href="?page={{nextPage}}">
+                                        Ultima página
+                                        <i class="fa-solid fa-chevron-right">
+                                        </i>
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    {{totalPages}}
+        
+                                </div>
                             </tbody>
                         </table>
                     </div>

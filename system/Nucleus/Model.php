@@ -39,7 +39,7 @@ class Model
     }
     public function like(string $like)
     {
-        $this->like = " WHERE titulo LIKE $like";
+        $this->like = "  LIKE {$like}";
         return $this;
     }
     public function search(?int $id = null, ?string $columns = '*')
@@ -59,7 +59,7 @@ class Model
             $stmt->execute();
             return  $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
         } catch (PDOException $th) {
-            if ($th) {
+            if ($th->errorInfo) {
                 echo 'erro search' . $th->getMessage();
             }
         }
@@ -95,14 +95,14 @@ class Model
                 $stmt->execute();
                 return $stmt->fetchColumn();
             } else {
-                $this->query = "SELECT COUNT(*) FROM {$this->table} ";
+                $this->query = "SELECT COUNT(id) FROM {$this->table}";
                 $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
                 $stmt->execute();
                 return $stmt->fetchColumn();
             }
         } catch (PDOException $th) {
             if ($th) {
-                echo 'erro countRegisters' . $th->errorInfo;
+                $th->errorInfo;
             }
         }
     }

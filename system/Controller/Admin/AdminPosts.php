@@ -4,7 +4,6 @@ namespace system\Controller\Admin;
 
 use DateTime;
 use system\Model\PostModel;
-use system\Model\UserModel;
 use system\Nucleus\Helpers as HelpNucleus;
 use system\Model\CategoryModel;
 use system\Nucleus\Helpers;
@@ -13,6 +12,17 @@ class AdminPosts extends AdminController
 {
     public function list(): void
     {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $pagina = (filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT)) ?? 1;
+            $limit = 24;
+            $offset = ($pagina - 1) * $limit;
+            $posts = (new PostModel());
+
+            $total = $posts->countRegisters('id');
+            $paginar = $posts->limitPosts($limit, $offset);
+            $total = ceil($total / $limit);
+            
+        }
         echo $this->template->rendering('posts/list.html', [
             'alert_info' => alert_info,
             'alert_primary' => alert_primary,
@@ -20,8 +30,16 @@ class AdminPosts extends AdminController
             'alert_dark' => alert_dark,
             'alert_warning' => alert_warning,
             'btn_outline_danger' => 'btn btn-outline-danger',
+            'btn_outline_warning' => 'btn btn-outline-warning',
             'btn_outline_info' => 'btn btn-outline-info',
-            'posts' => (new PostModel())->limitPosts(25),
+
+            'page' => $pagina,
+            'previewPage' => 1,
+            'previewButton' => ($pagina > 1) ? ($pagina - 1) : 1,
+            'nextPage' => $total,
+            'nextButton' => ($pagina < $total) ? ($pagina + 1) : $total,
+            'totalPages' => "Página {$pagina} de {$total}",
+            'posts' => $paginar,
             'categorias' => (new CategoryModel())->search(),
         ]);
     }

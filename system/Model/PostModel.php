@@ -26,12 +26,18 @@ class PostModel extends Model
         $result = $stmt->fetchAll();
         return $result;
     }
-    public function limitPosts(int $number)
+    public function limitPosts(int $limit, ?int $offset = null)
     {
-        $query = "SELECT * FROM {$this->table} LIMIT {$number} ";
-        $stmt = Connection::getInstance()->query($query);
-        $result = $stmt->fetchAll();
-        return $result;
+        try {
+            $query = "SELECT * FROM {$this->table} LIMIT {$limit} OFFSET {$offset} ";
+            $stmt = Connection::getInstance()->query($query);
+            $result = $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
+            return $result;
+        } catch (\PDOException $th) {
+            if ($th->getCode() == 42000) {
+                $th->getMessage();
+            }
+        }
     }
 
     /**

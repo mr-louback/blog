@@ -8,38 +8,68 @@
         <main>
             <div class="container-fluid px-4">
                 <div class="row">
-
                     <div class="col-lg-7 col-md-12 p-0">
-                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner" style="border-radius: 8px;">
-                                {% if posts_images %}
-                                {% for post in posts_images %}
-                                <div class="carousel-item active">
-                                    <img src="../../../uploads/images/{{post.thumb}}" class="d-block"
-                                        alt="{{post.titulo}}">
-                                </div>
-                                {%endfor%}
-                                <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                </button>
+                        <div class="container-fluid">
+                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner" style="border-radius: 8px;">
+                                    {% if posts_images %}
+                                    {% for post in posts_images %}
+                                    <div class="carousel-item active">
+                                        <img src="../../../uploads/images/{{post.thumb}}" class="d-block"
+                                            alt="{{post.titulo}}">
+                                    </div>
+                                    {%endfor%}
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    </button>
 
-                                {%else%}
-                                <div id="carouselExampleControls" class="carousel-item active">
-                                    <img src="../../../sandbox/image/no-image2.png" class="d-block"
-                                        alt="sem imagens no momento">
+                                    {%else%}
+                                    <div id="carouselExampleControls" class="carousel-item active">
+                                        <img src="../../../sandbox/image/no-image2.png" class="d-block"
+                                            alt="sem imagens no momento">
+                                    </div>
+                                    {%endif%}
                                 </div>
-                                {%endif%}
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-5 mt-1 ">
-                        <div class="col">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <a style="text-decoration: none; color: black;" class="{{btn_outline_warning}} mx-1"
+                                href="?page={{previewPage}}">
+                                <i class="fa-solid fa-chevron-left">
+                                </i>
+                                Primeira página
+                            </a>
+                            <a style="text-decoration: none; color: black;" class="{{btn_outline_warning}} mx-1"
+                                href="?page={{previewButton}}">
+                                <i class="fa-solid fa-chevron-left">
+                                </i>
+                            </a>
+                            Página {{page}}
+                            <a style="text-decoration: none; color: black;" class="{{btn_outline_warning}} mx-1"
+                                href="?page={{nextButton}}">
+                                <i class="fa-solid fa-chevron-right">
+                                </i>
+                            </a>
+                            <a style="text-decoration: none; color: black;" class="{{btn_outline_warning}} mx-1"
+                                href="?page={{nextPage}}">
+                                Ultima página
+                                <i class="fa-solid fa-chevron-right">
+                                </i>
+                            </a>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            {{totalPages}}
+
+                        </div>
+                        <div class="row">
                             {% for post in posts_number %}
                             <a href="{{url('post/'~post.slug)}}" style="text-decoration: none;" class="mb-1 col-lg-6">
                                 <div class="h-100 card text-black mb-0" style="border: none;">

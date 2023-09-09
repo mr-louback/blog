@@ -29,7 +29,7 @@ class AdminDashboard extends AdminController
             'btn_outline_success' => 'btn btn-outline-success',
             'btn_outline_warning' => 'btn btn-outline-warning',
             // tabelas
-            'posts' => (new PostModel())->limitPosts(5),
+            'posts' => (new PostModel())->limitPosts(4,5),
             'postsCount' => (new PostModel())->countRegisters(),
             'postsCountAtivos' => (new PostModel())->countRegisters(1),
             'postsCountInativos' => (new PostModel())->countRegisters(0),
@@ -43,8 +43,6 @@ class AdminDashboard extends AdminController
             'categoriesCount' => (new CategoryModel())->countRegisters(),
             'categoriesCountAtivos' => (new CategoryModel())->countRegisters(1),
             'categoriesCountInativos' => (new CategoryModel())->countRegisters(0),
-
-
 
         ]);
     }

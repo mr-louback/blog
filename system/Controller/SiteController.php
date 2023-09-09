@@ -16,8 +16,42 @@ class SiteController extends Controller
     }
     public function index()
     {
+        $pagina = (filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT)) ?? 1;
+        $limit = 4;
+        $offset = ($pagina - 1) * $limit;
+        $posts = (new PostModel());
+        $total = $posts->countRegisters('id', $pagina);
+        $paginar = $posts->limitPosts($limit, $offset);
+        $total = ceil($total / $limit);
+        // foreach ($paginar as $post) {
+        //     $postsList =  array('id' => $post->id, 'titulo' => $post->titulo, 'texto' => $post->texto, 'categoria_id' => $post->categoria_id);
+        // }
+
+        // if ($pagina > 1) {
+        //     $preview = ($pagina - 1);
+        // }
+        $start = max(1, $pagina - 3);
+        $end = min($total, $pagina + 3);
+        for ($i = $start; $i <= $end; $i++) {
+            $i;
+        }
+        // if ($pagina < $total) {
+        //     $next = ($pagina + 1);
+        // }
         echo $this->template->rendering('index.html', [
-            'posts_number' => (new PostModel())->limitPosts(4),
+            'posts_number' =>  $paginar,
+            'page' => $pagina,
+
+            'previewPage' => 1,
+            'previewButton' => ($pagina > 1) ? ($pagina - 1) : 1,
+
+            // 'Pagination' => $i ,
+
+            'nextPage' => $total,
+            'nextButton' => ($pagina < $total) ? ($pagina + 1) : $total,
+
+            'totalPages' => "Página {$pagina} de {$total}",
+
             'posts_images' => (new PostModel())->limitPosts(3),
             'categorias' => (new CategoryModel())->search(),
             'alert_info' => alert_info,
